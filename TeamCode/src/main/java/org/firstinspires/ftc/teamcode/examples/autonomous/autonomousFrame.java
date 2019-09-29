@@ -41,6 +41,7 @@ import static org.firstinspires.ftc.teamcode.key.key;
  */
 
 @Autonomous(name="Basic Autonomous Frame")
+
 @Disabled
 public abstract class autonomousFrame extends LinearOpMode {
 

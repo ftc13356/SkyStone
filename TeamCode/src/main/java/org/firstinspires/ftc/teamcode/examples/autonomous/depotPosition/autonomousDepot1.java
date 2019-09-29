@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.examples.autonomous.depotPosition;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
 
@@ -11,6 +12,8 @@ import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
  */
 
 @Autonomous(name = "Autonomous Depot 1", group = "Depot")
+
+@Disabled
 public class autonomousDepot1 extends autonomousFrame {
 
     @Override

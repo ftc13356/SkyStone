@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="JavaTheBot")
-@Disabled
+@TeleOp(name="JavaTheBotTeleOp")
+
 public class JavaTheBotLinear extends LinearOpMode {
     //Comment
     DcMotor left;
