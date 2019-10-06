@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="JavaTheBot")
 @Disabled
 public class JavaTheBot extends OpMode {
-    //Comment
-    DcMotor left;
-    DcMotor right;
+
+    private DcMotor left;
+    private DcMotor right;
 
     @Override
     public void init() {

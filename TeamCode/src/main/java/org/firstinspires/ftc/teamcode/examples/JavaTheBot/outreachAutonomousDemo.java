@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "Autonomous Demo")
-@Disabled
 public class outreachAutonomousDemo extends LinearOpMode {
 
     // Create motors in program

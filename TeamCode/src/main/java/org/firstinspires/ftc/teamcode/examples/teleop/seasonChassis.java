@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.teleop;
+package org.firstinspires.ftc.teamcode.examples.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-///////////////////////////////////////////////////////////////////////////////
-// Purpose: Class for controlling the drivetrain for the 4 omni-wheel drivetrain (Holonomic)
-// Author: Jonathan Ma, Ansh Gandhi
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * Purpose: Class for controlling the drivetrain for the 4 omni-wheel drivetrain (Holonomic)
+ * Author: Jonathan Ma, Ansh Gandhi
+ */
 
 @TeleOp(name = "17-18 Season Chassis")
 @Disabled

@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.teleop.debug;
+package org.firstinspires.ftc.teamcode.examples.teleop.debug;
 
 import android.graphics.Color;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -11,17 +10,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-///////////////////////////////////////////////////////////////////////////////
-// Purpose: Class for controlling debugging, testing different parts of the robot
-// Author: Jonathan Ma, Ansh Gandhi
-///////////////////////////////////////////////////////////////////////////////
+/*
+ * Purpose: Class for controlling debugging, testing different parts of the robot
+ * Author: Jonathan Ma, Ansh Gandhi
+ */
 
 @TeleOp(name = "Robot Debug")
 public class robotDebug extends OpMode{
-
-    // VERSION NUMBER(MAJOR.MINOR) - DATE
-    // DO BEFORE EVERY COMMIT!
-    private final String robotDebugVersionNumber = "5.1 - 3/9/18 ";
 
     // Initialize the variables
     private DcMotor armMotor;
@@ -43,8 +38,6 @@ public class robotDebug extends OpMode{
 
     @Override
     public void init() {
-
-        telemetry.addData("Debug Program Version", robotDebugVersionNumber);
         telemetry.addData("Arm", "Initializing");
 
         // Initialize hardware variables

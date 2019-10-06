@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode.examples.JavaTheBot;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="JavaTheBotTeleOp")
-
+@TeleOp(name="JavaTheBotTeleop")
 public class JavaTheBotLinear extends LinearOpMode {
-    //Comment
-    DcMotor left;
-    DcMotor right;
+
+    private DcMotor left;
+    private DcMotor right;
 
     @Override
     public void runOpMode() {
@@ -19,13 +17,15 @@ public class JavaTheBotLinear extends LinearOpMode {
 
         waitForStart();
 
-        double driveFW = gamepad1.left_stick_y;
-        double turn = gamepad1.right_stick_x;
+        while (!isStopRequested()) {
+            double driveFW = gamepad1.left_stick_y;
+            double turn = gamepad1.right_stick_x;
 
-        double leftPower = driveFW - turn;
-        double rightPower = -driveFW - turn;
+            double leftPower = driveFW - turn;
+            double rightPower = -driveFW - turn;
 
-        left.setPower(leftPower);
-        right.setPower(rightPower);
+            left.setPower(leftPower);
+            right.setPower(rightPower);
+        }
     }
 }

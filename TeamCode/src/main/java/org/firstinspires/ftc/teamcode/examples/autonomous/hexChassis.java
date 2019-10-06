@@ -2,56 +2,53 @@ package org.firstinspires.ftc.teamcode.examples.autonomous;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * <h2>AndyMark Motor Chassis</h2>
+ * <h2>Hex Motor Chassis</h2>
  * Purpose:
- * <p> Contains the variables and functions specific to an all andymark motor chassis
- * <p> so that we can switch from an all hex motor chassis without changing any code!
+ * <p> Contains the variables and functions specific to an all hex motor chassis
+ * <p> so that we can switch from an all andymark motor chassis without changing any code!
  */
 
-public class andyMarkChassisA extends baseChassisA {
+public class hexChassis extends baseChassis {
 
     /**
-     * Creates a andymark chassis object
+     * Creates a hex chassis object
      */
-    andyMarkChassisA() {
+    hexChassis() {
         // Set hex motor chassis encoder variables
-        counts_per_motor_rev = 1680;
-        counts_per_inch_default = (counts_per_motor_rev * drive_gear_reduction) /
-                (wheel_diameter_default * Math.PI);
-        counts_per_degree_default = counts_per_inch_default * robot_diameter * Math.PI / 360;
+        counts_per_motor_rev = 288;
+
+        counts_per_inch = (counts_per_motor_rev * drive_gear_reduction) /
+                (wheel_diameter * Math.PI);
+
+        counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
     }
 
     /**
-     * Sets andymark motor chassis motor direction
+     * Sets hex motor chassis motor direction
      */
     @Override
     public void initializeMotors(HardwareMap hardwareMap) {
         super.initializeMotors(hardwareMap);
 
-        motorLeftFront.setDirection(DcMotor.Direction.FORWARD);
+        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
         motorRightFront.setDirection(DcMotor.Direction.FORWARD);
         motorLeftBack.setDirection(DcMotor.Direction.FORWARD);
-        motorRightBack.setDirection(DcMotor.Direction.FORWARD);
+        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
     }
 
     /**
-     * AndyMark Motor Chassis Specific encoderDrive()
+     * Hex Motor Chassis Specific encoderDrive()
      * @param driveFB Inches to move forward or backward (forward: +, backward: -)
      * @param turnDegrees Degrees to turn left or right (right: +, left: -)
      * @param speed Speed of robot (min: 0, max: 1)
-     * @param turning Whether robot is currently turning
      * @param opModeIsActive Type "opModeIsActive()" boolean in autonomousFrame (program extending LinerOpMode)
      * @param frame Type "this" to pass in autonomousFrame (when calling in autonomousFrame)
      *              so this function can access it
      */
-    public void encoderDrive(double driveFB, double turnDegrees, double speed, boolean turning,
+    public void encoderDrive(double driveFB, double turnDegrees, double speed,
                              boolean opModeIsActive, autonomousFrame frame) {
-
-        // Turning Timeout Timer
-        ElapsedTime turnTime = new ElapsedTime();
 
         // Defines Target Position Variables
         int newLeftFrontTarget;
@@ -64,75 +61,62 @@ public class andyMarkChassisA extends baseChassisA {
         double motorLeftBackEncoder;
         double motorRightBackEncoder;
 
-        turnDegrees = turnDegrees * counts_per_degree_default / counts_per_inch_default;
+        turnDegrees = turnDegrees * counts_per_degree / counts_per_inch;
 
-        motorLeftFrontEncoder = (-driveFB - turnDegrees) * counts_per_inch_default;
-        motorRightFrontEncoder = (driveFB - turnDegrees) * counts_per_inch_default;
-        motorLeftBackEncoder = (-driveFB - turnDegrees) * counts_per_inch_default;
-        motorRightBackEncoder = (driveFB - turnDegrees) * counts_per_inch_default;
+        // How many counts needed to move to specified location
+        motorLeftFrontEncoder = (-driveFB - turnDegrees) * counts_per_inch;
+        motorRightFrontEncoder = (driveFB - turnDegrees) * counts_per_inch;
+        motorLeftBackEncoder = (-driveFB - turnDegrees) * counts_per_inch;
+        motorRightBackEncoder = (driveFB - turnDegrees) * counts_per_inch;
 
         if (opModeIsActive) {
 
-            // Calculates Target Position by Adding Current Position and Distance To Target Position
+            // Total count- adds current count to count needed to reach location
             newLeftFrontTarget = motorLeftFront.getCurrentPosition() + (int) (motorLeftFrontEncoder);
             newRightFrontTarget = motorRightFront.getCurrentPosition() + (int) (motorRightFrontEncoder);
             newLeftBackTarget = motorLeftBack.getCurrentPosition() + (int) (motorLeftBackEncoder);
             newRightBackTarget = motorRightBack.getCurrentPosition() + (int) (motorRightBackEncoder);
 
-            // Sets Target Position for Motors
+            // Tell motors target count
             motorLeftFront.setTargetPosition(newLeftFrontTarget);
             motorRightFront.setTargetPosition(newRightFrontTarget);
             motorLeftBack.setTargetPosition(newLeftBackTarget);
             motorRightBack.setTargetPosition(newRightBackTarget);
 
-            // Changes Motor Mode So They Can Move to Target Position
+            // Tell motors move until the target count
             motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            // Sets Power to Motors
+            // Tell motors power at which to move at
             motorLeftFront.setPower(Math.abs(speed));
             motorRightFront.setPower(Math.abs(speed));
             motorLeftBack.setPower(Math.abs(speed));
             motorRightBack.setPower(Math.abs(speed));
 
-            turnTime.reset();
-
-            // Waits until all motors have reached the target position
+            // Waits until all motors have reached the target count
             while (opModeIsActive && (motorLeftFront.isBusy() || motorRightFront.isBusy() ||
                     motorLeftBack.isBusy() || motorRightBack.isBusy())) {
 
-                frame.telemetry.addData("Turning", turning);
-                frame.telemetry.addData("Turn Timer", turnTime.milliseconds());
-                frame.telemetry.update();
-
-                // Stop telling robot to turn if it has been turning for 3 seconds
-                if (turning && turnTime.milliseconds() >= 3000) {
-                    frame.telemetry.addData("Motor Status", "Timeout");
-                    frame.telemetry.update();
-                    break;
-                }
-
-                // telemetry for debug only
-                /*// Displays Target and Current Positions
-                frame.telemetry.addData("Target Value", "Running to %7d :%7d :%7d :%7d",
-                        newLeftFrontTarget, newRightFrontTarget, newLeftBackTarget, newRightBackTarget);
-                frame.telemetry.addData("Current Value", "Running at %7d :%7d: %7d :%7d",
-                        motorLeftFront.getCurrentPosition(),
-                        motorRightFront.getCurrentPosition(),
-                        motorLeftBack.getCurrentPosition(),
-                        motorRightBack.getCurrentPosition());
-                frame.telemetry.update();*/
+                // Displays Target and Current Positions
+                //frame.telemetry.addData("Target Value", "Running to %7d :%7d :%7d :%7d",
+                //        newLeftFrontTarget, newRightFrontTarget, newLeftBackTarget, newRightBackTarget);
+                //frame.telemetry.addData("Current Value", "Running at %7d :%7d: %7d :%7d",
+                //        motorLeftFront.getCurrentPosition(),
+                //        motorRightFront.getCurrentPosition(),
+                //        motorLeftBack.getCurrentPosition(),
+                //        motorRightBack.getCurrentPosition());
+                //frame.telemetry.update();
             }
 
-            // Stops Motors
+            // Tells motors to stop
             motorLeftFront.setPower(0);
             motorRightFront.setPower(0);
             motorLeftBack.setPower(0);
             motorRightBack.setPower(0);
 
-            // Changes Motor Mode
+            // Changes motor mode back to default
             motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

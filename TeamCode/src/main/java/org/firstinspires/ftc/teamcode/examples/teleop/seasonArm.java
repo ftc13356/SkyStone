@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleop;
+package org.firstinspires.ftc.teamcode.examples.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-///////////////////////////////////////////////////////////////////////////////
-// Purpose: Class for controlling the arm and claw
-// Author: Jonathan Ma, Ansh Gandhi
-///////////////////////////////////////////////////////////////////////////////
+/*
+ * Purpose: Class for controlling the arm and claw
+ * Author: Jonathan Ma, Ansh Gandhi
+ */
 
 @TeleOp(name = " 17-18 Season Arm")
 @Disabled
