@@ -14,8 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * @author Jonthan Ma and Ansh Gandhi
  */
 
-@TeleOp(name = "Teleop")
-
+@TeleOp(name = "Rover Ruckus Teleop")
 @Disabled
 public class teleopMain extends OpMode {
 
