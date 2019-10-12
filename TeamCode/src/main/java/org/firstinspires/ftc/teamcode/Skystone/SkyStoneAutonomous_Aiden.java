@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "Skystone Demo")
-public class SkyStone_Autonomous_Aiden extends LinearOpMode {
+public class SkyStoneAutonomous_Aiden extends LinearOpMode {
 
 
 
