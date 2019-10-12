@@ -15,8 +15,8 @@ public class outreachAutonomousDemo extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        left = hardwareMap.dcMotor.get("left");
-        right = hardwareMap.dcMotor.get("right");
+        left = hardwareMap.dcMotor.get("LeftMotor");
+        right = hardwareMap.dcMotor.get("RightMotor");
 
         waitForStart();
 

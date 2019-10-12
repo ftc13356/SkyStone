@@ -6,14 +6,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class basicChassis extends LinearOpMode {
-    private DcMotor left;
-    private DcMotor right;
+    public DcMotor left;
+    public DcMotor right;
     private float speed = 37.5f;
     public void runOpMode() {
 
     }
 
     public basicChassis() {
+
+    }
+
+    public void initChassis() {
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
     }
@@ -69,6 +73,6 @@ public class basicChassis extends LinearOpMode {
             sleep((long)degrees);
         }
         left.setPower(0);
-        right.setPower(1);
+        right.setPower(0);
     }
 }
