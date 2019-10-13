@@ -4,20 +4,28 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class basicChassis extends LinearOpMode {
+public class basicChassis {
+
+    /* local OpMode members. */
+    private LinearOpMode op              = null;
+    private HardwareMap  hardwareMap     = null;
+    private ElapsedTime  period          = new ElapsedTime();
+
     public DcMotor left;
     public DcMotor right;
     private float speed = 37.5f;
-    public void runOpMode() {
-
-    }
 
     public basicChassis() {
-
     }
 
-    public void initChassis() {
+    public void initChassis(LinearOpMode opMode) {
+        op = opMode;
+        hardwareMap = op.hardwareMap;
+
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
     }
@@ -26,7 +34,7 @@ public class basicChassis extends LinearOpMode {
         double sleepTime = (distance / speed * 1000);
         left.setPower(.5);
         right.setPower(-.5);
-        sleep((long) sleepTime);
+        op.sleep((long) sleepTime);
         left.setPower(0);
         right.setPower(0);
     }
@@ -34,7 +42,7 @@ public class basicChassis extends LinearOpMode {
         double sleepTime = (distance / speed * 1000);
         left.setPower(-.5);
         right.setPower(.5);
-        sleep((long) sleepTime);
+        op.sleep((long) sleepTime);
         left.setPower(0);
         right.setPower(0);
     }
@@ -47,12 +55,11 @@ public class basicChassis extends LinearOpMode {
         if (direction == true){
             left.setPower(-1);
             right.setPower(-1);
-            sleep((long) timeInMilliSec);
-
+            op.sleep((long) timeInMilliSec);
         } else {
             left.setPower(1);
             right.setPower(1);
-            sleep((long) timeInMilliSec);
+            op.sleep((long) timeInMilliSec);
         }
         left.setPower(0);
         right.setPower(0);
@@ -67,12 +74,11 @@ public class basicChassis extends LinearOpMode {
         if (direction == true){
             left.setPower(1);
             right.setPower(0);
-            sleep((long) timeInMilliSec);
-
+            op.sleep((long) timeInMilliSec);
         } else {
             left.setPower(1);
             right.setPower(0);
-            sleep((long) timeInMilliSec);
+            op.sleep((long) timeInMilliSec);
         }
         left.setPower(0);
         right.setPower(1);
