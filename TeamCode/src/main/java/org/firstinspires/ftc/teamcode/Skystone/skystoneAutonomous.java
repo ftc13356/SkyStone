@@ -3,30 +3,38 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "Skystone Demo")
 public class skystoneAutonomous extends LinearOpMode {
 
+
+    basicChassis         robot   = new basicChassis();
+    private ElapsedTime  runtime = new ElapsedTime();
+
+    public void skystoneAutonomous(){
+
+    }
     @Override
     public void runOpMode() {
 
-        basicChassis myChassis = new basicChassis();
+        telemetry.addData("Status", "Ready to go"); telemetry.update();
+
+        robot.initChassis(this);
 
         waitForStart();
-        myChassis.left = hardwareMap.dcMotor.get("LeftMotor");
-        myChassis.right = hardwareMap.dcMotor.get("RightMotor");
 //        myChassis.initChassis();
-        myChassis.moveForward(12);
+        robot.moveForward(12);
         sleep(2000);
 
-        myChassis.inPlaceTurn(90, true);
+        robot.inPlaceTurn(90, true);
         sleep(2000);
 
-        myChassis.moveForward(12);
+        robot.moveForward(12);
         sleep(2000);
 
-        myChassis.normalTurn(90, false);
+        robot.normalTurn(90, false);
         sleep(2000);
 
 
