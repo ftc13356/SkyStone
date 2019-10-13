@@ -38,41 +38,43 @@ public class basicChassis extends LinearOpMode {
         left.setPower(0);
         right.setPower(0);
     }
-    //@direction: true = left, false = right
-    public void inPlaceTurn(double amount, boolean direction) {
 
-        double degrees = amount/45*333;
+    //@direction: true = left, false = right
+    public void inPlaceTurn(double degrees, boolean direction) {
+
+        double timeInMilliSec = degrees/45*333;
 
         if (direction == true){
             left.setPower(-1);
             right.setPower(-1);
-            sleep((long) degrees);
+            sleep((long) timeInMilliSec);
 
         } else {
             left.setPower(1);
             right.setPower(1);
-            sleep((long)degrees);
+            sleep((long) timeInMilliSec);
         }
         left.setPower(0);
         right.setPower(0);
     }
 
     //@direction: true = left, false = right
-    public void normalTurn(double amount, boolean direction) {
+    //degrees means the angle of turning
+    public void normalTurn(double degrees, boolean direction) {
 
-        double degrees = amount/45*333;
+        double timeInMilliSec = degrees/45*333;
 
         if (direction == true){
             left.setPower(1);
             right.setPower(0);
-            sleep((long) degrees);
+            sleep((long) timeInMilliSec);
 
         } else {
             left.setPower(1);
             right.setPower(0);
-            sleep((long)degrees);
+            sleep((long) timeInMilliSec);
         }
         left.setPower(0);
-        right.setPower(0);
+        right.setPower(1);
     }
 }
