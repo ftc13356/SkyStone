@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Skystone;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * <h1>first SkyStone autonomous program</h1>
@@ -14,8 +16,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  * @version 2.0
  * @since   2019-10-12
  */
-@Autonomous(name = "Skystone Demo")
-public class SkyStoneAutonomous_Aiden_2 extends basicChassis {
+@Autonomous(name = "Skystone Demo2")
+public class SkyStoneAutonomous_Aiden_2 extends LinearOpMode {
+
+    basicChassis         robot   = new basicChassis();
+    private ElapsedTime  runtime = new ElapsedTime();
+
+    public void SkyStoneAutonomous_Aiden_2(){
+
+    }
 
     /**
      * This method is for te autonomous operation of the robot on the Blue Alliance foundation side.
@@ -37,23 +46,27 @@ public class SkyStoneAutonomous_Aiden_2 extends basicChassis {
     @Override
     public void runOpMode() {
 
-        waitForStart();
-        inPlaceTurn(85,true);
-        moveForward(18);
-        inPlaceTurn(85,false);
-        moveForward(24);
-        //need servo program to clamp on foundation
-        moveBackward(24);
-        //need servo program to unclamp foundation
-        inPlaceTurn(85,true);
-        moveBackward(76);
-        inPlaceTurn(90,false);
-        moveForward(50);
-        inPlaceTurn(130,true);
-        moveForward(46);
-        inPlaceTurn(40,false);
-        moveBackward(22);
+        telemetry.addData("Status", "Ready to go"); telemetry.update();
 
+        robot.initChassis(this);
+
+        waitForStart();
+        robot.moveForward(5);
+        robot.inPlaceTurn(130,true);
+        robot.moveForward(15);
+        robot.inPlaceTurn(135,false);
+        robot.moveForward(25);
+        //need servo program to clamp on foundation
+        robot.moveBackward(33);
+        //need servo program to unclamp foundation
+        robot.inPlaceTurn(80,true);
+        robot.moveBackward(102);
+        robot.inPlaceTurn(70,false);
+        robot.moveForward(10);
+        robot.inPlaceTurn(160,true);
+        robot.moveForward(46);
+        robot.inPlaceTurn(55,false);
+        robot.moveBackward(24);
         stop();
 
     }
