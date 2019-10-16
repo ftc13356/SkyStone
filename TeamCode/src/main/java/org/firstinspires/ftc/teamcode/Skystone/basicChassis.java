@@ -80,7 +80,8 @@ public class basicChassis {
             right.setPower(0);
             op.sleep((long) timeInMilliSec);
         }
+        //stop
         left.setPower(0);
-        right.setPower(1);
+        right.setPower(0);
     }
 }
