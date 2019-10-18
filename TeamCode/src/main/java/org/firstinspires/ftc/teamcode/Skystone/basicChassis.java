@@ -18,6 +18,9 @@ public abstract class basicChassis extends LinearOpMode{
     public DcMotor left;
     public DcMotor right;
     private float speed = 37.5f;
+    final static double ROBOT_DIAMETER = 14.0;
+    final static double CALLIBRATION = 1.0;
+    final static double WHEEL_DIAMETER = 4.0;
 
     public basicChassis() {
     }
@@ -28,6 +31,8 @@ public abstract class basicChassis extends LinearOpMode{
 
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
+
+
     }
 
     public void moveForward(double distance) {
