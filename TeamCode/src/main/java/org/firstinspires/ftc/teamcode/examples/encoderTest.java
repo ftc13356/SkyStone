@@ -31,6 +31,5 @@ public class encoderTest extends autonomousFrame {
 
         telemetry.addData("Status", "Everything executed"); telemetry.update();
         stop();
-
     }
 }
