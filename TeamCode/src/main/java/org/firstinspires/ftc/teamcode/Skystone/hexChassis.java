@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -51,46 +52,85 @@ public class hexChassis {
         motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
         motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
 
-        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftFront.setDirection(DcMotor.Direction.FORWARD);
         motorRightFront.setDirection(DcMotor.Direction.FORWARD);
         motorLeftBack.setDirection(DcMotor.Direction.FORWARD);
-        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+        motorRightBack.setDirection(DcMotor.Direction.FORWARD);
         // reset encoder count kept by left motor.
         motorLeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set left motor to run to target encoder position and stop with brakes on.
-        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // set right motor to run without regard to an encoder.
-        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 
     public void moveForward(double distance) {
         double ticksToMove = counts_per_inch * distance;
-        motorLeftBack.setTargetPosition((int)ticksToMove);
+        double newTargetPosition;
+        newTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
+        motorLeftBack.setTargetPosition((int)newTargetPosition);
+        motorLeftFront.setTargetPosition((int)newTargetPosition);
+        motorRightBack.setTargetPosition((int)newTargetPosition);
+        motorRightFront.setTargetPosition((int)newTargetPosition);
 
-        // set both motors to 25% power. Movement will start.
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.25);
-        motorRightBack.setPower(0.25);
-        while (opModeIsActive() && motorLeftBack.isBusy())
+        motorLeftBack.setPower(0.5);
+        motorRightBack.setPower(0.5);
+        motorLeftFront.setPower(0.5);
+        motorRightFront.setPower(0.5);
+
+        while (op.opModeIsActive() && motorLeftBack.isBusy())
         {
-            telemetry.addData("encoder-fwd", leftMotor.getCurrentPosition() + "  busy=" + leftMotor.isBusy());
-            telemetry.update();
-            idle();
+            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+            op.telemetry.update();
+            op.idle();
         }
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+        motorLeftFront.setPower(0);
     }
     public void moveBackward(double distance) {
-        double sleepTime = (distance / speed * 1000);
-        left.setPower(-.5);
-        right.setPower(.5);
-        op.sleep((long) sleepTime);
-        left.setPower(0);
-        right.setPower(0);
+        double ticksToMove = (counts_per_inch * distance);
+        double newTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
+        motorLeftBack.setTargetPosition((int)newTargetPosition);
+        motorLeftFront.setTargetPosition((int)newTargetPosition);
+        motorRightBack.setTargetPosition((int)newTargetPosition);
+        motorRightFront.setTargetPosition((int)newTargetPosition);
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorLeftBack.setPower(0.5);
+        motorRightBack.setPower(0.5);
+        motorLeftFront.setPower(0.5);
+        motorRightFront.setPower(0.5);
+
+        while (op.opModeIsActive() && motorLeftBack.isBusy())
+        {
+            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+        motorLeftFront.setPower(0);
     }
+//    public void moveBackward(double distance) {
+//        double sleepTime = (distance / speed * 1000);
+//        left.setPower(-.5);
+//        right.setPower(.5);
+//        op.sleep((long) sleepTime);
+//        left.setPower(0);
+//        right.setPower(0);
+//    }
 
     //@direction: true = left, false = right
     public void inPlaceTurn(double degrees, boolean direction) {
@@ -98,16 +138,11 @@ public class hexChassis {
         double timeInMilliSec = degrees/45*333;
 
         if (direction == true){
-            left.setPower(-1);
-            right.setPower(-1);
             op.sleep((long) timeInMilliSec);
         } else {
-            left.setPower(1);
-            right.setPower(1);
+
             op.sleep((long) timeInMilliSec);
         }
-        left.setPower(0);
-        right.setPower(0);
     }
 
     //@direction: true = left, false = right
@@ -117,17 +152,10 @@ public class hexChassis {
         double timeInMilliSec = degrees/45*333;
 
         if (direction == true){
-            left.setPower(1);
-            right.setPower(0);
             op.sleep((long) timeInMilliSec);
         } else {
-            left.setPower(1);
-            right.setPower(0);
             op.sleep((long) timeInMilliSec);
         }
-        //stop
-        left.setPower(0);
-        right.setPower(0);
     }
 }
 
