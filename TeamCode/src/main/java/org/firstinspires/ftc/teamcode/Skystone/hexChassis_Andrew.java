@@ -12,7 +12,9 @@ import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
 
 /**
  * Author: Andrew
- * Change Proposal: Need permission by author to change this file. Slack me to discuss first.
+ * Change Proposal: Need permission by author to make changes. Slack me to discuss first
+ *                  This is because your Changes could possible disrupt my other code unexpectedly
+ *                  Thanks for your understanding
  */
 
 public abstract class hexChassis_Andrew extends LinearOpMode {
@@ -22,34 +24,70 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
     public DcMotor rightFront;
     public DcMotor rightBack;
 
-    private LinearOpMode op             = null;
+    private LinearOpMode myOP             = null;
     private HardwareMap myHaredwareMap     = null;
     private ElapsedTime period          = new ElapsedTime();
 
-    private float speed = 37.5f;
+    //private float speed = 37.5f;
     final static double ROBOT_DIAMETER = 14.0;
     final static double CALLIBRATION = 1.0;
     final static double WHEEL_DIAMETER = 4.0;
+    final static float DEFAULT_POWER = 0.25f;
 
     public final static double TICK_MARKS = 288;
     public final static double TICKS_PER_INCH = TICK_MARKS * CALLIBRATION/(WHEEL_DIAMETER*Math.PI);
     public final static double TICKS_PER_DEGREE = TICK_MARKS*ROBOT_DIAMETER*Math.PI/360;
 
-    public void hexChassis_Andrew() {
+    /**
+    This is the constructor that initializes the motors
+    */
+    public hexChassis_Andrew(LinearOpMode op) {
+        myOP = opMode;
+        hardwareMap = op.hardwareMap;
+
+        leftFront = hardwareMap.dcMotor.get("leftMotor");
+        leftBack = hardwareMap.dcMotor.get("leftMotor");
+        rightFront = hardwareMap.dcMotor.get("leftMotor");
+        rightBack = hardwareMap.dcMotor.get("leftMotor");
         
     }
 
     /**
      * Hex Motor Chassis Specific encoderDrive()
-     * @param driveFB Inches to move forward or backward (forward: +, backward: -)
-     * @param speed Speed of robot (min: 0, max: 1)
-     * @param opModeIsActive Type "opModeIsActive()" boolean in autonomousFrame (program extending LinerOpMode)
+     * @param distance Inches to move forward or backward (forward: +, backward: -)
+     * @param opModeIsActiveas Type "opModeIsActive()" boolean in autonomousFrame (program extending LinerOpMode)
      */
-    public void encoderDriveFB(double driveFB, double speed, boolean opModeIsActive) {
-        int newLeftFrontTarget;
-        int newRightFrontTarget;
-        int newLeftBackTarget;
-        int newRightBackTarget;
+    public void encoderDriveFB(double distance, boolean opModeIsActiveas ) {
+        int leftFrontTarget;
+
+        leftFrontTarget = (int) Math.round(distance * TICKS_PER_INCH);
+        
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setTargetPosition(leftFrontTarget);
+
+        leftFront.setPower(DEFAULT_POWER);
+        leftBack.setPower(DEFAULT_POWER);
+        rightFront.setPower(DEFAULT_POWER);
+        rightBack.setPower(DEFAULT_POWER);
+
+        while (leftFront.isBusy()) {
+
+        }
+
+        leftFront.setPower(0);
+        leftFront.setPower(0);
+        leftFront.setPower(0);
+        leftFront.setPower(0);
+
+
+        //int newRightFrontTarget;
+        //int newLeftBackTarget;
+        //int newRightBackTarget;
 
         double motorLeftFrontEncoder;
         double motorRightFrontEncoder;
@@ -59,11 +97,6 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
 
 
     public void driveFB() {
-
-        leftFront = hardwareMap.dcMotor.get("leftMotor");
-        leftBack = hardwareMap.dcMotor.get("leftMotor");
-        rightFront = hardwareMap.dcMotor.get("leftMotor");
-        rightBack = hardwareMap.dcMotor.get("leftMotor");
 
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
