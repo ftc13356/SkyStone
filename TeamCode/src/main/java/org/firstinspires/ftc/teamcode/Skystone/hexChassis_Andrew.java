@@ -70,10 +70,17 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
 
         leftFront.setTargetPosition(leftFrontTarget);
 
-        leftFront.setPower(DEFAULT_POWER);
-        leftBack.setPower(DEFAULT_POWER);
-        rightFront.setPower(DEFAULT_POWER);
-        rightBack.setPower(DEFAULT_POWER);
+        if (leftFrontTarget > 0) {
+            leftFront.setPower(DEFAULT_POWER);
+            leftBack.setPower(DEFAULT_POWER);
+            rightFront.setPower(DEFAULT_POWER);
+            rightBack.setPower(DEFAULT_POWER);
+        } else {
+            leftFront.setPower(-DEFAULT_POWER);
+            leftBack.setPower(-DEFAULT_POWER);
+            rightFront.setPower(-DEFAULT_POWER);
+            rightBack.setPower(-DEFAULT_POWER);
+        }
 
         while (leftFront.isBusy()) {
 
@@ -94,25 +101,12 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
         double motorLeftBackEncoder;
         double motorRightBackEncoder;
     }
-
-
-    public void driveFB() {
-
-        leftFront.setDirection(DcMotor.Direction.FORWARD);
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBack.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-            waitForStart();
-
-
-
+    public void inPlaceTurn(boolean right) {
+        if (boolean right == true) {
 
         }
+
+    }
 
 
     /**
