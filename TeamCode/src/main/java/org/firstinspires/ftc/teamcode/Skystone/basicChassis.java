@@ -1,25 +1,22 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class basicChassis {
 
     /* local OpMode members. */
-    private LinearOpMode op              = null;
-    private HardwareMap  hardwareMap     = null;
-    private ElapsedTime  period          = new ElapsedTime();
+    private LinearOpMode op = null;
+    private HardwareMap  hardwareMap = null;
+    private ElapsedTime  period = new ElapsedTime();
 
     public DcMotor left;
     public DcMotor right;
     private float speed = 37.5f;
     final static double ROBOT_DIAMETER = 14.0;
-    final static double CALLIBRATION = 1.0;
+    final static double CALIBRATION = 1.0;
     final static double WHEEL_DIAMETER = 4.0;
 
     public basicChassis() {
@@ -32,8 +29,6 @@ public class basicChassis {
 
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
-
-
     }
 
     public void moveForward(double distance) {
@@ -58,7 +53,7 @@ public class basicChassis {
 
         double timeInMilliSec = degrees/45*333;
 
-        if (direction == true){
+        if (direction){
             left.setPower(-1);
             right.setPower(-1);
             op.sleep((long) timeInMilliSec);
@@ -77,7 +72,7 @@ public class basicChassis {
 
         double timeInMilliSec = degrees/45*333;
 
-        if (direction == true){
+        if (direction){
             left.setPower(1);
             right.setPower(0);
             op.sleep((long) timeInMilliSec);
