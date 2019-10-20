@@ -23,6 +23,7 @@ public abstract class basicChassis extends LinearOpMode{
     final static double WHEEL_DIAMETER = 4.0;
 
     public basicChassis() {
+
     }
 
     public void initChassis(LinearOpMode opMode) {
