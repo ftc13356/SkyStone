@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public abstract class basicChassis extends LinearOpMode{
+public class basicChassis {
 
     /* local OpMode members. */
     private LinearOpMode op              = null;
