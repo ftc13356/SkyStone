@@ -42,7 +42,7 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
     This is the constructor that initializes the motors
     */
     public hexChassis_Andrew(LinearOpMode op) {
-        myOP = opMode;
+        // myOP = opMode;
         hardwareMap = op.hardwareMap;
 
         leftFront = hardwareMap.dcMotor.get("leftMotor");
@@ -102,19 +102,12 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
         double motorRightBackEncoder;
     }
     public void inPlaceTurn(boolean right) {
-        if (boolean right == true) {
+        /* if (boolean right == true) {
 
-        }
+        } */
 
     }
-
-
-    /**
-     * Hex Motor Chassis Specific encoderDrive()
-     * @param driveFB Inches to move forward or backward (forward: +, backward: -)
-     * @param speed Speed of robot (min: 0, max: 1)
-     */
-
+    
     public void encoderInPlaceTurn(double turnDegree, boolean turnDirection) {
 
 
