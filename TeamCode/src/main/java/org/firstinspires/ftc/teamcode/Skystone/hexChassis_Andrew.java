@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
 
 
 /**
@@ -42,7 +38,7 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
     This is the constructor that initializes the motors
     */
     public hexChassis_Andrew(LinearOpMode op) {
-        // myOP = opMode;
+       // myOP = opMode;
         hardwareMap = op.hardwareMap;
 
         leftFront = hardwareMap.dcMotor.get("leftMotor");
@@ -102,12 +98,13 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
         double motorRightBackEncoder;
     }
     public void inPlaceTurn(boolean right) {
-        /* if (boolean right == true) {
 
-        } */
 
     }
-    
+
+
+
+
     public void encoderInPlaceTurn(double turnDegree, boolean turnDirection) {
 
 
