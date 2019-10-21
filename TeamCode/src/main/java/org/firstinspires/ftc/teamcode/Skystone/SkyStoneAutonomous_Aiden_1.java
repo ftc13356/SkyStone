@@ -17,13 +17,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @version 1.0
  * @since   2019-10-12
  */
-@Autonomous(name = "Skystone Demo1")
+@Autonomous(name = "Skystone Demo1.1")
 public class SkyStoneAutonomous_Aiden_1 extends LinearOpMode {
 
-    basicChassis         robot   = new basicChassis();
+    private basicChassis robot   = new basicChassis();
     private ElapsedTime  runtime = new ElapsedTime();
 
-    public void SkyStoneAutonomous_Aiden_1 () {
+    public SkyStoneAutonomous_Aiden_1 () {
 
     }
     /**
@@ -40,18 +40,19 @@ public class SkyStoneAutonomous_Aiden_1 extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        telemetry.addData("Status", "Ready to go"); telemetry.update();
+        telemetry.addData("Status", "Ready to go"); telemetry.update(); sleep((long) 100);
 
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
         robot.initChassis(this);
-
+        telemetry.addData("Status", "Ready to go 1"); telemetry.update(); sleep((long) 100);
         waitForStart();
         robot.moveForward(8);
         robot.inPlaceTurn(130,true);
-        sleep((long) 100);
+
+        telemetry.addData("Status", "Ready to go 2"); telemetry.update(); sleep((long) 100);sleep((long) 100);
         robot.moveForward(15);
         robot.inPlaceTurn(115,false);
         robot.moveForward(16);
