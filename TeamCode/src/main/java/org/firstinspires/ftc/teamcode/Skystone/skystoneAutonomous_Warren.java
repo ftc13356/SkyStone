@@ -1,78 +1,30 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
+@Autonomous(name = "Warren Test")
 public class skystoneAutonomous_Warren extends LinearOpMode {
-    private DcMotor left;
-    private DcMotor right;
-    Servo Servo1;
-    private float speed = 37.5f;
+    private Servo claw1;
+    basicChassis robot = new basicChassis();
+    private ElapsedTime runtime = new ElapsedTime();
+
+    public void skystoneAutonomous_Warren() {
+
+    }
+    @Override
     public void runOpMode() {
+        telemetry.addData("Status", "Ready to go");
+        telemetry.update();
 
-    }
+        /*
+         * Initialize the drive system variables.
+         * The init() method of the hardware class does all the work here
+         */
+        robot.initChassis(this);
 
-    public void basicChassis() {
-        left = hardwareMap.dcMotor.get("LeftMotor");
-        right = hardwareMap.dcMotor.get("RightMotor");
-    }
-
-    public void moveForward(double distance) {
-        double sleepTime = (distance / speed * 1000);
-        left.setPower(.5);
-        right.setPower(-.5);
-        sleep((long) sleepTime);
-        left.setPower(0);
-        right.setPower(0);
-    }
-    public void moveBackward(double distance) {
-        double sleepTime = (distance / speed * 1000);
-        left.setPower(-.5);
-        right.setPower(.5);
-        sleep((long) sleepTime);
-        left.setPower(0);
-        right.setPower(0);
-    }
-    //@direction: true = left, false = right
-    public void inPlaceTurn(double amount, boolean direction) {
-
-        double degrees = amount/45*333;
-
-        if (direction == true){
-            left.setPower(-1);
-            right.setPower(-1);
-            sleep((long) degrees);
-
-        } else {
-            left.setPower(1);
-            right.setPower(1);
-            sleep((long)degrees);
-        }
-        left.setPower(0);
-        right.setPower(0);
-    }
-
-    //@direction: true = left, false = right
-    public void normalTurn(double amount, boolean direction) {
-
-        double degrees = amount/45*333;
-
-        if (direction == true){
-            left.setPower(1);
-            right.setPower(0);
-            sleep((long) degrees);
-
-        } else {
-            left.setPower(1);
-            right.setPower(0);
-            sleep((long)degrees);
-        }
-        left.setPower(0);
-        right.setPower(1);
-    }
-    public void RunOpMode(){
         //path 1
         /*waitForStart();
         Servo1.setPosition(1.0);
@@ -122,16 +74,23 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
 
         stop();*/
         //path 4
-        /*waitForStart();
-        Servo1.setPosition(1.0);
-        moveForward(29);
-        Servo1.setPosition(-1.0);
-        moveBackward(25);
-        Servo1.setPosition(1.0);
-        moveBackward(4);
-        normalTurn(90,left);
-        moveForward(36);
+        waitForStart();
+        robot.clawClamp(true);
+        robot.moveForward(35);
+        sleep(1000);
+        robot.clawClamp(false);
+        sleep(1000);
+        robot.moveBackward(25);
+        sleep(1000);
+        robot.clawClamp(true);
+        robot.moveBackward(4);
+        sleep(1000);
+        robot.inPlaceTurn(90,false);
+        sleep(1000);
+        robot.moveForward(40);
 
-        stop();*/
+        stop();
+
     }
+
 }
