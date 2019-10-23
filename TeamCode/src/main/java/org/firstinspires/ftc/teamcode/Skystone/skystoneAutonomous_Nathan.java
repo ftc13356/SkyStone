@@ -33,6 +33,10 @@ public class skystoneAutonomous_Nathan extends LinearOpMode {
         sleep(2000);
         robot.moveBackward(12);
         sleep(2000);
+        robot.inPlaceTurn(90, true);
+        sleep(2000);
+        robot.inPlaceTurn(180,false);
+        sleep(2000);
 //        robot.inPlaceTurn(90, true);
 //        sleep(2000);
 //
