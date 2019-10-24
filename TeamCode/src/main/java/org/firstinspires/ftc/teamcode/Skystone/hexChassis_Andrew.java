@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
  *                  Thanks for your understanding
  */
 
-public abstract class hexChassis_Andrew extends LinearOpMode {
+public class hexChassis_Andrew extends LinearOpMode {
 
     public DcMotor leftFront;
     public DcMotor leftBack;
@@ -41,15 +41,31 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
     /**
     This is the constructor that initializes the motors
     */
-    public hexChassis_Andrew(LinearOpMode op) {
-        myOP = opMode;
-        hardwareMap = op.hardwareMap;
+    public hexChassis_Andrew() {
 
-        leftFront = hardwareMap.dcMotor.get("leftMotor");
-        leftBack = hardwareMap.dcMotor.get("leftMotor");
-        rightFront = hardwareMap.dcMotor.get("leftMotor");
-        rightBack = hardwareMap.dcMotor.get("leftMotor");
-        
+        /*
+        myOP = opMode;
+        myHaredwareMap = myOP.hardwareMap;
+
+        leftFront = myHaredwareMap.dcMotor.get("motorLeftFront");
+        leftBack = myHaredwareMap.dcMotor.get("motorRightFront");
+        rightFront = myHaredwareMap.dcMotor.get("motorLeftBack");
+        rightBack = myHaredwareMap.dcMotor.get("motorRightBack");
+
+         */
+
+    }
+
+
+    public void initChassis(LinearOpMode opMode) {
+
+        myOP = opMode;
+        myHaredwareMap = myOP.hardwareMap;
+
+        leftFront = myHaredwareMap.dcMotor.get("motorLeftFront");
+        leftBack = myHaredwareMap.dcMotor.get("motorLeftBack");
+        rightFront = myHaredwareMap.dcMotor.get("motorRightFront");
+        rightBack = myHaredwareMap.dcMotor.get("motorRightBack");
     }
 
     /**
@@ -57,18 +73,21 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
      * @param distance Inches to move forward or backward (forward: +, backward: -)
      * @param opModeIsActiveas Type "opModeIsActive()" boolean in autonomousFrame (program extending LinerOpMode)
      */
-    public void encoderDriveFB(double distance, boolean opModeIsActiveas ) {
+
+    public void encoderDriveFB(double distance, double callibration) {
         int leftFrontTarget;
 
-        leftFrontTarget = (int) Math.round(distance * TICKS_PER_INCH);
-        
+        leftFrontTarget = (int)(Math.round(distance * TICKS_PER_INCH) * callibration);
+
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(leftFrontTarget);
+
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftFront.setTargetPosition(leftFrontTarget);
 
         if (leftFrontTarget > 0) {
             leftFront.setPower(DEFAULT_POWER);
@@ -87,9 +106,9 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
         }
 
         leftFront.setPower(0);
-        leftFront.setPower(0);
-        leftFront.setPower(0);
-        leftFront.setPower(0);
+        leftBack.setPower(0);
+        rightFront.setPower(0);
+        rightBack.setPower(0);
 
 
         //int newRightFrontTarget;
@@ -101,12 +120,15 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
         double motorLeftBackEncoder;
         double motorRightBackEncoder;
     }
-    public void inPlaceTurn(boolean right) {
-        if (boolean right == true) {
+
+    /*
+    public void inPlaceTurn(boolean direction) {
+        if (boolean direction == true) {
 
         }
 
     }
+    */
 
 
     /**
@@ -115,10 +137,18 @@ public abstract class hexChassis_Andrew extends LinearOpMode {
      * @param speed Speed of robot (min: 0, max: 1)
      */
 
+    public void runOpMode() {
+
+    }
+
+
+    /*
     public void encoderInPlaceTurn(double turnDegree, boolean turnDirection) {
 
 
     }
+    */
+
 
     /*
     public void startMotors() {
