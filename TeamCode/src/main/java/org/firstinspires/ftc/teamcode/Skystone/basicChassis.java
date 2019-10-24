@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,15 +10,13 @@ public class basicChassis {
 
     /* local OpMode members. */
     private LinearOpMode op = null;
-    private HardwareMap  hardwareMap = null;
-    private ElapsedTime  period = new ElapsedTime();
+    private HardwareMap hardwareMap = null;
+    private ElapsedTime period = new ElapsedTime();
 
     public DcMotor left;
     public DcMotor right;
+    public Servo stone_claw_servo;
     private float speed = 37.5f;
-    final static double ROBOT_DIAMETER = 14.0;
-    final static double CALLIBRATION = 1.0;
-    final static double WHEEL_DIAMETER = 4.0;
 
     public basicChassis() {
 
@@ -32,7 +28,7 @@ public class basicChassis {
 
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
-
+        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
     }
 
@@ -44,6 +40,7 @@ public class basicChassis {
         left.setPower(0);
         right.setPower(0);
     }
+
     public void moveBackward(double distance) {
         double sleepTime = (distance / speed * 1000);
         left.setPower(-.5);
@@ -56,9 +53,9 @@ public class basicChassis {
     //@direction: true = left, false = right
     public void inPlaceTurn(double degrees, boolean direction) {
 
-        double timeInMilliSec = degrees/45*333;
+        double timeInMilliSec = degrees / 45 * 333;
 
-        if (direction == true){
+        if (direction == true) {
             left.setPower(-1);
             right.setPower(-1);
             op.sleep((long) timeInMilliSec);
@@ -75,13 +72,13 @@ public class basicChassis {
     //degrees means the angle of turning
     public void normalTurn(double degrees, boolean direction) {
 
-        double timeInMilliSec = degrees/45*333;
+        double timeInMilliSec = degrees / 45 * 333;
 
-        if (direction == true){
+        if (direction == true) {
             left.setPower(1);
             right.setPower(0);
             op.sleep((long) timeInMilliSec);
-        } else {
+        } else { //TODO: Both statements are the same
             left.setPower(1);
             right.setPower(0);
             op.sleep((long) timeInMilliSec);
@@ -89,5 +86,25 @@ public class basicChassis {
         //stop
         left.setPower(0);
         right.setPower(0);
+    }
+
+    /**
+     * <h1>A function for raising and lowering the stone claw.</h1>
+     * <p>
+     * Giving proper comments in your program makes it more
+     * user friendly and it is assumed as a high quality code.
+     *
+     * @author Warren Zhou
+     * @version 1.0
+     * @since 2019-10-20
+     */
+    //true = unclamp, false = clamp
+    public void clawClamp(boolean direction) {
+        if (direction == true) {
+            stone_claw_servo.setPosition(1.0);
+        } else {
+            stone_claw_servo.setPosition(-1.0);
+        }
+
     }
 }
