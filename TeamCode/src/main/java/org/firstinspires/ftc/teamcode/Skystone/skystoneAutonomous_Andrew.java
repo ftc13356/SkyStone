@@ -26,14 +26,25 @@ public class skystoneAutonomous_Andrew extends LinearOpMode {
         robot.initChassis(this);
 
         waitForStart();
-        robot.encoderDriveFB(5, 1.0);
+        robot.encoderDriveFB(10, 1.0);
 
         sleep(2000);
 
 
-        robot.encoderDriveFB(-5, 1.0);
+        robot.encoderDriveFB(-10, 1.0);
         sleep(2000);
 
+        robot.encoderInPlaceTurn(45, true);
+
+
+        waitForStart();
+        robot.encoderDriveFB(15, 1.0);
+
+        sleep(2000);
+
+
+        robot.encoderDriveFB(-15, 1.0);
+        sleep(2000);
 
 
         stop();

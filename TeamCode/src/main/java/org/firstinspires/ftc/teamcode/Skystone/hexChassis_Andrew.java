@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
 
-
 /**
  * Author: Andrew
  * Change Proposal: Need permission by author to make changes. Slack me to discuss first
@@ -39,8 +38,8 @@ public class hexChassis_Andrew extends LinearOpMode {
     public final static double TICKS_PER_DEGREE = TICK_MARKS*ROBOT_DIAMETER*Math.PI/360;
 
     /**
-    This is the constructor that initializes the motors
-    */
+     This is the constructor that initializes the motors
+     */
     public hexChassis_Andrew() {
 
         /*
@@ -75,21 +74,24 @@ public class hexChassis_Andrew extends LinearOpMode {
      */
 
     public void encoderDriveFB(double distance, double callibration) {
-        int leftFrontTarget;
+        int newTarget;
 
-        leftFrontTarget = (int)(Math.round(distance * TICKS_PER_INCH) * callibration);
+
+        newTarget = (int)(Math.round(distance * TICKS_PER_INCH) * callibration);
 
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(leftFrontTarget);
+        leftFront.setTargetPosition(newTarget);
+        rightFront.setTargetPosition(newTarget);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-        if (leftFrontTarget > 0) {
+        if (newTarget > 0) {
             leftFront.setPower(DEFAULT_POWER);
             leftBack.setPower(DEFAULT_POWER);
             rightFront.setPower(DEFAULT_POWER);
@@ -142,12 +144,51 @@ public class hexChassis_Andrew extends LinearOpMode {
     }
 
 
-    /*
-    public void encoderInPlaceTurn(double turnDegree, boolean turnDirection) {
 
+    public void encoderInPlaceTurn(double turnDegree, boolean turnDirection) {
+        int newTarget;
+        newTarget = (int)Math.round(TICKS_PER_DEGREE * turnDegree);
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+        if (turnDirection) {
+            leftFront.setTargetPosition(newTarget);
+            rightFront.setTargetPosition(-newTarget);
+            leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftFront.setPower(DEFAULT_POWER);
+            leftBack.setPower(DEFAULT_POWER);
+            rightFront.setPower(DEFAULT_POWER);
+            rightBack.setPower(DEFAULT_POWER);
+        } else {
+            leftFront.setTargetPosition(-newTarget);
+            rightFront.setTargetPosition(newTarget);
+            leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftFront.setPower(-DEFAULT_POWER);
+            leftBack.setPower(-DEFAULT_POWER);
+            rightFront.setPower(-DEFAULT_POWER);
+            rightBack.setPower(-DEFAULT_POWER);
+        }
+
+        while (leftFront.isBusy()) {
+
+        }
+
+        leftFront.setPower(0);
+        leftBack.setPower(0);
+        rightFront.setPower(0);
+        rightBack.setPower(0);
 
     }
-    */
+
 
 
     /*
