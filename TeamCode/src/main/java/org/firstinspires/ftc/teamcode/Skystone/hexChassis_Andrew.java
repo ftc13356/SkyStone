@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.examples.autonomous.autonomousFrame;
 
-
 /**
  * Author: Andrew
  * Change Proposal: Need permission by author to make changes. Slack me to discuss first
