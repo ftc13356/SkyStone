@@ -50,9 +50,9 @@ public class SkyStoneTeleop_Aiden_1 extends LinearOpMode {
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.update();
 
-            if ((leftPower == 1.00) && (rightPower == -1.00)) {
+            if ((gamepad1.dpad_right)(leftPower == 1.00) && (rightPower == -1.00)) {
                 robot.inPlaceTurn(90, false);
-            } else if ((leftPower == -1.00) && (rightPower == 1.00)) {
+            }if ((leftPower == -1.00) && (rightPower == 1.00)) {
                 robot.inPlaceTurn(90, true);
             } else if ((leftPower == 0.00) && (rightPower == -0.00)) {
 
