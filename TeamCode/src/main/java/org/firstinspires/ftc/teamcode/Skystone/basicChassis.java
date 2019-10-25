@@ -78,7 +78,7 @@ public class basicChassis {
             left.setPower(1);
             right.setPower(0);
             op.sleep((long) timeInMilliSec);
-        } else {
+        } else { //TODO: Both statements are the same
             left.setPower(1);
             right.setPower(0);
             op.sleep((long) timeInMilliSec);
