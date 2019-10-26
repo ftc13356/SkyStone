@@ -42,24 +42,28 @@ public class SkyStoneTeleop_Aiden_1 extends LinearOpMode {
 
         while (!isStopRequested()) {
 
-            double drive = -gamepad1.left_stick_y;
-            double turn = gamepad1.right_stick_x;
-            leftPower = Range.clip(drive + turn, -1.0, 1.0);
-            rightPower = Range.clip(drive - turn, -1.0, 1.0);
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.update();
+            float left_stick_y = -gamepad1.left_stick_y;
+            float right_stick_x = -gamepad1.right_stick_x;
+            telemetry.addData("Motor","left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
 
-            if ((gamepad1.dpad_right)(leftPower == 1.00) && (rightPower == -1.00)) {
-                robot.inPlaceTurn(90, false);
-            }if ((leftPower == -1.00) && (rightPower == 1.00)) {
-                robot.inPlaceTurn(90, true);
-            } else if ((leftPower == 0.00) && (rightPower == -0.00)) {
 
+            if ((left_stick_y == 1.00) && (right_stick_x == -0.00)) {
+                telemetry.addData("Motor"," FORWARD left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
+                robot.moveForward(3);
+            }else if ((left_stick_y == -1.00) && (right_stick_x == -0.00)) {
+                telemetry.addData("Motor"," BACKWARD left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
+                robot.moveBackward(3);
+            } else if ((left_stick_y == -0.00) && (right_stick_x == -1.00)) {
+                telemetry.addData("Motor"," TURN RIGHT left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
+                robot.inPlaceTurn(2,false);
+            }
+            else if ((left_stick_y == -0.00) && (right_stick_x == 1.00)){
+                telemetry.addData("Motor"," TURN LEFT left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
+                robot.inPlaceTurn(2,true);
             }
 
-            //left.setPower(leftPower);
-            //right.setPower(rightPower);
+            telemetry.addData("Motor","left (%.2f), right (%.2f)",left_stick_y, right_stick_x);
+            telemetry.update();
         }
     }
 }
