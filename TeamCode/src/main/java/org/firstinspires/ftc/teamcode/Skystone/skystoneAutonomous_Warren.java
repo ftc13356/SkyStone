@@ -74,7 +74,7 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
 
         stop();*/
         //path 4
-        waitForStart();
+        /*waitForStart();
         robot.clawClamp(true);
         robot.moveForward(35);
         sleep(1000);
@@ -87,10 +87,14 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
         sleep(1000);
         robot.inPlaceTurn(90,false);
         sleep(1000);
-        robot.moveForward(40);
+        robot.moveForward(40);*/
 
         stop();
+        waitForStart();
+        robot.tapeIsRed();
 
+
+        stop();
     }
 
 }
