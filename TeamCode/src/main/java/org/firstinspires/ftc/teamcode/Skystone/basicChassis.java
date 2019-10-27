@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -16,8 +20,8 @@ public class basicChassis {
     public DcMotor left;
     public DcMotor right;
     public Servo stone_claw_servo;
+    public NormalizedColorSensor tape_color_sensor;
     private float speed = 37.5f;
-
     public basicChassis() {
 
     }
@@ -29,6 +33,7 @@ public class basicChassis {
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
+        tape_color_sensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor1");;
 
     }
 
@@ -106,5 +111,25 @@ public class basicChassis {
             stone_claw_servo.setPosition(-1.0);
         }
 
+    }
+
+    public boolean tapeIsRed(){
+        boolean redded;
+        redded=false;
+        float[] hsvValues = new float[3];
+        NormalizedRGBA colors = tape_color_sensor.getNormalizedColors();
+        Color.colorToHSV(colors.toColor(), hsvValues);
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        if(hsvValues[0]<=10){
+            redded=true;
+        }
+        else if(hsvValues[0]<=360&& hsvValues[0]>=340 ){
+            redded = true;
+        }
+        return true;
     }
 }
