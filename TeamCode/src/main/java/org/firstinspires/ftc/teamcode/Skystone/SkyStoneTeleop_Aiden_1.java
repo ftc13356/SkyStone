@@ -44,6 +44,7 @@ public class SkyStoneTeleop_Aiden_1 extends LinearOpMode {
 
             float left_stick_y = -gamepad1.left_stick_y;
             float right_stick_x = -gamepad1.right_stick_x;
+            //boolean
             telemetry.addData("Motor","left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
 
 
