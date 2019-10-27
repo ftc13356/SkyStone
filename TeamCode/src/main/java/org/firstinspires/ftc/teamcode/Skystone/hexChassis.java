@@ -22,7 +22,7 @@ public class hexChassis {
     double counts_per_degree = 0;
 
     // Initialize Encoder Variables
-    final double robot_diameter = 11.0;
+    final double robot_diameter = 10.5;
     final double drive_gear_reduction = 1.0;
     final double wheel_diameter = 4.0;
 
@@ -170,10 +170,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.5);
-        motorRightBack.setPower(0.5);
-        motorLeftFront.setPower(0.5);
-        motorRightFront.setPower(0.5);
+        motorLeftBack.setPower(0.25);
+        motorRightBack.setPower(0.25);
+        motorLeftFront.setPower(0.25);
+        motorRightFront.setPower(0.25);
 
         while (op.opModeIsActive() && motorLeftBack.isBusy())
         {
