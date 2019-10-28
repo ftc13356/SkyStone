@@ -39,12 +39,14 @@ public class SkyStoneTeleop_Aiden_1 extends LinearOpMode {
 
 
         waitForStart();
+        robot.clawClamp(true);
 
         while (!isStopRequested()) {
 
             float left_stick_y = -gamepad1.left_stick_y;
             float right_stick_x = -gamepad1.right_stick_x;
-            //boolean
+            boolean stone_claw_up = gamepad1.x;
+            boolean stone_claw_down = gamepad1.y;
             telemetry.addData("Motor","left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
 
 
@@ -54,13 +56,20 @@ public class SkyStoneTeleop_Aiden_1 extends LinearOpMode {
             }else if ((left_stick_y == -1.00) && (right_stick_x == -0.00)) {
                 telemetry.addData("Motor"," BACKWARD left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
                 robot.moveBackward(3);
-            } else if ((left_stick_y == -0.00) && (right_stick_x == -1.00)) {
+            }else if ((left_stick_y == -0.00) && (right_stick_x == -1.00)) {
                 telemetry.addData("Motor"," TURN RIGHT left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
                 robot.inPlaceTurn(2,false);
-            }
-            else if ((left_stick_y == -0.00) && (right_stick_x == 1.00)){
+            }else if ((left_stick_y == -0.00) && (right_stick_x == 1.00)){
                 telemetry.addData("Motor"," TURN LEFT left (%.2f), right (%.2f)",left_stick_y, right_stick_x); telemetry.update();
                 robot.inPlaceTurn(2,true);
+            }else if (stone_claw_down = true) {
+                telemetry.addData("Servo", " STONE CLAW Down");
+                telemetry.update();
+                robot.clawClamp(false);
+            }else if (stone_claw_up = true){
+                telemetry.addData("Servo", " STONE CLAW UP ");
+                telemetry.update();
+                robot.clawClamp(true);
             }
 
             telemetry.addData("Motor","left (%.2f), right (%.2f)",left_stick_y, right_stick_x);
