@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+
 
 public class basicChassis {
 
@@ -20,8 +21,9 @@ public class basicChassis {
     public DcMotor left;
     public DcMotor right;
     public Servo stone_claw_servo;
-    public NormalizedColorSensor tape_color_sensor;
+    public ColorSensor tape_color_sensor;
     private float speed = 37.5f;
+
     public basicChassis() {
 
     }
@@ -33,7 +35,7 @@ public class basicChassis {
         left = hardwareMap.dcMotor.get("LeftMotor");
         right = hardwareMap.dcMotor.get("RightMotor");
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
-        tape_color_sensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensor1");;
+        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
     }
 
@@ -106,6 +108,7 @@ public class basicChassis {
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
         if (direction == true) {
+            int x = 1;
             stone_claw_servo.setPosition(1.0);
         } else {
             stone_claw_servo.setPosition(-1.0);
@@ -113,23 +116,53 @@ public class basicChassis {
 
     }
 
-    public boolean tapeIsRed(){
-        boolean redded;
-        redded=false;
-        float[] hsvValues = new float[3];
-        NormalizedRGBA colors = tape_color_sensor.getNormalizedColors();
-        Color.colorToHSV(colors.toColor(), hsvValues);
+    public boolean tapeIsRed() {
+        boolean redded= false;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        // Color.RGBToHSV((tape_color_sensor.red()), (tape_color_sensor.green()), (tape_color_sensor.blue()), hsvValues);
+
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+
+        /*
+        op.telemetry.addData("Hue", hsvValues[0]);
+        if (hsvValues[0] >= 340 || hsvValues[0] <= 20) {
+            redded = true;
+            op.telemetry.addData("ColorSensorStatus", "Red");
+
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            redded = false;
+        }
+         */
+
+        op.telemetry.addData("xxxxxxxxx ", "%i %i %i", tape_color_sensor.red(), tape_color_sensor.green(), tape_color_sensor.blue());
+        op.telemetry.addData(">>>>>>>>> ", "%.3f %.3f %.3f", hsvValues[0], hsvValues[1], hsvValues[2]);
+        op.telemetry.update();
+        return redded;
+    }
+
+    public boolean tapeIsBlue() {
+        boolean blued;
+        float hsvValues[] = {0F, 0F, 0F};
+        Color.RGBToHSV((tape_color_sensor.red()), (tape_color_sensor.green()), (tape_color_sensor.blue()), hsvValues);
+        op.telemetry.addData("Hue", hsvValues[0]);
+
+        if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
+            op.telemetry.addData("ColorSensorStatus", "Blue");
+            blued = true;
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            blued = false;
+        }
         op.telemetry.addLine()
                 .addData("H", "%.3f", hsvValues[0])
                 .addData("S", "%.3f", hsvValues[1])
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
-        if(hsvValues[0]<=10){
-            redded=true;
-        }
-        else if(hsvValues[0]<=360&& hsvValues[0]>=340 ){
-            redded = true;
-        }
-        return true;
+        return blued;
     }
 }
