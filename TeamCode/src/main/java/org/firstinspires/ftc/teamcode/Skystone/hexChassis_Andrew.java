@@ -28,14 +28,14 @@ public class hexChassis_Andrew extends LinearOpMode {
     private ElapsedTime period          = new ElapsedTime();
 
     //private float speed = 37.5f;
-    final static double ROBOT_DIAMETER = 10.5;
+    final static double ROBOT_DIAMETER = 14.0;
     final static double CALLIBRATION = 1.0;
     final static double WHEEL_DIAMETER = 4.0;
     final static float DEFAULT_POWER = 0.25f;
 
     public final static double TICK_MARKS = 288;
     public final static double TICKS_PER_INCH = TICK_MARKS * CALLIBRATION/(WHEEL_DIAMETER*Math.PI);
-    public final static double TICKS_PER_DEGREE = TICKS_PER_INCH * ROBOT_DIAMETER*Math.PI/360;
+    public final static double TICKS_PER_DEGREE = TICK_MARKS*ROBOT_DIAMETER*Math.PI/360;
 
     /**
      This is the constructor that initializes the motors
@@ -123,18 +123,27 @@ public class hexChassis_Andrew extends LinearOpMode {
         double motorRightBackEncoder;
     }
 
+    /*
+    public void inPlaceTurn(boolean direction) {
+        if (boolean direction == true) {
+
+        }
+
+    }
+    */
 
 
+    /**
+     * Hex Motor Chassis Specific encoderDrive()
+     * @param driveFB Inches to move forward or backward (forward: +, backward: -)
+     * @param speed Speed of robot (min: 0, max: 1)
+     */
 
     public void runOpMode() {
 
     }
 
-    /**
-     * Hex Motor Chassis Specific encoderDrive()
-     * @param turnDegree number of degrees to turn
-     * @param turnDirection: boolean, true for left turn and false for right turn
-     */
+
 
     public void encoderInPlaceTurn(double turnDegree, boolean turnDirection) {
         int newTarget;
@@ -178,6 +187,33 @@ public class hexChassis_Andrew extends LinearOpMode {
         rightFront.setPower(0);
         rightBack.setPower(0);
 
+    }
+
+    public void diagonallyMove(LinearOpMode opMode, boolean direction, double distance) {
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+
+        if (direction == true) {
+            leftFront.setPower(DEFAULT_POWER);
+            leftBack.setPower(DEFAULT_POWER;
+            rightFront.setPower(-0.25);
+            rightBack.setPower(-0.25);
+        } else {
+            leftFront.setPower(-0.25);
+            leftBack.setPower(-0.25);
+            rightFront.setPower(DEFAULT_POWER);
+            rightBack.setPower(DEFAULT_POWER);
+        }
+        while (leftFront.isBusy()) {
+
+        }
+        leftFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+        leftFront.setPower(0);
     }
 
 
