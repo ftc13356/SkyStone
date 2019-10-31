@@ -3,15 +3,14 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Servo;
+
 
 @Autonomous(name = "Warren Test")
 public class skystoneAutonomous_Warren extends LinearOpMode {
-    private Servo claw1;
     basicChassis robot = new basicChassis();
     private ElapsedTime runtime = new ElapsedTime();
 
-    public void skystoneAutonomous_Warren() {
+    public skystoneAutonomous_Warren() {
 
     }
     @Override
@@ -88,8 +87,8 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
         robot.inPlaceTurn(90,false);
         sleep(1000);
         robot.moveForward(40);*/
+        robot.moveForwardUntilBlue();
 
-        robot.tapeIsRed();
         stop();
         waitForStart();
         //robot.tapeIsRed();

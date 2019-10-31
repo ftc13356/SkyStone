@@ -115,7 +115,7 @@ public class basicChassis {
         }
 
     }
-
+    //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         boolean redded= false;
         float hsvValues[] = {0F, 0F, 0F};
@@ -164,5 +164,18 @@ public class basicChassis {
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return blued;
+    }
+    //will move until it detects blue/red, momentum causse bug
+    public void moveForwardUntilBlue(){
+        while(tapeIsBlue()== false){
+            left.setPower(0.25);
+            right.setPower(-0.25);
+        }
+    }
+    public void moveForwardUntilRed(){
+        while(tapeIsRed()== false){
+            left.setPower(0.25);
+            right.setPower(-0.25);
+        }
     }
 }
