@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "Skystone Demo")
+@Autonomous(name = "skystoneAutonomous_Nathan")
 public class skystoneAutonomous_Nathan extends LinearOpMode {
 
 
@@ -25,25 +25,40 @@ public class skystoneAutonomous_Nathan extends LinearOpMode {
 
         waitForStart();
 //        myChassis.initChassis();
-        robot.moveForward(12);
-        sleep(2000);
-        robot.moveForward(12);
-        sleep(2000);
-        robot.moveBackward(12);
-        sleep(2000);
-        robot.moveBackward(12);
-        sleep(2000);
-        robot.inPlaceTurn(90, true);
-        sleep(2000);
-        robot.inPlaceTurn(180,false);
-        sleep(2000);
-//        robot.inPlaceTurn(90, true);
+        robot.inPlaceTurn(45, true);
+        sleep(1000);
+        robot.inPlaceTurn(45, true);
+        sleep(1000);
+        robot.inPlaceTurn(45, true);
+        sleep(1000);
+        robot.inPlaceTurn(45, true);
+        sleep(1000);
+        robot.inPlaceTurn(180, true);
+        sleep(1000);
+        robot.inPlaceTurn(45, false);
+        sleep(1000);
+        robot.inPlaceTurn(45, false);
+        sleep(1000);
+        robot.inPlaceTurn(45, false);
+        sleep(1000);
+        robot.inPlaceTurn(45, false);
+        sleep(1000);
+        robot.inPlaceTurn(180, false);
+        sleep(1000);
+//        robot.moveBackward(12);
 //        sleep(2000);
-//
 //        robot.moveForward(12);
 //        sleep(2000);
-//
-//        robot.normalTurn(90, false);
+//        robot.inPlaceTurn(90, true);
+//        sleep(2000);
+//        robot.moveForward(12);
+//        sleep(2000);
+//        robot.inPlaceTurn(180,true);
+//        sleep(2000);
+//        robot.inPlaceTurn(90,false);
+//        sleep(2000);
+//        robot.moveBackward(12);
+//        robot.inPlaceTurn(90, true);
 //        sleep(2000);
 
         stop();
