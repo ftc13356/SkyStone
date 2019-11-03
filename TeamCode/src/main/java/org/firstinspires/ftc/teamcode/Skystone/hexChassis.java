@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.Skystone;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -15,6 +16,7 @@ public class hexChassis {
     DcMotor motorRightFront;
     DcMotor motorLeftBack;
     DcMotor motorRightBack;
+    public Servo stone_claw_servo;
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
@@ -53,6 +55,7 @@ public class hexChassis {
         motorRightFront = hardwareMap.dcMotor.get("motorRightFront");
         motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
         motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
+        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
         motorLeftFront.setDirection(DcMotor.Direction.FORWARD);
         motorRightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -209,10 +212,10 @@ public class hexChassis {
             newRightBackTargetPosition = motorRightBack.getCurrentPosition();
             newRightFrontTargetPosition = motorRightFront.getCurrentPosition();
         }
-        motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
-        motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
-        motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
-        motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
+        motorLeftBack.setTargetPosition((int) newLeftBackTargetPosition);
+        motorLeftFront.setTargetPosition((int) newLeftFrontTargetPosition);
+        motorRightBack.setTargetPosition((int) newRightBackTargetPosition);
+        motorRightFront.setTargetPosition((int) newRightFrontTargetPosition);
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -224,8 +227,7 @@ public class hexChassis {
         motorLeftFront.setPower(0.5);
         motorRightFront.setPower(0.5);
 
-        while (op.opModeIsActive() && motorLeftBack.isBusy())
-        {
+        while (op.opModeIsActive() && motorLeftBack.isBusy()) {
             op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
             op.telemetry.update();
             op.idle();
@@ -234,6 +236,20 @@ public class hexChassis {
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
+        }
+
+        //true = unclamp, false = clamp
+        public void clawClamp(boolean direction) {
+            if (direction == true) {
+                int x = 1;
+                stone_claw_servo.setPosition(1.0);
+            } else {
+                stone_claw_servo.setPosition(-1.0);
+            }
+
+        }
+
     }
-}
+
+
 
