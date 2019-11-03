@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
+import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
+import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -57,6 +60,11 @@ public class hexChassis {
         motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
+        motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         motorLeftFront.setDirection(DcMotor.Direction.FORWARD);
         motorRightFront.setDirection(DcMotor.Direction.FORWARD);
         motorLeftBack.setDirection(DcMotor.Direction.FORWARD);
@@ -66,9 +74,74 @@ public class hexChassis {
         motorLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
     }
 
+    public void moveForwardTeleop(double distance) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        motorLeftBack.setPower(0.5);
+        motorRightBack.setPower(0.5);
+        motorLeftFront.setPower(0.5);
+        motorRightFront.setPower(0.5);
+
+        op.sleep(300);
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
+
+    public void moveBackwardTeleop(double distance) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorLeftBack.setPower(-0.5);
+        motorRightBack.setPower(-0.5);
+        motorLeftFront.setPower(-0.5);
+        motorRightFront.setPower(-0.5);
+
+        op.sleep(200);
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
+
+    //@direction: true = left, false = right
+    public void inPlaceTurnTeleop(double degrees, boolean direction) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        if (direction == true) {
+            motorLeftBack.setPower(-0.5);
+            motorRightBack.setPower(-0.5);
+            motorLeftFront.setPower(0.5);
+            motorRightFront.setPower(0.5);
+        } else {
+            motorLeftBack.setPower(0.5);
+            motorRightBack.setPower(0.5);
+            motorLeftFront.setPower(-0.5);
+            motorRightFront.setPower(-0.5);
+        }
+
+        op.sleep(200);
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
     public void moveForward(double distance) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
@@ -100,6 +173,12 @@ public class hexChassis {
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
+
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void moveBackward(double distance) {
         double ticksToMove = counts_per_inch * distance;
@@ -132,6 +211,12 @@ public class hexChassis {
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
+
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 //    public void moveBackward(double distance) {
 //        double sleepTime = (distance / speed * 1000);
@@ -188,6 +273,12 @@ public class hexChassis {
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
+
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     //@direction: true = left, false = right

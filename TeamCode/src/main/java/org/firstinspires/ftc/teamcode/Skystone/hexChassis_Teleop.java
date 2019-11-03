@@ -54,21 +54,21 @@ public class hexChassis_Teleop extends LinearOpMode {
             if ((left_stick_y == 1.00) && (right_stick_x == -0.00)) {
                 telemetry.addData("Motor", " FORWARD left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
                 telemetry.update();
-                robot.moveForward(8);
+                robot.moveForwardTeleop(8);
             } else if ((left_stick_y == -1.00) && (right_stick_x == -0.00)) {
                 telemetry.addData("Motor", " BACKWARD left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
                 telemetry.update();
-                robot.moveBackward(8);
+                robot.moveBackwardTeleop(8);
             } else if ((left_stick_y == -0.00) && (right_stick_x == -1.00)) {
                 telemetry.addData("Motor", " TURN RIGHT left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
                 telemetry.update();
-                robot.inPlaceTurn(2, false);
-                sleep(1000);
+                robot.inPlaceTurnTeleop(10, false);
+                //sleep(1000);
             } else if ((left_stick_y == -0.00) && (right_stick_x == 1.00)) {
                 telemetry.addData("Motor", " TURN LEFT left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
                 telemetry.update();
-                robot.inPlaceTurn(2, true);
-                sleep(1000);
+                robot.inPlaceTurnTeleop(10, true);
+                //sleep(1000);
             } else if (stone_claw_down = true) {
                 telemetry.addData("Servo", " STONE CLAW Down");
                 telemetry.update();
