@@ -1,16 +1,11 @@
 package org.firstinspires.ftc.teamcode.Skystone;
-import com.qualcomm.robotcore.hardware.Servo;
+import android.graphics.Color;
 
-import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
-import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
-import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class hexChassis {
@@ -21,6 +16,7 @@ public class hexChassis {
     DcMotor motorRightBack;
     DcMotor motorLift;
     public Servo stone_claw_servo;
+    public ColorSensor tape_color_sensor;
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
@@ -74,6 +70,8 @@ public class hexChassis {
         motorLift = hardwareMap.dcMotor.get("motorLift");
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
+        // Color Sensor
+        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -360,27 +358,100 @@ public class hexChassis {
                 stone_claw_servo.setPosition(-1.0);
             }
 
-        }
+    }
+    //detects if red or if blue returns true and false
+    public boolean tapeIsRed() {
+        boolean redded= false;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        // Color.RGBToHSV((tape_color_sensor.red()), (tape_color_sensor.green()), (tape_color_sensor.blue()), hsvValues);
 
-        /******** Lifting Motor **********/
-        public void liftAutonomous(double liftheight){
-            double ticksToMove = counts_per_inch_tetrix_lift * liftheight;
-            double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
-            motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
-            motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motorLift.setPower(0.5);
-            while (op.opModeIsActive() && motorLift.isBusy())
-            {
-                op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
-                op.telemetry.update();
-                op.idle();
-            }
-            //brake
-            motorLift.setPower(0);
-            motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        if (hsvValues[0] >= 340 || hsvValues[0] <= 20) {
+            redded = true;
+            op.telemetry.addData("ColorSensorStatus", "Red");
 
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            redded = false;
+        }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        return redded;
     }
 
+    public boolean tapeIsBlue() {
+        boolean blued;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
 
+        if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
+            op.telemetry.addData("ColorSensorStatus", "Blue");
+            blued = true;
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            blued = false;
+        }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        return blued;
+    }
+    //will move until it detects blue/red, momentum causse bug
+    public void moveForwardUntilBlue(){
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while(tapeIsBlue()== false){
 
+            motorLeftBack.setPower(0.25);
+            motorRightBack.setPower(0.25);
+            motorLeftFront.setPower(0.25);
+            motorRightFront.setPower(0.25);
+        }
+    }
+    public void moveForwardUntilRed(){
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while(tapeIsRed()== false){
+            motorLeftBack.setPower(0.25);
+            motorRightBack.setPower(0.25);
+            motorLeftFront.setPower(0.25);
+            motorRightFront.setPower(0.25);
+        }
+    }
+
+    /******** Lifting Motor **********/
+    public void liftAutonomous(double liftheight){
+        double ticksToMove = counts_per_inch_tetrix_lift * liftheight;
+        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
+        motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
+        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLift.setPower(0.5);
+        while (op.opModeIsActive() && motorLift.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorLift.setPower(0);
+        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+}
