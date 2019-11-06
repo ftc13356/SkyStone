@@ -19,12 +19,18 @@ public class hexChassis {
     DcMotor motorRightFront;
     DcMotor motorLeftBack;
     DcMotor motorRightBack;
+    DcMotor motorLift;
     public Servo stone_claw_servo;
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
     double counts_per_inch = 0;
     double counts_per_degree = 0;
+    double liftheight = 0;
+
+    //variables for lifting mechanism
+    double counts_per_motor_tetrix = 0;
+    double counts_per_inch_tetrix_lift = 0;
 
     // Initialize Encoder Variables
     final double robot_diameter = 10.5;
@@ -39,14 +45,19 @@ public class hexChassis {
     private float speed = 37.5f;
 
     public hexChassis() {
+        /******* hex motors ******/
         counts_per_motor_rev = 288;
-
-     //   counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
+        //counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
         counts_per_inch = 288 / (4 * 3.14);
-//counts_per_inch = 23 ticks
+        //counts_per_inch = 23 ticks
 
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
+
+        /******* tetrix motor ********/
+        counts_per_motor_tetrix = 1440; //TODO
+        //counts_per_inch
+        counts_per_inch_tetrix_lift = 550; //TODO
     }
 
     public void initChassis(LinearOpMode opMode) {
@@ -54,12 +65,17 @@ public class hexChassis {
         op = opMode;
         hardwareMap = op.hardwareMap;
 
+        // Chassis motors
         motorLeftFront = hardwareMap.dcMotor.get("motorLeftFront");
         motorRightFront = hardwareMap.dcMotor.get("motorRightFront");
         motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
         motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
+        // Lifting motors
+        motorLift = hardwareMap.dcMotor.get("motorLift");
+        // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
+        // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -75,6 +91,10 @@ public class hexChassis {
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // Lifting Motos
+        motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorLift.setDirection(DcMotor.Direction.FORWARD);
+        motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 
@@ -142,6 +162,7 @@ public class hexChassis {
         motorLeftFront.setPower(0);
         motorRightFront.setPower(0);
     }
+
     public void moveForward(double distance) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
@@ -180,6 +201,7 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     public void moveBackward(double distance) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
@@ -338,6 +360,24 @@ public class hexChassis {
                 stone_claw_servo.setPosition(-1.0);
             }
 
+        }
+
+        /******** Lifting Motor **********/
+        public void liftAutonomous(double liftheight){
+            double ticksToMove = counts_per_inch_tetrix_lift * liftheight;
+            double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
+            motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
+            motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motorLift.setPower(0.5);
+            while (op.opModeIsActive() && motorLift.isBusy())
+            {
+                op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
+                op.telemetry.update();
+                op.idle();
+            }
+            //brake
+            motorLift.setPower(0);
+            motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
     }
