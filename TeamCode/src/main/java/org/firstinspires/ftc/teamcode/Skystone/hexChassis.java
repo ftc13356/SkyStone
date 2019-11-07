@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode.Skystone;
+import android.graphics.Color;
 
-import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
-import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
-import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class hexChassis {
@@ -18,11 +14,19 @@ public class hexChassis {
     DcMotor motorRightFront;
     DcMotor motorLeftBack;
     DcMotor motorRightBack;
+    DcMotor motorLift;
+    public Servo stone_claw_servo;
+    public ColorSensor tape_color_sensor;
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
     double counts_per_inch = 0;
     double counts_per_degree = 0;
+    double liftheight = 0;
+
+    //variables for lifting mechanism
+    double counts_per_motor_tetrix = 0;
+    double counts_per_inch_tetrix_lift = 0;
 
     // Initialize Encoder Variables
     final double robot_diameter = 10.5;
@@ -37,14 +41,19 @@ public class hexChassis {
     private float speed = 37.5f;
 
     public hexChassis() {
+        /******* hex motors ******/
         counts_per_motor_rev = 288;
-
-     //   counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
+        //counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
         counts_per_inch = 288 / (4 * 3.14);
-//counts_per_inch = 23 ticks
+        //counts_per_inch = 23 ticks
 
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
+
+        /******* tetrix motor ********/
+        counts_per_motor_tetrix = 1440; //TODO
+        //counts_per_inch
+        counts_per_inch_tetrix_lift = 550; //TODO
     }
 
     public void initChassis(LinearOpMode opMode) {
@@ -52,11 +61,19 @@ public class hexChassis {
         op = opMode;
         hardwareMap = op.hardwareMap;
 
+        // Chassis motors
         motorLeftFront = hardwareMap.dcMotor.get("motorLeftFront");
         motorRightFront = hardwareMap.dcMotor.get("motorRightFront");
         motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
         motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
+        // Lifting motors
+        motorLift = hardwareMap.dcMotor.get("motorLift");
+        // Claw Servo
+        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
+        // Color Sensor
+        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
+        // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -72,6 +89,10 @@ public class hexChassis {
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // Lifting Motos
+        motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorLift.setDirection(DcMotor.Direction.FORWARD);
+        motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 
@@ -139,6 +160,7 @@ public class hexChassis {
         motorLeftFront.setPower(0);
         motorRightFront.setPower(0);
     }
+
     public void moveForward(double distance) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
@@ -177,6 +199,7 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     public void moveBackward(double distance) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
@@ -300,10 +323,10 @@ public class hexChassis {
             newRightBackTargetPosition = motorRightBack.getCurrentPosition();
             newRightFrontTargetPosition = motorRightFront.getCurrentPosition();
         }
-        motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
-        motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
-        motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
-        motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
+        motorLeftBack.setTargetPosition((int) newLeftBackTargetPosition);
+        motorLeftFront.setTargetPosition((int) newLeftFrontTargetPosition);
+        motorRightBack.setTargetPosition((int) newRightBackTargetPosition);
+        motorRightFront.setTargetPosition((int) newRightFrontTargetPosition);
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -315,8 +338,7 @@ public class hexChassis {
         motorLeftFront.setPower(0.5);
         motorRightFront.setPower(0.5);
 
-        while (op.opModeIsActive() && motorLeftBack.isBusy())
-        {
+        while (op.opModeIsActive() && motorLeftBack.isBusy()) {
             op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
             op.telemetry.update();
             op.idle();
@@ -325,6 +347,111 @@ public class hexChassis {
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
-    }
-}
+        }
 
+        //true = unclamp, false = clamp
+        public void clawClamp(boolean direction) {
+            if (direction == true) {
+                int x = 1;
+                stone_claw_servo.setPosition(1.0);
+            } else {
+                stone_claw_servo.setPosition(-1.0);
+            }
+
+    }
+    //detects if red or if blue returns true and false
+    public boolean tapeIsRed() {
+        boolean redded= false;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        // Color.RGBToHSV((tape_color_sensor.red()), (tape_color_sensor.green()), (tape_color_sensor.blue()), hsvValues);
+
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        if (hsvValues[0] >= 340 || hsvValues[0] <= 20) {
+            redded = true;
+            op.telemetry.addData("ColorSensorStatus", "Red");
+
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            redded = false;
+        }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        return redded;
+    }
+
+    public boolean tapeIsBlue() {
+        boolean blued;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+
+        if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
+            op.telemetry.addData("ColorSensorStatus", "Blue");
+            blued = true;
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            blued = false;
+        }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        return blued;
+    }
+    //will move until it detects blue/red, momentum causse bug
+    public void moveForwardUntilBlue(){
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while(tapeIsBlue()== false){
+
+            motorLeftBack.setPower(0.25);
+            motorRightBack.setPower(0.25);
+            motorLeftFront.setPower(0.25);
+            motorRightFront.setPower(0.25);
+        }
+    }
+    public void moveForwardUntilRed(){
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while(tapeIsRed()== false){
+            motorLeftBack.setPower(0.25);
+            motorRightBack.setPower(0.25);
+            motorLeftFront.setPower(0.25);
+            motorRightFront.setPower(0.25);
+        }
+    }
+
+    /******** Lifting Motor **********/
+    public void liftAutonomous(double liftheight){
+        double ticksToMove = counts_per_inch_tetrix_lift * liftheight;
+        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
+        motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
+        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLift.setPower(0.5);
+        while (op.opModeIsActive() && motorLift.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorLift.setPower(0);
+        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+}
