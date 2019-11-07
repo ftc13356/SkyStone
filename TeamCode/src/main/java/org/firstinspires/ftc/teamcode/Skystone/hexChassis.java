@@ -44,7 +44,7 @@ public class hexChassis {
         /******* hex motors ******/
         counts_per_motor_rev = 288;
         //counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
-        counts_per_inch = 288 / (4 * 3.14);
+        counts_per_inch = 288 / (4 * Math.PI);
         //counts_per_inch = 23 ticks
 
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
@@ -71,13 +71,13 @@ public class hexChassis {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensor
-        tape_color_sensor = hardwareMap.colorSensor.get("C1");
+//        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
         // Chassis Motors
-        motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLeftFront.setDirection(DcMotor.Direction.FORWARD);
         motorRightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -172,22 +172,29 @@ public class hexChassis {
         motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
         motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
 
+        op.telemetry.addData("ticks: ", (int)ticksToMove +
+                "LB: " + (int)newLeftBackTargetPosition + "LF: " + (int)newLeftFrontTargetPosition +
+                "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
+        op.telemetry.update();
+
         motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.5);
-        motorRightBack.setPower(0.5);
-        motorLeftFront.setPower(0.5);
-        motorRightFront.setPower(0.5);
+        motorRightFront.setPower(0.1);
+        motorLeftFront.setPower(0.1);
+        motorRightBack.setPower(0.1);
+        motorLeftBack.setPower(0.1);
 
-        while (op.opModeIsActive() && motorLeftBack.isBusy())
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+                motorRightFront.isBusy()))
         {
-            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            op.telemetry.update();
-            op.idle();
+//            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+//            op.telemetry.update();
+//            op.idle();
         }
+
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
@@ -211,21 +218,27 @@ public class hexChassis {
         motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
         motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
 
+        op.telemetry.addData("ticks: ", (int)ticksToMove +
+                "LB: " + (int)newLeftBackTargetPosition + "LF: " + (int)newLeftFrontTargetPosition +
+                "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
+        op.telemetry.update();
+
         motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.5);
-        motorRightBack.setPower(0.5);
-        motorLeftFront.setPower(0.5);
-        motorRightFront.setPower(0.5);
+        motorLeftBack.setPower(0.1);
+        motorRightBack.setPower(0.1);
+        motorLeftFront.setPower(0.1);
+        motorRightFront.setPower(0.1);
 
-        while (op.opModeIsActive() && motorLeftBack.isBusy())
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+                motorRightFront.isBusy()))
         {
-            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            op.telemetry.update();
-            op.idle();
+//            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+//            op.telemetry.update();
+//            op.idle();
         }
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
@@ -238,15 +251,98 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-//    public void moveBackward(double distance) {
-//        double sleepTime = (distance / speed * 1000);
-//        left.setPower(-.5);
-//        right.setPower(.5);
-//        op.sleep((long) sleepTime);
-//        left.setPower(0);
-//        right.setPower(0);
-//    }
 
+    public void moveRight(double distance) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() - ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() - ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + ticksToMove;
+        motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
+        motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
+        motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
+        motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        op.telemetry.addData("ticks: ", (int)ticksToMove +
+                                "LB: " + (int)newLeftBackTargetPosition + "LF: " + (int)newLeftFrontTargetPosition +
+                                "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
+        op.telemetry.update();
+        op.sleep(5000);
+
+        motorLeftBack.setPower(0.1);
+        motorRightBack.setPower(0.1);
+        motorLeftFront.setPower(0.1);
+        motorRightFront.setPower(0.1);
+
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+                motorRightFront.isBusy()))
+        {
+    //        op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+    //        op.telemetry.update();
+    //        op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+        motorLeftFront.setPower(0);
+
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void moveLeft(double distance) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() - ticksToMove;
+        motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
+        motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
+        motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
+        motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
+
+        op.telemetry.addData("ticks: ", (int)ticksToMove +
+                "LB: " + (int)newLeftBackTargetPosition + "LF: " + (int)newLeftFrontTargetPosition +
+                "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
+        op.telemetry.update();
+        op.sleep(5000);
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorLeftBack.setPower(0.1);
+        motorRightBack.setPower(0.1);
+        motorLeftFront.setPower(0.1);
+        motorRightFront.setPower(0.1);
+
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+                motorRightFront.isBusy()))
+        {
+//            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+//            op.telemetry.update();
+//            op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+        motorLeftFront.setPower(0);
+
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
     //@direction: true = left, false = right
     public void inPlaceTurn(double degrees, boolean direction) {
 
@@ -283,7 +379,8 @@ public class hexChassis {
         motorLeftFront.setPower(0.25);
         motorRightFront.setPower(0.25);
 
-        while (op.opModeIsActive() && motorLeftBack.isBusy())
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+                motorRightFront.isBusy()))
         {
             op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
             op.telemetry.update();

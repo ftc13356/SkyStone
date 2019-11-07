@@ -25,35 +25,42 @@ public class skystoneAutonomous_Nathan extends LinearOpMode {
 
         //place robot on tile 2
         waitForStart();
-        //myChassis.initChassis();
-        robot.inPlaceTurn(90, false);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        robot.inPlaceTurn(90, true);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        //robot puts claw down and picks up block
-        //pull claw back up
-        robot.inPlaceTurn(90, true);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        robot.moveForward(16);
-        sleep(50);
-        robot.inPlaceTurn(90, false);
-        sleep(50);
-        //robot puts claw down
-        //release claw
-        //clamp claw around the base of foundation
-        robot.moveBackward(16);
+        robot.moveForward(6);
+        sleep(1000);
+        robot.moveBackward(6);
+        sleep(1000);
+        robot.moveLeft(6);
+        sleep(1000);
+        robot.moveRight(6);
+//        //myChassis.initChassis();
+//        robot.inPlaceTurn(90, false);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        robot.inPlaceTurn(90, true);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        //robot puts claw down and picks up block
+//        //pull claw back up
+//        robot.inPlaceTurn(90, true);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        robot.moveForward(16);
+//        sleep(50);
+//        robot.inPlaceTurn(90, false);
+//        sleep(50);
+//        //robot puts claw down
+//        //release claw
+//        //clamp claw around the base of foundation
+//        robot.moveBackward(16);
 
         stop();
 
