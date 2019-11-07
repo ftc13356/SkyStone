@@ -23,43 +23,37 @@ public class skystoneAutonomous_Nathan extends LinearOpMode {
 
         robot.initChassis(this);
 
+        //place robot on tile 2
         waitForStart();
-//        myChassis.initChassis();
-        robot.inPlaceTurn(45, true);
-        sleep(1000);
-        robot.inPlaceTurn(45, true);
-        sleep(1000);
-        robot.inPlaceTurn(45, true);
-        sleep(1000);
-        robot.inPlaceTurn(45, true);
-        sleep(1000);
-        robot.inPlaceTurn(180, true);
-        sleep(1000);
-        robot.inPlaceTurn(45, false);
-        sleep(1000);
-        robot.inPlaceTurn(45, false);
-        sleep(1000);
-        robot.inPlaceTurn(45, false);
-        sleep(1000);
-        robot.inPlaceTurn(45, false);
-        sleep(1000);
-        robot.inPlaceTurn(180, false);
-        sleep(1000);
-//        robot.moveBackward(12);
-//        sleep(2000);
-//        robot.moveForward(12);
-//        sleep(2000);
-//        robot.inPlaceTurn(90, true);
-//        sleep(2000);
-//        robot.moveForward(12);
-//        sleep(2000);
-//        robot.inPlaceTurn(180,true);
-//        sleep(2000);
-//        robot.inPlaceTurn(90,false);
-//        sleep(2000);
-//        robot.moveBackward(12);
-//        robot.inPlaceTurn(90, true);
-//        sleep(2000);
+        //myChassis.initChassis();
+        robot.inPlaceTurn(90, false);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        robot.inPlaceTurn(90, true);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        //robot puts claw down and picks up block
+        //pull claw back up
+        robot.inPlaceTurn(90, true);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        robot.moveForward(16);
+        sleep(50);
+        robot.inPlaceTurn(90, false);
+        sleep(50);
+        //robot puts claw down
+        //release claw
+        //clamp claw around the base of foundation
+        robot.moveBackward(16);
 
         stop();
 
