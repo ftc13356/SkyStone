@@ -107,11 +107,13 @@ public class basicChassis {
      */
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
+        double boomer=1.0;
         if (direction == true) {
-            int x = 1;
-            stone_claw_servo.setPosition(1.0);
+            boomer=1.0;
+            stone_claw_servo.setPosition(boomer);
         } else {
-            stone_claw_servo.setPosition(-1.0);
+            boomer=0.5;
+            stone_claw_servo.setPosition(boomer);
         }
 
     }
