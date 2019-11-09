@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "Warren Test")
 public class skystoneAutonomous_Warren extends LinearOpMode {
-    basicChassis robot = new basicChassis();
+    hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
 
     public skystoneAutonomous_Warren() {
@@ -23,6 +23,7 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.initChassis(this);
+        waitForStart();
 
         //path 1
         /*waitForStart();
@@ -90,11 +91,7 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
         robot.moveForwardUntilBlue();
 
         stop();
-        waitForStart();
-        //robot.tapeIsRed();
 
-
-        stop();
     }
 
 }
