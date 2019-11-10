@@ -15,8 +15,8 @@ public class hexChassis {
     DcMotor motorLeftBack;
     DcMotor motorRightBack;
     DcMotor motorLift;
-    public Servo stone_claw_servo;
-    public ColorSensor tape_color_sensor;
+    Servo stone_claw_servo;
+    ColorSensor tape_color_sensor;
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
@@ -71,7 +71,7 @@ public class hexChassis {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensor
-//        tape_color_sensor = hardwareMap.colorSensor.get("C1");
+        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -89,11 +89,13 @@ public class hexChassis {
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // Lifting Motos
+        // Lifting Motors
         motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
         motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        //initialize claw
+        clawClamp(true);
     }
 
     public void moveForwardTeleop(double distance) {
@@ -190,9 +192,9 @@ public class hexChassis {
         while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
                 motorRightFront.isBusy()))
         {
-//            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-//            op.telemetry.update();
-//            op.idle();
+            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+            op.telemetry.update();
+            op.idle();
         }
 
         motorLeftBack.setPower(0);
@@ -343,6 +345,15 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+//    public void moveBackward(double distance) {
+//        double sleepTime = (distance / speed * 1000);
+//        left.setPower(-.5);
+//        right.setPower(.5);
+//        op.sleep((long) sleepTime);
+//        left.setPower(0);
+//        right.setPower(0);
+//    }
+
     //@direction: true = left, false = right
     public void inPlaceTurn(double degrees, boolean direction) {
 
@@ -444,18 +455,24 @@ public class hexChassis {
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
-        }
-
-        //true = unclamp, false = clamp
-        public void clawClamp(boolean direction) {
-            if (direction == true) {
-                int x = 1;
-                stone_claw_servo.setPosition(1.0);
-            } else {
-                stone_claw_servo.setPosition(-1.0);
-            }
-
     }
+
+    //true = unclamp, false = clamp
+    public void clawClamp(boolean direction) {
+        if (direction == true) {
+            stone_claw_servo.setPosition(1.0);
+        } else {
+            stone_claw_servo.setPosition(0.0);
+        }
+    }
+    //0.0 is clamped, 1.0 is unclamped
+    public void clawClampPosition(double claw_position) {
+        op.telemetry.addData("claw position :", claw_position);
+        op.telemetry.update();
+        stone_claw_servo.setPosition(claw_position);
+        op.sleep(100);
+    }
+
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         boolean redded= false;
@@ -484,14 +501,19 @@ public class hexChassis {
     }
 
     public boolean tapeIsBlue() {
-        boolean blued;
+        boolean blued = false;
         float hsvValues[] = {0F, 0F, 0F};
         final double SCALE_FACTOR = 255;
         Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
                 (int) (tape_color_sensor.green() * SCALE_FACTOR),
                 (int) (tape_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        op.sleep(1000);
         if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
             op.telemetry.addData("ColorSensorStatus", "Blue");
             blued = true;
@@ -499,10 +521,6 @@ public class hexChassis {
             op.telemetry.addData("ColorSensorStatus", "Unknown");
             blued = false;
         }
-        op.telemetry.addLine()
-                .addData("H", "%.3f", hsvValues[0])
-                .addData("S", "%.3f", hsvValues[1])
-                .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return blued;
     }
@@ -512,6 +530,7 @@ public class hexChassis {
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         while(tapeIsBlue()== false){
 
             motorLeftBack.setPower(0.25);

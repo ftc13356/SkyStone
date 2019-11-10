@@ -5,11 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name = "Warren Test")
+@Autonomous(name = "Warren_AutoTest")
 public class skystoneAutonomous_Warren extends LinearOpMode {
     hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
-
+    //public Servo stone_claw_servo;
     public skystoneAutonomous_Warren() {
 
     }
@@ -88,7 +88,27 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
         robot.inPlaceTurn(90,false);
         sleep(1000);
         robot.moveForward(40);*/
+
+        /*robot.liftAutonomous(2);
+        sleep(2000);
+        robot.liftAutonomous(-2);
+        sleep(2000);
+        */
         robot.moveForwardUntilBlue();
+
+
+        /*
+        robot.stone_claw_servo.setPosition(0.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(1.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(0.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(-1.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(0.0);
+        sleep(2000);
+        */
 
         stop();
 
