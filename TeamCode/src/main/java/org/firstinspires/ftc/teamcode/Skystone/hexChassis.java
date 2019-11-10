@@ -33,6 +33,11 @@ public class hexChassis {
     final double drive_gear_reduction = 1.0;
     final double wheel_diameter = 4.0;
 
+    // Motor Speed for various Operations
+    final double motor_speed_fb = 0.5; //forward & backward
+    final double motor_speed_side = 0.5;
+    final double motor_speed_turn = 0.2;
+
     /* local OpMode members. */
     private LinearOpMode op              = null;
     private HardwareMap  hardwareMap     = null;
@@ -71,7 +76,7 @@ public class hexChassis {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensor
-        tape_color_sensor = hardwareMap.colorSensor.get("C1");
+//        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -184,10 +189,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorRightFront.setPower(0.1);
-        motorLeftFront.setPower(0.1);
-        motorRightBack.setPower(0.1);
-        motorLeftBack.setPower(0.1);
+        motorRightFront.setPower(motor_speed_fb);
+        motorLeftFront.setPower(motor_speed_fb);
+        motorRightBack.setPower(motor_speed_fb);
+        motorLeftBack.setPower(motor_speed_fb);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
                 motorRightFront.isBusy()))
@@ -230,10 +235,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.1);
-        motorRightBack.setPower(0.1);
-        motorLeftFront.setPower(0.1);
-        motorRightFront.setPower(0.1);
+        motorLeftBack.setPower(motor_speed_fb);
+        motorRightBack.setPower(motor_speed_fb);
+        motorLeftFront.setPower(motor_speed_fb);
+        motorRightFront.setPower(motor_speed_fb);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
                 motorRightFront.isBusy()))
@@ -276,10 +281,10 @@ public class hexChassis {
         op.telemetry.update();
         op.sleep(5000);
 
-        motorLeftBack.setPower(0.1);
-        motorRightBack.setPower(0.1);
-        motorLeftFront.setPower(0.1);
-        motorRightFront.setPower(0.1);
+        motorLeftBack.setPower(motor_speed_side);
+        motorRightBack.setPower(motor_speed_side);
+        motorLeftFront.setPower(motor_speed_side);
+        motorRightFront.setPower(motor_speed_side);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
                 motorRightFront.isBusy()))
@@ -322,10 +327,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.1);
-        motorRightBack.setPower(0.1);
-        motorLeftFront.setPower(0.1);
-        motorRightFront.setPower(0.1);
+        motorLeftBack.setPower(motor_speed_side);
+        motorRightBack.setPower(motor_speed_side);
+        motorLeftFront.setPower(motor_speed_side);
+        motorRightFront.setPower(motor_speed_side);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
                 motorRightFront.isBusy()))
@@ -345,15 +350,6 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-//    public void moveBackward(double distance) {
-//        double sleepTime = (distance / speed * 1000);
-//        left.setPower(-.5);
-//        right.setPower(.5);
-//        op.sleep((long) sleepTime);
-//        left.setPower(0);
-//        right.setPower(0);
-//    }
-
     //@direction: true = left, false = right
     public void inPlaceTurn(double degrees, boolean direction) {
 
@@ -385,10 +381,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.25);
-        motorRightBack.setPower(0.25);
-        motorLeftFront.setPower(0.25);
-        motorRightFront.setPower(0.25);
+        motorLeftBack.setPower(motor_speed_turn);
+        motorRightBack.setPower(motor_speed_turn);
+        motorLeftFront.setPower(motor_speed_turn);
+        motorRightFront.setPower(motor_speed_turn);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
                 motorRightFront.isBusy()))
@@ -521,6 +517,10 @@ public class hexChassis {
             op.telemetry.addData("ColorSensorStatus", "Unknown");
             blued = false;
         }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return blued;
     }
@@ -570,4 +570,73 @@ public class hexChassis {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    /******** Left Front Motor **********/
+    public void moveMotorLeftFront(double distance){
+        double ticksToMove = counts_per_inch * distance;
+        double ticksLocationToMove = motorLeftFront.getCurrentPosition() + ticksToMove;
+        motorLeftFront.setTargetPosition((int)ticksLocationToMove); //TODO : Check for rounding
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftFront.setPower(0.5);
+        while (op.opModeIsActive() && motorLeftFront.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorLeftFront.getCurrentPosition() + " busy=" + motorLeftFront.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorLeftFront.setPower(0);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    /******** Right Front Motor **********/
+    public void moveMotorRightFront(double distance){
+        double ticksToMove = counts_per_inch * distance;
+        double ticksLocationToMove = motorRightFront.getCurrentPosition() + ticksToMove;
+        motorRightFront.setTargetPosition((int)ticksLocationToMove); //TODO : Check for rounding
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setPower(0.5);
+        while (op.opModeIsActive() && motorRightFront.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorRightFront.getCurrentPosition() + " busy=" + motorRightFront.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorRightFront.setPower(0);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    /******** Left Back Motor **********/
+    public void moveMotorLeftBack(double distance){
+        double ticksToMove = counts_per_inch * distance;
+        double ticksLocationToMove = motorLeftBack.getCurrentPosition() + ticksToMove;
+        motorLeftBack.setTargetPosition((int)ticksLocationToMove); //TODO : Check for rounding
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftBack.setPower(0.5);
+        while (op.opModeIsActive() && motorLeftBack.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorLeftBack.getCurrentPosition() + " busy=" + motorLeftBack.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorLeftBack.setPower(0);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    /******** Right Back Motor **********/
+    public void moveMotorRightBack(double distance){
+        double ticksToMove = counts_per_inch * distance;
+        double ticksLocationToMove = motorRightBack.getCurrentPosition() + ticksToMove;
+        motorRightBack.setTargetPosition((int)ticksLocationToMove); //TODO : Check for rounding
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightBack.setPower(0.5);
+        while (op.opModeIsActive() && motorRightBack.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorRightBack.getCurrentPosition() + " busy=" + motorRightBack.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorRightBack.setPower(0);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 }
