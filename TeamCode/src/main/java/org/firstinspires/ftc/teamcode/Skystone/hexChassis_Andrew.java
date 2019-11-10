@@ -31,7 +31,6 @@ public class hexChassis_Andrew extends LinearOpMode {
     final static double ROBOT_DIAMETER = 14.0;
     final static double CALLIBRATION = 1.0;
     final static double WHEEL_DIAMETER = 4.0;
-    final static float DEFAULT_POWER = 0.25f;
 
     public final static double TICK_MARKS = 288;
     public final static double TICKS_PER_INCH = TICK_MARKS * CALLIBRATION/(WHEEL_DIAMETER*Math.PI);
@@ -70,7 +69,6 @@ public class hexChassis_Andrew extends LinearOpMode {
     /**
      * Hex Motor Chassis Specific encoderDrive()
      * @param distance Inches to move forward or backward (forward: +, backward: -)
-     * @param opModeIsActiveas Type "opModeIsActive()" boolean in autonomousFrame (program extending LinerOpMode)
      */
 
     public void encoderDriveFB(double distance, double callibration) {
@@ -92,15 +90,15 @@ public class hexChassis_Andrew extends LinearOpMode {
 
 
         if (newTarget > 0) {
-            leftFront.setPower(DEFAULT_POWER);
-            leftBack.setPower(DEFAULT_POWER);
-            rightFront.setPower(DEFAULT_POWER);
-            rightBack.setPower(DEFAULT_POWER);
+            leftFront.setPower(-0.5);
+            leftBack.setPower(-0.5);
+            rightFront.setPower(0.5);
+            rightBack.setPower(0.5);
         } else {
-            leftFront.setPower(-DEFAULT_POWER);
-            leftBack.setPower(-DEFAULT_POWER);
-            rightFront.setPower(-DEFAULT_POWER);
-            rightBack.setPower(-DEFAULT_POWER);
+            leftFront.setPower(0.5);
+            leftBack.setPower(0.5);
+            rightFront.setPower(0.5);
+            rightBack.setPower(0.5);
         }
 
         while (leftFront.isBusy()) {
@@ -113,14 +111,6 @@ public class hexChassis_Andrew extends LinearOpMode {
         rightBack.setPower(0);
 
 
-        //int newRightFrontTarget;
-        //int newLeftBackTarget;
-        //int newRightBackTarget;
-
-        double motorLeftFrontEncoder;
-        double motorRightFrontEncoder;
-        double motorLeftBackEncoder;
-        double motorRightBackEncoder;
     }
 
     /*
@@ -135,8 +125,6 @@ public class hexChassis_Andrew extends LinearOpMode {
 
     /**
      * Hex Motor Chassis Specific encoderDrive()
-     * @param driveFB Inches to move forward or backward (forward: +, backward: -)
-     * @param speed Speed of robot (min: 0, max: 1)
      */
 
     public void runOpMode() {
@@ -163,19 +151,19 @@ public class hexChassis_Andrew extends LinearOpMode {
             rightFront.setTargetPosition(-newTarget);
             leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            leftFront.setPower(DEFAULT_POWER);
-            leftBack.setPower(DEFAULT_POWER);
-            rightFront.setPower(DEFAULT_POWER);
-            rightBack.setPower(DEFAULT_POWER);
+            leftFront.setPower(-0.5);
+            leftBack.setPower(-0.5);
+            rightFront.setPower(-0.5);
+            rightBack.setPower(-0.5);
         } else {
             leftFront.setTargetPosition(-newTarget);
             rightFront.setTargetPosition(newTarget);
             leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            leftFront.setPower(-DEFAULT_POWER);
-            leftBack.setPower(-DEFAULT_POWER);
-            rightFront.setPower(-DEFAULT_POWER);
-            rightBack.setPower(-DEFAULT_POWER);
+            leftFront.setPower(0.5);
+            leftBack.setPower(0.5);
+            rightFront.setPower(0.5);
+            rightBack.setPower(0.5);
         }
 
         while (leftFront.isBusy()) {
@@ -189,24 +177,25 @@ public class hexChassis_Andrew extends LinearOpMode {
 
     }
 
-    public void diagonallyMove(LinearOpMode opMode, boolean direction, double distance) {
+    public void diagonallyMove(boolean direction, double distance) {
 
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         if (direction == true) {
-            leftFront.setPower(DEFAULT_POWER);
-            leftBack.setPower(DEFAULT_POWER;
-            rightFront.setPower(-0.25);
-            rightBack.setPower(-0.25);
+            leftFront.setPower(0.5);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0.5);
         } else {
-            leftFront.setPower(-0.25);
-            leftBack.setPower(-0.25);
-            rightFront.setPower(DEFAULT_POWER);
-            rightBack.setPower(DEFAULT_POWER);
+            leftFront.setPower(0);
+            leftBack.setPower(.5);
+            rightFront.setPower(.5);
+            rightBack.setPower(0);
         }
+
         while (leftFront.isBusy()) {
 
         }
@@ -217,6 +206,33 @@ public class hexChassis_Andrew extends LinearOpMode {
     }
 
 
+    public void lateralDrift(boolean direction, double distance) {
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        if (direction == true) {
+            leftFront.setPower(-0.25);
+            leftBack.setPower(0.25);
+            rightFront.setPower(0.25);
+            rightBack.setPower(-0.25);
+        } else {
+            leftFront.setPower(-0.25);
+            leftBack.setPower(-0.25);
+            rightFront.setPower(0.25);
+            rightBack.setPower(0.25);
+        }
+
+        while (leftFront.isBusy()) {
+
+        }
+        leftFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+        leftFront.setPower(0);
+    }
     /*
     public void startMotors() {
 
