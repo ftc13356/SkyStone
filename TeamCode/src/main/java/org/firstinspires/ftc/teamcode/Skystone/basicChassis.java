@@ -107,15 +107,17 @@ public class basicChassis {
      */
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
+        double boomer=1.0;
         if (direction == true) {
-            int x = 1;
-            stone_claw_servo.setPosition(1.0);
+            boomer=1.0;
+            stone_claw_servo.setPosition(boomer);
         } else {
-            stone_claw_servo.setPosition(-1.0);
+            boomer=0.5;
+            stone_claw_servo.setPosition(boomer);
         }
 
     }
-
+    //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         boolean redded= false;
         float hsvValues[] = {0F, 0F, 0F};
@@ -126,9 +128,6 @@ public class basicChassis {
                 (int) (tape_color_sensor.green() * SCALE_FACTOR),
                 (int) (tape_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-
-        /*
-        op.telemetry.addData("Hue", hsvValues[0]);
         if (hsvValues[0] >= 340 || hsvValues[0] <= 20) {
             redded = true;
             op.telemetry.addData("ColorSensorStatus", "Red");
@@ -137,10 +136,10 @@ public class basicChassis {
             op.telemetry.addData("ColorSensorStatus", "Unknown");
             redded = false;
         }
-         */
-
-        op.telemetry.addData("xxxxxxxxx ", "%i %i %i", tape_color_sensor.red(), tape_color_sensor.green(), tape_color_sensor.blue());
-        op.telemetry.addData(">>>>>>>>> ", "%.3f %.3f %.3f", hsvValues[0], hsvValues[1], hsvValues[2]);
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return redded;
     }
@@ -148,8 +147,11 @@ public class basicChassis {
     public boolean tapeIsBlue() {
         boolean blued;
         float hsvValues[] = {0F, 0F, 0F};
-        Color.RGBToHSV((tape_color_sensor.red()), (tape_color_sensor.green()), (tape_color_sensor.blue()), hsvValues);
-        op.telemetry.addData("Hue", hsvValues[0]);
+        final double SCALE_FACTOR = 255;
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
 
         if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
             op.telemetry.addData("ColorSensorStatus", "Blue");
@@ -164,5 +166,18 @@ public class basicChassis {
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return blued;
+    }
+    //will move until it detects blue/red, momentum causse bug
+    public void moveForwardUntilBlue(){
+        while(tapeIsBlue()== false){
+            left.setPower(0.25);
+            right.setPower(-0.25);
+        }
+    }
+    public void moveForwardUntilRed(){
+        while(tapeIsRed()== false){
+            left.setPower(0.25);
+            right.setPower(-0.25);
+        }
     }
 }

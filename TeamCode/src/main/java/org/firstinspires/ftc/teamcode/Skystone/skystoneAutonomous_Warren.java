@@ -3,15 +3,14 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "Warren Test")
+
+@Autonomous(name = "Warren_AutoTest")
 public class skystoneAutonomous_Warren extends LinearOpMode {
-    private Servo claw1;
-    basicChassis robot = new basicChassis();
+    hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
-
-    public void skystoneAutonomous_Warren() {
+    //public Servo stone_claw_servo;
+    public skystoneAutonomous_Warren() {
 
     }
     @Override
@@ -24,6 +23,7 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.initChassis(this);
+        waitForStart();
 
         //path 1
         /*waitForStart();
@@ -89,16 +89,29 @@ public class skystoneAutonomous_Warren extends LinearOpMode {
         sleep(1000);
         robot.moveForward(40);*/
 
-        robot.moveForward(5);
-        robot.clawClamp(true);
-        robot.clawClamp(false);
-        robot.moveBackward(5);
-        stop();
-        waitForStart();
-        //robot.tapeIsRed();
+        /*robot.liftAutonomous(2);
+        sleep(2000);
+        robot.liftAutonomous(-2);
+        sleep(2000);
+        */
+        robot.moveForwardUntilBlue();
 
 
+        /*
+        robot.stone_claw_servo.setPosition(0.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(1.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(0.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(-1.0);
+        sleep(3000);
+        robot.stone_claw_servo.setPosition(0.0);
+        sleep(2000);
+        */
+
         stop();
+
     }
 
 }

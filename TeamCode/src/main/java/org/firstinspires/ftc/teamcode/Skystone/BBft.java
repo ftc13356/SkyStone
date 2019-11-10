@@ -4,7 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * <h1>first SkyStone autonomous program</h1>
@@ -17,15 +18,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @version 1.0
  * @since   2019-10-12
  */
-@Autonomous(name = "Skystone Demo1.1")
-public class SkyStoneAutonomous_Aiden_1 extends LinearOpMode {
+@Autonomous(name = "BBft")
+public class BBft extends LinearOpMode {
 
     private basicChassis robot   = new basicChassis();
     private ElapsedTime  runtime = new ElapsedTime();
+    private Servo stone_claw_servo;
 
-    public SkyStoneAutonomous_Aiden_1 () {
-
-    }
     /**
      * This method is for te autonomous operation of the robot on the foundation side.
      * 1st you inPlaceTurn left
@@ -40,27 +39,28 @@ public class SkyStoneAutonomous_Aiden_1 extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
+
         telemetry.addData("Status", "Ready to go"); telemetry.update(); sleep((long) 100);
 
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.initChassis(this);
+       robot.initChassis(this);
         telemetry.addData("Status", "Ready to go 1"); telemetry.update(); sleep((long) 100);
         waitForStart();
-        robot.moveForward(8);
-        robot.inPlaceTurn(130,true);
 
-        telemetry.addData("Status", "Ready to go 2"); telemetry.update(); sleep((long) 100);sleep((long) 100);
-        robot.moveForward(15);
-        robot.inPlaceTurn(115,false);
-        robot.moveForward(16);
-        //need servo program to clamp on foundation
-        robot.moveBackward(24);
-        //need servo program to unclamp foundation
-        robot.inPlaceTurn(90,true);
-        robot.moveBackward(70);
+        robot.moveForward(22);
+        stone_claw_servo.setPosition(-6);
+        sleep(1500);
+        stone_claw_servo.setPosition(-5);
+        sleep(5000);
+        robot.moveBackward(155);
+        stone_claw_servo.setPosition(7);
+        sleep(4000);
+        robot.inPlaceTurn(105,true);
+        robot.moveBackward(65);
 
         stop();
     }
