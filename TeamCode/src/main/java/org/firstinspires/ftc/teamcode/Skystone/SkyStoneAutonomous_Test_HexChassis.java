@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "Aamod_HexChassis")
-public class SkyStoneAutonomous_Aamod_HexChassis extends LinearOpMode{
+@Autonomous(name = "Test_HexChassis")
+public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{
 
     hexChassis robot = new hexChassis(); //TODO: private?
     private ElapsedTime runtime = new ElapsedTime();
 
-    public void SkyStoneAutonomous_Aamod_HexChassis() {
+    public void SkyStoneAutonomous_Test_HexChassis() {
     }
 
     @Override
