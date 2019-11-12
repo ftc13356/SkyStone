@@ -103,6 +103,12 @@ public class hexChassis {
         //initialize claw
         clawClamp(true);
     }
+    public void stopAllMotors() {
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
 
     public void moveForwardTeleop(double distance) {
         // Changes motor mode back to default
