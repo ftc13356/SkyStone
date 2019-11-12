@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -14,7 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * user friendly and it is assumed as a high quality code.
  *
  * @author  Aamod
- * @version 1.0
+ * @version 1.2
  * @since   2019-Nov-8
  */
 @Autonomous(name = "BBPwS2_17or33")
@@ -22,6 +23,8 @@ public class BBPwS2_17or33 extends LinearOpMode{
 
     hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
+    private Servo stone_claw_servo;
+
 
     public BBPwS2_17or33() {
 
@@ -66,28 +69,29 @@ public class BBPwS2_17or33 extends LinearOpMode{
         waitForStart();
 
         //true = left, right = false
+        robot.moveForward(15);
         robot.inPlaceTurn(90, false);
-        robot.moveForward(10);
+        robot.moveForward(90);
         robot.inPlaceTurn(90, true);
-        robot.moveForward(10);
-        //arm down
-        robot.moveBackward(5);
+        robot.moveForward(20);
+        stone_claw_servo.setPosition(-4.0);
+        robot.moveBackward(10);
         robot.inPlaceTurn(90, true);
-        robot.moveForward(50);
-        //move sideways right
+        robot.moveForward(60);
+        robot.moveRight(15);
         robot.moveForward(5);
-        //open arm
-        //move sideways left
+        stone_claw_servo.setPosition(4.0);
+        robot.moveLeft(15);
         robot.inPlaceTurn(180, true);
-        robot.moveForward(70);
+        robot.moveForward(80);
         robot.inPlaceTurn(90, true);
-        robot.moveForward(10);
-        //arm down
-        robot.moveBackward(5);
+        robot.moveForward(15);
+        stone_claw_servo.setPosition(-4.0);
+        robot.moveBackward(10);
         robot.inPlaceTurn(90,true);
-        robot.moveForward(40);
+        robot.moveForward(60);
         robot.inPlaceTurn(90,false);
-        robot.moveForward(5);
+        robot.moveForward(10);
         //open arm
         robot.moveBackward(5);
         robot.inPlaceTurn(90, false);
