@@ -97,8 +97,11 @@ public class hexChassis_Teleop extends LinearOpMode {
                 telemetry.addData("Servo", " CLAW DOWN right_bumper");
                 telemetry.update();
                 if (!testing) robot.clawClamp(false);
+            } else if (motor_lift_up == 0.00) {
+                telemetry.addData("Motor", " RACK UP right_trigger (%.2f)", motor_lift_up);
+                telemetry.update();
+                if (!testing) robot.stopAllMotors();
             }
-
             //telemetry.addData("Motor", "left (%.2f), right (%.2f)", left_stick_y, left_stick_x);
             //telemetry.update();
 
