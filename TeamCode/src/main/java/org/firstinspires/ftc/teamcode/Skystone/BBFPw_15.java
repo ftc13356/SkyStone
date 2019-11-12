@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * @version 1.0
  * @since   2019-10-12
  */
-@Autonomous(name = "BBft")
-public class BBft extends LinearOpMode {
+@Autonomous(name = "BBFw_15")
+public class BBFPw_15 extends LinearOpMode {
 
     private basicChassis robot   = new basicChassis();
     private ElapsedTime  runtime = new ElapsedTime();

@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @since   2019-10-12
  */
 @Autonomous(name = "Skystone Demo4")
+@Disabled
 public class SkyStoneAutonomous_Aiden_4 extends LinearOpMode {
 
     basicChassis         robot   = new basicChassis();

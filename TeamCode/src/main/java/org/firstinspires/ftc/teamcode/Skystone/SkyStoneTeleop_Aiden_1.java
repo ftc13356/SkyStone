@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Skystone;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -17,6 +18,7 @@ import com.qualcomm.robotcore.util.Range;
  * @since 2019-10-19
  */
 @TeleOp(name = "SkyStone Teleop 1")
+@Disabled
 public class SkyStoneTeleop_Aiden_1 extends LinearOpMode {
 
     private basicChassis robot = new basicChassis();

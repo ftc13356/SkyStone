@@ -23,15 +23,12 @@ public class hexChassis_Teleop extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    public void SkyStoneAutonomous_Aiden_1() {
+    public hexChassis_Teleop() {
 
     }
 
     @Override
     public void runOpMode() {
-
-        double leftPower;
-        double rightPower;
 
         telemetry.addData("Status", "Ready to go");
         telemetry.update();
@@ -41,46 +38,119 @@ public class hexChassis_Teleop extends LinearOpMode {
         waitForStart();
         //robot.clawClamp(true);
 
-        while (!isStopRequested()) {
+        //while (!isStopRequested()) {
 
             float left_stick_y = -gamepad1.left_stick_y;
+            float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
-            boolean stone_claw_up = gamepad1.x;
-            boolean stone_claw_down = gamepad1.y;
-            telemetry.addData("Motor", "left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
+            float motor_lift_up = gamepad2.right_trigger;
+            float motor_lift_down = gamepad2.left_trigger;
+            boolean stone_claw_up = gamepad2.right_bumper;
+            boolean stone_claw_down = gamepad2.left_bumper;
+            telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
             telemetry.update();
 
-
-            if ((left_stick_y == 1.00) && (right_stick_x == -0.00)) {
-                telemetry.addData("Motor", " FORWARD left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
+            boolean testing = false;
+            /*
+            if (left_stick_y == 1.00) {
+                telemetry.addData("Motor", " FORWARD left_y (%.2f)", left_stick_y);
                 telemetry.update();
-                robot.moveForwardTeleop(8);
-            } else if ((left_stick_y == -1.00) && (right_stick_x == -0.00)) {
-                telemetry.addData("Motor", " BACKWARD left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
+                if (!testing) robot.moveForwardTeleop(8);
+            } else if (left_stick_y == -1.00) {
+                telemetry.addData("Motor", " BACKWARD left_y(%.2f)", left_stick_y);
                 telemetry.update();
-                robot.moveBackwardTeleop(8);
-            } else if ((left_stick_y == -0.00) && (right_stick_x == -1.00)) {
-                telemetry.addData("Motor", " TURN RIGHT left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
+                if (!testing) robot.moveBackwardTeleop(8);
+            } else if (left_stick_x == -1.00) {
+                telemetry.addData("Motor", " SIDEWAYS RIGHT left_x (%.2f)", left_stick_x);
                 telemetry.update();
-                robot.inPlaceTurnTeleop(10, false);
-                //sleep(1000);
-            } else if ((left_stick_y == -0.00) && (right_stick_x == 1.00)) {
-                telemetry.addData("Motor", " TURN LEFT left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
+                if (!testing) robot.moveRight(5);
+            } else if (left_stick_x == 1.00) {
+                telemetry.addData("Motor", " SIDEWAYS LEFT left_x (%.2f)", left_stick_x);
                 telemetry.update();
-                robot.inPlaceTurnTeleop(10, true);
-                //sleep(1000);
-            } else if (stone_claw_down = true) {
-                telemetry.addData("Servo", " STONE CLAW Down");
+                if (!testing) robot.moveLeft(5);
+            } else if (right_stick_x == -1.00) {
+                telemetry.addData("Motor", " TURN RIGHT right_x (%.2f)", right_stick_x);
                 telemetry.update();
-                //   robot.clawClamp(false);
-            } else if (stone_claw_up = true) {
-                telemetry.addData("Servo", " STONE CLAW UP ");
+                if (!testing) robot.inPlaceTurnTeleop(90, false);
+            } else if (right_stick_x == 1.00) {
+                telemetry.addData("Motor", " TURN LEFT right_x (%.2f)", right_stick_x);
                 telemetry.update();
-                // robot.clawClamp(true);
+                if (!testing) robot.inPlaceTurnTeleop(90, true);
+            } else if (motor_lift_up == 1.00) {
+                telemetry.addData("Motor", " RACK UP right_trigger (%.2f)", motor_lift_up);
+                telemetry.update();
+                if (!testing) robot.liftAutonomous(4);
+            } else if (motor_lift_down == 1.00) {
+                telemetry.addData("Motor", " RACK DOWN left_trigger (%.2f)", motor_lift_down);
+                telemetry.update();
+                if (!testing) robot.liftAutonomous(-4);
+            } else if (stone_claw_up) {
+                telemetry.addData("Servo", " CLAW UP left_bumper");
+                telemetry.update();
+                if (!testing) robot.clawClamp(true);
+            } else if (stone_claw_down) {
+                telemetry.addData("Servo", " CLAW DOWN right_bumper");
+                telemetry.update();
+                if (!testing) robot.clawClamp(false);
             }
 
-            telemetry.addData("Motor", "left (%.2f), right (%.2f)", left_stick_y, right_stick_x);
+            //telemetry.addData("Motor", "left (%.2f), right (%.2f)", left_stick_y, left_stick_x);
+            //telemetry.update();
+             */
+        while (left_stick_y == -1.00) {
+            robot.motorLeftBack.setPower(1);
+            robot.motorRightBack.setPower(1);
+            robot.motorLeftFront.setPower(1);
+            robot.motorRightFront.setPower(1);
+        }
+        while (left_stick_y == 1.00) {
+            robot.motorLeftBack.setPower(-1);
+            robot.motorRightBack.setPower(-1);
+            robot.motorLeftFront.setPower(-1);
+            robot.motorRightFront.setPower(-1);
+        }
+        while (left_stick_x == -1.00) {
+            robot.motorLeftBack.setPower(1);
+            robot.motorRightBack.setPower(-1);
+            robot.motorLeftFront.setPower(-1);
+            robot.motorRightFront.setPower(1);
+        }
+        while (left_stick_x == 1.00) {
+            robot.motorLeftBack.setPower(-1);
+            robot.motorRightBack.setPower(1);
+            robot.motorLeftFront.setPower(1);
+            robot.motorRightFront.setPower(-1);
+        }
+        while (right_stick_x == -1.00) {
+            robot.motorLeftBack.setPower(1);
+            robot.motorRightBack.setPower(1);
+            robot.motorLeftFront.setPower(-1);
+            robot.motorRightFront.setPower(-1);
+        }
+        while (right_stick_x == 1.00) {
+            robot.motorLeftBack.setPower(-1);
+            robot.motorRightBack.setPower(-1);
+            robot.motorLeftFront.setPower(1);
+            robot.motorRightFront.setPower(1);
+        }
+        if (motor_lift_up == 1.00) {
+            telemetry.addData("Motor", " RACK UP right_trigger (%.2f)", motor_lift_up);
             telemetry.update();
+            if (!testing) robot.liftAutonomous(4);
+        } else if (motor_lift_down == 1.00) {
+            telemetry.addData("Motor", " RACK DOWN left_trigger (%.2f)", motor_lift_down);
+            telemetry.update();
+        } else if (stone_claw_up) {
+            telemetry.addData("Servo", " CLAW UP left_bumper");
+            telemetry.update();
+            if (!testing) robot.clawClamp(true);
+        } else if (stone_claw_down) {
+            telemetry.addData("Servo", " CLAW DOWN right_bumper");
+            telemetry.update();
+            if (!testing) robot.clawClamp(false);
+        }
+
+
         }
     }
-}
+//}
