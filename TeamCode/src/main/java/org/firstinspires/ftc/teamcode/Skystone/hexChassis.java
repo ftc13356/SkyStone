@@ -170,13 +170,13 @@ public class hexChassis {
 
         if (direction == true) {
             motorLeftBack.setPower(-0.8);
-            motorRightBack.setPower(-0.8);
-            motorLeftFront.setPower(0.8);
+            motorLeftFront.setPower(-0.8);
+            motorRightBack.setPower(0.8);
             motorRightFront.setPower(0.8);
         } else {
             motorLeftBack.setPower(0.8);
-            motorRightBack.setPower(0.8);
-            motorLeftFront.setPower(-0.8);
+            motorLeftFront.setPower(0.8);
+            motorRightBack.setPower(-0.8);
             motorRightFront.setPower(-0.8);
         }
     }
