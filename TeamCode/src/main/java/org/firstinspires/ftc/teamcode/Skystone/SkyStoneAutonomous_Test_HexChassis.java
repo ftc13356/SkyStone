@@ -62,8 +62,35 @@ public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{
         robot.moveRight(-5);
         sleep(2000);
         telemetry.addData("Status:", "MoveLeft -5");
-        telemetry.update();
         robot.moveLeft(-5);
+        sleep(2000);
+        telemetry.addData("Status:", "Turn inPlace Left");
+        telemetry.update();
+        robot.inPlaceTurn(90, true); //Left = true
+        sleep(2000);
+        telemetry.addData("Status:", "Turn inPlace Right");
+        telemetry.update();
+        robot.inPlaceTurn(90, false); //Right = false
+        sleep(2000);
+        telemetry.addData("Status:", "Turn normalTurn Left");
+        telemetry.update();
+        robot.inPlaceTurn(180, false); //Right = false
+        sleep(2000);
+        telemetry.addData("Status:", "Turn normalTurn Left");
+        telemetry.update();
+        robot.inPlaceTurn(180, true  ); //Right = false
+        sleep(2000);
+        telemetry.addData("Status:", "Turn normalTurn Left");
+        telemetry.update();
+
+
+
+        /*robot.normalTurn(360, true); //Left = true
+        sleep(2000);
+        telemetry.addData("Status:", "Turn normalTurn Right");
+        telemetry.update();
+        robot.normalTurn(360, false); //Right = false
+        */
 
         //move sideways left
         /*

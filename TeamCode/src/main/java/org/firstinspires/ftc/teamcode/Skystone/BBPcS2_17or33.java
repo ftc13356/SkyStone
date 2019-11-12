@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -24,6 +25,7 @@ public class BBPcS2_17or33 extends LinearOpMode{
 
     private hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
+    private Servo stone_claw_servo;
 
     public BBPcS2_17or33() {
 

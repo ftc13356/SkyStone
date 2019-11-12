@@ -195,7 +195,7 @@ public class hexChassis {
         motorRightBack.setPower(motor_speed_fb);
         motorLeftBack.setPower(motor_speed_fb);
 
-        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
             op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
@@ -241,12 +241,13 @@ public class hexChassis {
         motorLeftFront.setPower(motor_speed_fb);
         motorRightFront.setPower(motor_speed_fb);
 
-        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
 //            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
 //            op.telemetry.update();
 //            op.idle();
+            op.idle();
         }
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
@@ -280,19 +281,18 @@ public class hexChassis {
                                 "LB: " + (int)newLeftBackTargetPosition + "LF: " + (int)newLeftFrontTargetPosition +
                                 "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
         op.telemetry.update();
-        op.sleep(5000);
 
         motorLeftBack.setPower(motor_speed_side);
         motorRightBack.setPower(motor_speed_side);
         motorLeftFront.setPower(motor_speed_side);
         motorRightFront.setPower(motor_speed_side);
 
-        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
     //        op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
     //        op.telemetry.update();
-    //        op.idle();
+            op.idle();
         }
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
@@ -321,7 +321,7 @@ public class hexChassis {
                 "LB: " + (int)newLeftBackTargetPosition + "LF: " + (int)newLeftFrontTargetPosition +
                 "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
         op.telemetry.update();
-        op.sleep(5000);
+        //op.sleep(5000);
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -333,12 +333,12 @@ public class hexChassis {
         motorLeftFront.setPower(motor_speed_side);
         motorRightFront.setPower(motor_speed_side);
 
-        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
 //            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
 //            op.telemetry.update();
-//            op.idle();
+            op.idle();
         }
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
@@ -387,11 +387,11 @@ public class hexChassis {
         motorLeftFront.setPower(motor_speed_turn);
         motorRightFront.setPower(motor_speed_turn);
 
-        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() ||
+        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
-            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            op.telemetry.update();
+            //op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+            //op.telemetry.update();
             op.idle();
         }
         motorLeftBack.setPower(0);
@@ -438,14 +438,14 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(0.5);
-        motorRightBack.setPower(0.5);
-        motorLeftFront.setPower(0.5);
-        motorRightFront.setPower(0.5);
+        motorLeftBack.setPower(motor_speed_turn);
+        motorRightBack.setPower(motor_speed_turn);
+        motorLeftFront.setPower(motor_speed_turn);
+        motorRightFront.setPower(motor_speed_turn);
 
         while (op.opModeIsActive() && motorLeftBack.isBusy()) {
-            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            op.telemetry.update();
+            //op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+            //op.telemetry.update();
             op.idle();
         }
         motorLeftBack.setPower(0);
@@ -510,7 +510,7 @@ public class hexChassis {
                 .addData("S", "%.3f", hsvValues[1])
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
-        op.sleep(1000);
+        op.sleep(200);
         if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
             op.telemetry.addData("ColorSensorStatus", "Blue");
             blued = true;
