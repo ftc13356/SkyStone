@@ -105,6 +105,12 @@ public class hexChassis {
         //clawClamp(true);
         clawClampPosition(1.0);
     }
+    public void stopAllMotors() {
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
 
     public void moveForwardTeleop(double distance) {
         // Changes motor mode back to default
@@ -134,6 +140,34 @@ public class hexChassis {
 
     }
 
+    public void moveRightTeleop(double distance) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorLeftBack.setPower(0.5);
+        motorRightBack.setPower(-0.5);
+        motorLeftFront.setPower(-0.5);
+        motorRightFront.setPower(0.5);
+
+    }
+
+    public void moveLeftTeleop(double distance) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorLeftBack.setPower(-0.5);
+        motorRightBack.setPower(0.5);
+        motorLeftFront.setPower(0.5);
+        motorRightFront.setPower(-0.5);
+
+    }
+
     //@direction: true = left, false = right
     public void inPlaceTurnTeleop(double degrees, boolean direction) {
         // Changes motor mode back to default
@@ -144,13 +178,13 @@ public class hexChassis {
 
         if (direction == true) {
             motorLeftBack.setPower(-0.8);
-            motorRightBack.setPower(-0.8);
-            motorLeftFront.setPower(0.8);
+            motorLeftFront.setPower(-0.8);
+            motorRightBack.setPower(0.8);
             motorRightFront.setPower(0.8);
         } else {
             motorLeftBack.setPower(0.8);
-            motorRightBack.setPower(0.8);
-            motorLeftFront.setPower(-0.8);
+            motorLeftFront.setPower(0.8);
+            motorRightBack.setPower(-0.8);
             motorRightFront.setPower(-0.8);
         }
     }
