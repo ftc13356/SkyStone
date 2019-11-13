@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * user friendly and it is assumed as a high quality code.
  *
  * @author  Aamod
- * @version 1.2
+ * @version 1.3
  * @since   2019-Nov-8
  */
 @Autonomous(name = "BBPwS2_17or33")
@@ -70,9 +70,10 @@ public class BBPwS2_17or33 extends LinearOpMode{
 
         //true = left, right = false
         robot.moveForward(15);
-        robot.inPlaceTurn(90, false);
-        robot.moveForward(100);
-        robot.inPlaceTurn(90, true);
+        robot.moveRight(100);
+        //robot.inPlaceTurn(90, false);
+        //robot.moveForward(100);
+        //robot.inPlaceTurn(90, true);
         robot.moveForward(17);
         //robot.stone_claw_servo.setPosition(0.0);
         //robot.clawClampPosition(0.0);
@@ -80,17 +81,21 @@ public class BBPwS2_17or33 extends LinearOpMode{
         sleep(500);
         robot.liftAutonomous(4);
         robot.moveBackward(10);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(60);
-        robot.moveRight(20);
+        robot.moveLeft(70);
+        //robot.inPlaceTurn(90, true);
+        //robot.moveForward(60);
+        //robot.moveRight(20);
         robot.moveForward(10);
         //robot.clawClampPosition(0.8);
+        robot.liftAutonomous(-4);
         robot.clawClamp(true);
+        robot.liftAutonomous(-1);
         sleep(300);
-        robot.moveLeft(25);
-        robot.inPlaceTurn(180, true);
-        robot.moveForward(80);
-        robot.inPlaceTurn(90, true);
+        robot.clawClamp(false);
+        robot.moveBackward(15);
+        robot.moveForward(3);
+        robot.moveRight(15);
+        /*robot.inPlaceTurn(90, true);
         robot.moveForward(15);
         robot.liftAutonomous(-4);
         robot.clawClampPosition(0.0);
@@ -103,7 +108,7 @@ public class BBPwS2_17or33 extends LinearOpMode{
         robot.clawClamp(true);
         robot.moveBackward(5);
         robot.inPlaceTurn(90, false);
-        robot.moveForward(30);
+        robot.moveForward(30);*/
         //now robot should be parked on line
     }
 }

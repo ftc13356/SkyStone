@@ -36,7 +36,7 @@ public class hexChassis {
 
     // Motor Speed for various Operations
     final double motor_speed_fb = 1; //forward & backward
-    final double motor_speed_side = 1;
+    final double motor_speed_side = 0.75;
     final double motor_speed_turn = 0.75;
 
     /* local OpMode members. */
