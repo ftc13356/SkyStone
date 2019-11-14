@@ -5,20 +5,21 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RBFbPc_15 {
-    /**
-     * <h1>first SkyStone autonomous program</h1>
-     * for testing basicChassis that Nathan and Andrew wrote
-     * <p>
-     * Giving proper comments in your program makes it more
-     * user friendly and it is assumed as a high quality code.
-     *
-     * @author  Nathan
-     * @version 1.0
-     * @since   2019-Nov-13
-     */
+
     @Autonomous(name = "RBFbPc_15")
-    public class BBFPw_15 extends LinearOpMode {
+    public class RBFbPc_15 extends LinearOpMode {
+        /**
+         * <h1>first SkyStone autonomous program</h1>
+         * for testing basicChassis that Nathan and Andrew wrote
+         * <p>
+         * Giving proper comments in your program makes it more
+         * user friendly and it is assumed as a high quality code.
+         *
+         * @author  Nathan
+         * @version 1.0
+         * @since   2019-Nov-13
+         */
+
 
         private hexChassis robot = new hexChassis();
         private ElapsedTime runtime = new ElapsedTime();
@@ -42,7 +43,7 @@ public class RBFbPc_15 {
             robot.moveForward(18);
             robot.clawClamp(false);
             sleep(1000);
-            robot.liftAutonomous(1.3);
+            robot.liftAutonomous(-1.3);
             robot.moveBackward(18);
             robot.clawClamp(true);
             sleep(1000);
@@ -53,4 +54,3 @@ public class RBFbPc_15 {
             stop();
         }
     }
-}
