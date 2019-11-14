@@ -35,9 +35,9 @@ public class hexChassis {
     final double wheel_diameter = 4.0;
 
     // Motor Speed for various Operations
-    final double motor_speed_fb = 0.5; //forward & backward
-    final double motor_speed_side = 0.5;
-    final double motor_speed_turn = 0.2;
+    final double motor_speed_fb = 1; //forward & backward
+    final double motor_speed_side = 0.75;
+    final double motor_speed_turn = 0.75;
 
     /* local OpMode members. */
     private LinearOpMode op              = null;
@@ -59,6 +59,7 @@ public class hexChassis {
         /******* tetrix motor ********/
         counts_per_motor_tetrix = 1440; //TODO
         //counts_per_inch
+        //counts_per_inch_tetrix_lift = 100; //550 for Tetrix and 100 for Hex
         counts_per_inch_tetrix_lift = 550; //TODO
     }
 
@@ -100,8 +101,9 @@ public class hexChassis {
         motorLift.setDirection(DcMotor.Direction.FORWARD);
         motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        //initialize claw
-        clawClamp(true);
+        //Initialize claw
+        //clawClamp(true);
+        clawClampPosition(1.0);
     }
     public void stopAllMotors() {
         motorLeftBack.setPower(0);
@@ -485,7 +487,7 @@ public class hexChassis {
         op.telemetry.addData("claw position :", claw_position);
         op.telemetry.update();
         stone_claw_servo.setPosition(claw_position);
-        op.sleep(100);
+        op.sleep(50);
     }
 
     //detects if red or if blue returns true and false
