@@ -53,7 +53,7 @@ public class BBfst extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForward(22);
+        robot.moveForward(24);
 
         stone_claw_servo.setPosition(-6);
         sleep(1500);
@@ -71,7 +71,7 @@ public class BBfst extends LinearOpMode {
         robot.inPlaceTurn(135,true);
         robot.moveForward(46);
         robot.inPlaceTurn(55,false);
-        robot.moveBackward(24);
+        robot.moveBackward(20);
         stop();
 
     }

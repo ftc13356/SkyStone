@@ -35,19 +35,19 @@ public class hexChassis_Teleop extends LinearOpMode {
         robot.initChassis(this);
 
         waitForStart();
-        robot.clawClamp(true);
+        //robot.clawClamp(true);
 
         while (!isStopRequested()) {
 
             float left_stick_y = -gamepad1.left_stick_y;
             float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
-            float motor_lift_up = gamepad2.right_trigger;
-            float motor_lift_down = gamepad2.left_trigger;
-            boolean stone_claw_up = gamepad2.right_bumper;
-            boolean stone_claw_down = gamepad2.left_bumper;
-            telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
-            telemetry.update();
+            boolean motor_lift_up = gamepad2.right_bumper;
+            float motor_lift_down = gamepad2.right_trigger;
+            boolean stone_claw_up = gamepad2.left_bumper;
+            float stone_claw_down = gamepad2.left_trigger;
+            // telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
+            //telemetry.update();
 
             boolean testing = false;
 
@@ -76,25 +76,25 @@ public class hexChassis_Teleop extends LinearOpMode {
                 telemetry.update();
                 if (!testing) robot.inPlaceTurnTeleop(90, true);
             } else if (left_stick_y== 0.00){
-                telemetry.addData("stop", " FORWARD left_y (%.2f)", left_stick_y);
+                telemetry.addData("STOP", " FORWARD left_y (%.2f)", left_stick_y);
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
             }
 
-            if (motor_lift_up == 1.00) {
-                telemetry.addData("Motor", " RACK UP right_trigger (%.2f)", motor_lift_up);
+            if (motor_lift_up) {
+                telemetry.addData("Motor", " RACK UP right_bumper");
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(1);
+                if (!testing) robot.liftAutonomous(0.2);
             } else if (motor_lift_down == 1.00) {
-                telemetry.addData("Motor", " RACK DOWN left_trigger (%.2f)", motor_lift_down);
+                telemetry.addData("Motor", " RACK DOWN right_trigger (%.2f)", motor_lift_down);
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(-1);
+                if (!testing) robot.liftAutonomous(-0.2);
             } else if (stone_claw_up) {
                 telemetry.addData("Servo", " CLAW UP left_bumper");
                 telemetry.update();
                 if (!testing) robot.clawClamp(true);
-            } else if (stone_claw_down) {
-                telemetry.addData("Servo", " CLAW DOWN right_bumper");
+            } else if (stone_claw_down == 1.00) {
+                telemetry.addData("Servo", " CLAW DOWN left_trigger (%.2f)",stone_claw_down);
                 telemetry.update();
                 if (!testing) robot.clawClamp(false);
             }
