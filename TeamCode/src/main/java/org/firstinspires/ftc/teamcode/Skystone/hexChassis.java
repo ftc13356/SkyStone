@@ -119,10 +119,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(0.5);
-        motorRightBack.setPower(0.5);
-        motorLeftFront.setPower(0.5);
-        motorRightFront.setPower(0.5);
+        motorLeftBack.setPower(0.8);
+        motorRightBack.setPower(0.8);
+        motorLeftFront.setPower(0.8);
+        motorRightFront.setPower(0.8);
 
     }
 
@@ -133,10 +133,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(-0.5);
-        motorRightBack.setPower(-0.5);
-        motorLeftFront.setPower(-0.5);
-        motorRightFront.setPower(-0.5);
+        motorLeftBack.setPower(-0.8);
+        motorRightBack.setPower(-0.8);
+        motorLeftFront.setPower(-0.8);
+        motorRightFront.setPower(-0.8);
 
     }
 

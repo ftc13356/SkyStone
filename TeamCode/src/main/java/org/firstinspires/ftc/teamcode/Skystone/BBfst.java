@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Autonomous(name = "BBfst")
 public class BBfst extends LinearOpMode {
 
-    private basicChassis robot   = new basicChassis();
+    private hexChassis robot   = new hexChassis();
     private ElapsedTime  runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -53,24 +53,27 @@ public class BBfst extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForward(24);
+        robot.moveForward(34.5);
+        robot.inPlaceTurn(15,false);
 
         stone_claw_servo.setPosition(-6);
         sleep(1500);
         stone_claw_servo.setPosition(-5);
-        sleep(5000);
-        robot.moveBackward(155);
+        sleep(1500);
+        robot.moveBackward(35.5);
         stone_claw_servo.setPosition(7);
-        sleep(4000);
-        robot.inPlaceTurn(80,true);
-        robot.moveBackward(110);
-        robot.inPlaceTurn(70,false);
+        sleep(1500);
+        //robot.moveForward(4);
+        robot.inPlaceTurn(130,false);
+        robot.moveForward(110);
+        robot.inPlaceTurn(70,true);
         robot.moveForward(10);
         stone_claw_servo.setPosition(-6);
-        sleep(3000);
-        robot.inPlaceTurn(135,true);
-        robot.moveForward(46);
-        robot.inPlaceTurn(55,false);
+        sleep(1500);
+        robot.liftAutonomous(0.25);
+        robot.moveBackward(25);
+        robot.inPlaceTurn(80,true);
+        robot.moveForward(50);
         robot.moveBackward(20);
         stop();
 
