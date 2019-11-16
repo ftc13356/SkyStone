@@ -38,17 +38,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             telemetry.update();
             sleep((long) 100);
             waitForStart();
-            robot.moveForward(18);
+            robot.moveForward(18, 1);
             robot.clawClamp(false);
             sleep(1000);
             robot.liftAutonomous(-1.3);
-            robot.moveBackward(18);
+            robot.moveBackward(18, 1);
             robot.clawClamp(true);
             sleep(1000);
             robot.liftAutonomous(1.3);
-            robot.moveRight(18);
-            robot.moveForward(18);
-            robot.moveRight(9);
+            robot.moveRight(18, .75);
+            robot.moveForward(18, 1);
+            robot.moveRight(9, .75);
             stop();
         }
     }

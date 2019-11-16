@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Autonomous(name = "BBFw_15")
 public class BBFPw_15 extends LinearOpMode {
 
-    private basicChassis robot   = new basicChassis();
+    private hexChassis robot   = new hexChassis();
     private ElapsedTime  runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -51,16 +51,16 @@ public class BBFPw_15 extends LinearOpMode {
         telemetry.addData("Status", "Ready to go 1"); telemetry.update(); sleep((long) 100);
         waitForStart();
 
-        robot.moveForward(22);
+        robot.moveForward(22, 1);
         stone_claw_servo.setPosition(-6);
         sleep(1500);
         stone_claw_servo.setPosition(-5);
         sleep(5000);
-        robot.moveBackward(155);
+        robot.moveBackward(155, 1);
         stone_claw_servo.setPosition(7);
         sleep(4000);
-        robot.inPlaceTurn(105,true);
-        robot.moveBackward(65);
+        robot.inPlaceTurn(105,true, .75);
+        robot.moveBackward(65, 1);
 
         stop();
     }

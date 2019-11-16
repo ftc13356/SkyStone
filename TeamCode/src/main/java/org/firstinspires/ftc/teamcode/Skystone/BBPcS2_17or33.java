@@ -68,32 +68,32 @@ public class BBPcS2_17or33 extends LinearOpMode{
         waitForStart();
 
         //true = left, right = false
-        robot.inPlaceTurn(90, false);
-        robot.moveForward(80);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(10);
+        robot.inPlaceTurn(90, false,.75);
+        robot.moveForward(80,1);
+        robot.inPlaceTurn(90, true,.75);
+        robot.moveForward(10,1);
         //arm down
-        robot.moveBackward(5);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(50);
+        robot.moveBackward(5,1);
+        robot.inPlaceTurn(90, true,.75);
+        robot.moveForward(50,1);
         //move sideways right
-        robot.moveForward(5);
+        robot.moveForward(5,1);
         //open arm
         //move sideways left
-        robot.inPlaceTurn(180, true);
-        robot.moveForward(70);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(10);
+        robot.inPlaceTurn(180, true,.75);
+        robot.moveForward(70,1);
+        robot.inPlaceTurn(90, true,.75);
+        robot.moveForward(10,1);
         //arm down
-        robot.moveBackward(5);
-        robot.inPlaceTurn(90,true);
-        robot.moveForward(40);
-        robot.inPlaceTurn(90,false);
-        robot.moveForward(5);
+        robot.moveBackward(5,1);
+        robot.inPlaceTurn(90,true,.75);
+        robot.moveForward(40,1);
+        robot.inPlaceTurn(90,false,.75);
+        robot.moveForward(5,1);
         //open arm
-        robot.moveBackward(13);
-        robot.inPlaceTurn(90, false);
-        robot.moveForward(30);
+        robot.moveBackward(13,1);
+        robot.inPlaceTurn(90, false,.75);
+        robot.moveForward(30,1);
         //now robot should be parked on line
     }
 }

@@ -69,46 +69,46 @@ public class BBPwS2_17or33 extends LinearOpMode{
         waitForStart();
 
         //true = left, right = false
-        robot.moveForward(15);
-        robot.moveRight(100);
-        //robot.inPlaceTurn(90, false);
-        //robot.moveForward(100);
-        //robot.inPlaceTurn(90, true);
-        robot.moveForward(17);
+        robot.moveForward(15,1);
+        robot.moveRight(100,.75);
+        //robot.inPlaceTurn(90, false, 1);
+        //robot.moveForward(100, 1);
+        //robot.inPlaceTurn(90, true, 1);
+        robot.moveForward(17, 1);
         //robot.stone_claw_servo.setPosition(0.0);
         //robot.clawClampPosition(0.0);
         robot.clawClamp(false);
         sleep(500);
         robot.liftAutonomous(4);
-        robot.moveBackward(10);
-        robot.moveLeft(70);
+        robot.moveBackward(10, 1);
+        robot.moveLeft(70,.75);
         //robot.inPlaceTurn(90, true);
         //robot.moveForward(60);
         //robot.moveRight(20);
-        robot.moveForward(10);
+        robot.moveForward(10, 1);
         //robot.clawClampPosition(0.8);
         robot.liftAutonomous(-4);
         robot.clawClamp(true);
         robot.liftAutonomous(-1);
         sleep(300);
         robot.clawClamp(false);
-        robot.moveBackward(15);
-        robot.moveForward(3);
-        robot.moveRight(15);
-        /*robot.inPlaceTurn(90, true);
-        robot.moveForward(15);
+        robot.moveBackward(15,1);
+        robot.moveForward(3,1);
+        robot.moveRight(15,.75);
+        /*robot.inPlaceTurn(90, true, .75);
+        robot.moveForward(15, 1);
         robot.liftAutonomous(-4);
         robot.clawClampPosition(0.0);
-        robot.moveBackward(10);
-        robot.inPlaceTurn(90,true);
-        robot.moveForward(60);
-        robot.inPlaceTurn(90,false);
-        robot.moveForward(10);
+        robot.moveBackward(10, 1);
+        robot.inPlaceTurn(90,true, .75);
+        robot.moveForward(60, 1);
+        robot.inPlaceTurn(90,false, .75);
+        robot.moveForward(10, 1);
         //robot.clawClampPosition(0.8);
         robot.clawClamp(true);
-        robot.moveBackward(5);
-        robot.inPlaceTurn(90, false);
-        robot.moveForward(30);*/
+        robot.moveBackward(5, 1);
+        robot.inPlaceTurn(90, false, .75);
+        robot.moveForward(30, 1);*/
         //now robot should be parked on line
     }
 }
