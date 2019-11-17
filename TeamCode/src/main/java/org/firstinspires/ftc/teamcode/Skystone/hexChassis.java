@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class hexChassis {
@@ -77,7 +76,7 @@ public class hexChassis {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensor
-//        tape_color_sensor = hardwareMap.colorSensor.get("C1");
+        tape_color_sensor = hardwareMap.colorSensor.get("C1");
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -495,6 +494,63 @@ public class hexChassis {
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return blued;
+    }
+    public boolean blockIsYellow(){
+        boolean chinese = false;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        op.sleep(200);
+        if (hsvValues[0] >= 20 && hsvValues[0] <= 70&& hsvValues[2]>=25) {
+            op.telemetry.addData("ColorSensorStatus", "Yellow");
+            chinese = true;
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            chinese = false;
+        }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        return chinese;
+
+    } public boolean blockIsSky(){
+        boolean black = false;
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        op.sleep(200);
+        if (hsvValues[1]<=0.5) {
+            op.telemetry.addData("ColorSensorStatus", "Black");
+            black = true;
+        } else {
+            op.telemetry.addData("ColorSensorStatus", "Unknown");
+            black = false;
+        }
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        op.telemetry.update();
+        return black;
+
     }
     //will move until it detects blue/red, momentum causse bug
     public void moveForwardUntilBlue(){
