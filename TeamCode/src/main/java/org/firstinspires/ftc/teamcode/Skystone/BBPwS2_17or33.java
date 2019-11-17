@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * user friendly and it is assumed as a high quality code.
  *
  * @author  Aamod
- * @version 1.3
+ * @version 1.5
  * @since   2019-Nov-8
  */
 @Autonomous(name = "BBPwS2_17or33")
@@ -60,7 +60,6 @@ public class BBPwS2_17or33 extends LinearOpMode{
      */
     @Override
     public void runOpMode() {
-
         telemetry.addData("Status", "Ready to go");
         telemetry.update();
         robot.initChassis(this);
@@ -70,27 +69,32 @@ public class BBPwS2_17or33 extends LinearOpMode{
 
         //true = left, right = false
         robot.moveForward(15,1);
-        robot.moveRight(100,.75);
-        //robot.inPlaceTurn(90, false, 1);
-        //robot.moveForward(100, 1);
-        //robot.inPlaceTurn(90, true, 1);
+        //robot.moveRight(100,.75);
+        robot.inPlaceTurn(90, false, .75);
+        robot.moveForward(0,0);
+        robot.moveForward(100, 1);
+        robot.inPlaceTurn(90, true, .75);
+        robot.moveForward(0,0);
         robot.moveForward(17, 1);
         //robot.stone_claw_servo.setPosition(0.0);
         //robot.clawClampPosition(0.0);
-        robot.clawClamp(false);
+        robot.clawClampPosition(0.3);
+        sleep(250);
+        robot.liftAutonomous(1);
+        robot.moveBackward(25, 1);
+        //robot.moveLeft(70,.75);
+        robot.inPlaceTurn(140, true,.75);
+        robot.moveForward(120, 1);
+        robot.liftAutonomous(3);
         sleep(500);
-        robot.liftAutonomous(4);
-        robot.moveBackward(10, 1);
-        robot.moveLeft(70,.75);
-        //robot.inPlaceTurn(90, true);
-        //robot.moveForward(60);
-        //robot.moveRight(20);
-        robot.moveForward(10, 1);
+        robot.inPlaceTurn(100, false,1);
+        robot.moveForward(30, 1);
         //robot.clawClampPosition(0.8);
-        robot.liftAutonomous(-4);
+        robot.liftAutonomous(-2);
         robot.clawClamp(true);
-        robot.liftAutonomous(-1);
+        robot.liftAutonomous(0.2);
         sleep(300);
+        robot.moveBackward(5,1);
         robot.clawClamp(false);
         robot.moveBackward(15,1);
         robot.moveForward(3,1);
@@ -99,16 +103,16 @@ public class BBPwS2_17or33 extends LinearOpMode{
         robot.moveForward(15, 1);
         robot.liftAutonomous(-4);
         robot.clawClampPosition(0.0);
-        robot.moveBackward(10, 1);
-        robot.inPlaceTurn(90,true, .75);
-        robot.moveForward(60, 1);
-        robot.inPlaceTurn(90,false, .75);
-        robot.moveForward(10, 1);
+        robot.moveBackward(10);
+        robot.inPlaceTurn(90,true);
+        robot.moveForward(60);
+        robot.inPlaceTurn(90,false);
+        robot.moveForward(10);
         //robot.clawClampPosition(0.8);
         robot.clawClamp(true);
-        robot.moveBackward(5, 1);
-        robot.inPlaceTurn(90, false, .75);
-        robot.moveForward(30, 1);*/
+        robot.moveBackward(5);
+        robot.inPlaceTurn(90, false);
+        robot.moveForward(30);*/
         //now robot should be parked on line
     }
 }

@@ -27,7 +27,7 @@ public class hexChassis {
 
     //variables for lifting mechanism
     double counts_per_motor_tetrix = 0;
-    double counts_per_inch_tetrix_lift = 0;
+    double counts_per_inch_lift = 0;
 
     // Initialize Encoder Variables
     final double robot_diameter = 10.5;
@@ -56,11 +56,10 @@ public class hexChassis {
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
-        /******* tetrix motor ********/
+        /******* Lift motor ********/
         counts_per_motor_tetrix = 1440; //TODO
         //counts_per_inch
-        //counts_per_inch_tetrix_lift = 100; //550 for Tetrix and 100 for Hex
-        counts_per_inch_tetrix_lift = 550; //TODO
+        counts_per_inch_lift = 101 ; //550 for Tetrix and 100 for Hex
     }
 
     public void initChassis(LinearOpMode opMode) {
@@ -527,7 +526,7 @@ public class hexChassis {
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight){
-        double ticksToMove = counts_per_inch_tetrix_lift * liftheight;
+        double ticksToMove = counts_per_inch_lift * liftheight;
         double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
         motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
