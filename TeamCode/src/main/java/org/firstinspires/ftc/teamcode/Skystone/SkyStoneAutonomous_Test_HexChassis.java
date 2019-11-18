@@ -22,9 +22,12 @@ public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{
         waitForStart();
 
         //******* Lift Mechanism *******//
-        robot.liftAutonomous(1);
+        robot.liftAutonomous(4);
+        robot.clawClamp(false); //Clamp
+        sleep(1500);
+        robot.clawClamp(true); //Unclamp
+        robot.liftAutonomous(-4);
         sleep(500);
-        robot.liftAutonomous(-1);
 
         telemetry.addData("Order:", "LeftFront, RightFront, LeftBack, RightBack");
         telemetry.update();
@@ -32,38 +35,65 @@ public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{
         robot.moveMotorRightFront(5);
         robot.moveMotorLeftBack(5);
         robot.moveMotorRightBack(5);
-        sleep(2000);
+        sleep(1000);
         telemetry.addData("Status:", "MoveForward 5");
         telemetry.update();
-        robot.moveForward(5);
-        sleep(2000);
+        robot.moveForward(5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveBackward 5");
         telemetry.update();
-        robot.moveBackward(5);
-        sleep(2000);
+        robot.moveBackward(5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveForward -5");
         telemetry.update();
-        robot.moveForward(-5);
-        sleep(2000);
+        robot.moveForward(-5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveBackward -5");
         telemetry.update();
-        robot.moveBackward(-5);
-        sleep(2000);
+        robot.moveBackward(-5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveRight 5");
         telemetry.update();
-        robot.moveRight(5);
-        sleep(2000);
+        robot.moveRight(5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveLeft 5");
         telemetry.update();
-        robot.moveLeft(5);
-        sleep(2000);
+        robot.moveLeft(5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveRight -5");
         telemetry.update();
-        robot.moveRight(-5);
-        sleep(2000);
+        robot.moveRight(-5,1);
+        sleep(1000);
         telemetry.addData("Status:", "MoveLeft -5");
+        robot.moveLeft(-5,1);
+        sleep(1000);
+        telemetry.addData("Status:", "Turn inPlace Left");
         telemetry.update();
-        robot.moveLeft(-5);
+        robot.inPlaceTurn(90, true,1); //Left = true
+        sleep(1000);
+        telemetry.addData("Status:", "Turn inPlace Right");
+        telemetry.update();
+        robot.inPlaceTurn(90, false,1); //Right = false
+        sleep(1000);
+        telemetry.addData("Status:", "Turn normalTurn Left");
+        telemetry.update();
+        robot.inPlaceTurn(180, false,1); //Right = false
+        sleep(1000);
+        telemetry.addData("Status:", "Turn normalTurn Left");
+        telemetry.update();
+        robot.inPlaceTurn(180, true ,1 ); //Right = false
+        sleep(1000);
+        telemetry.addData("Status:", "Turn normalTurn Left");
+        telemetry.update();
+
+
+
+        /*robot.normalTurn(360, true); //Left = true
+        sleep(2000);
+        telemetry.addData("Status:", "Turn normalTurn Right");
+        telemetry.update();
+        robot.normalTurn(360, false); //Right = false
+        */
 
         //move sideways left
         /*

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Skystone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -14,7 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * user friendly and it is assumed as a high quality code.
  *
  * @author  Aamod
- * @version 1.0
+ * @version 1.5
  * @since   2019-Nov-8
  */
 @Autonomous(name = "BBPwS2_17or33")
@@ -22,6 +23,8 @@ public class BBPwS2_17or33 extends LinearOpMode{
 
     hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
+    private Servo stone_claw_servo;
+
 
     public BBPwS2_17or33() {
 
@@ -57,7 +60,6 @@ public class BBPwS2_17or33 extends LinearOpMode{
      */
     @Override
     public void runOpMode() {
-
         telemetry.addData("Status", "Ready to go");
         telemetry.update();
         robot.initChassis(this);
@@ -66,32 +68,51 @@ public class BBPwS2_17or33 extends LinearOpMode{
         waitForStart();
 
         //true = left, right = false
-        robot.inPlaceTurn(90, false);
-        robot.moveForward(10);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(10);
-        //arm down
-        robot.moveBackward(5);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(50);
-        //move sideways right
-        robot.moveForward(5);
-        //open arm
-        //move sideways left
-        robot.inPlaceTurn(180, true);
-        robot.moveForward(70);
-        robot.inPlaceTurn(90, true);
-        robot.moveForward(10);
-        //arm down
-        robot.moveBackward(5);
+        robot.moveForward(15,1);
+        //robot.moveRight(100,.75);
+        robot.inPlaceTurn(90, false, .75);
+        robot.moveForward(0,0);
+        robot.moveForward(100, 1);
+        robot.inPlaceTurn(90, true, .75);
+        robot.moveForward(0,0);
+        robot.moveForward(17, 1);
+        //robot.stone_claw_servo.setPosition(0.0);
+        //robot.clawClampPosition(0.0);
+        robot.clawClampPosition(0.3);
+        sleep(250);
+        robot.liftAutonomous(1);
+        robot.moveBackward(25, 1);
+        //robot.moveLeft(70,.75);
+        robot.inPlaceTurn(140, true,.75);
+        robot.moveForward(120, 1);
+        robot.liftAutonomous(3);
+        sleep(500);
+        robot.inPlaceTurn(100, false,1);
+        robot.moveForward(30, 1);
+        //robot.clawClampPosition(0.8);
+        robot.liftAutonomous(-2);
+        robot.clawClamp(true);
+        robot.liftAutonomous(0.2);
+        sleep(300);
+        robot.moveBackward(5,1);
+        robot.clawClamp(false);
+        robot.moveBackward(15,1);
+        robot.moveForward(3,1);
+        robot.moveRight(15,.75);
+        /*robot.inPlaceTurn(90, true, .75);
+        robot.moveForward(15, 1);
+        robot.liftAutonomous(-4);
+        robot.clawClampPosition(0.0);
+        robot.moveBackward(10);
         robot.inPlaceTurn(90,true);
-        robot.moveForward(40);
+        robot.moveForward(60);
         robot.inPlaceTurn(90,false);
-        robot.moveForward(5);
-        //open arm
+        robot.moveForward(10);
+        //robot.clawClampPosition(0.8);
+        robot.clawClamp(true);
         robot.moveBackward(5);
         robot.inPlaceTurn(90, false);
-        robot.moveForward(30);
+        robot.moveForward(30);*/
         //now robot should be parked on line
     }
 }

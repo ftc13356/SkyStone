@@ -37,35 +37,35 @@ public class SkyStoneAutonomous_Aamod_HexChassis extends LinearOpMode{
         sleep(2000);
         telemetry.addData("Status:", "MoveForward 5");
         telemetry.update();
-        robot.moveForward(5);
+        robot.moveForward(5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveBackward 5");
         telemetry.update();
-        robot.moveBackward(5);
+        robot.moveBackward(5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveForward -5");
         telemetry.update();
-        robot.moveForward(-5);
+        robot.moveForward(-5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveBackward -5");
         telemetry.update();
-        robot.moveBackward(-5);
+        robot.moveBackward(-5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveRight 5");
         telemetry.update();
-        robot.moveRight(5);
+        robot.moveRight(5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveLeft 5");
         telemetry.update();
-        robot.moveLeft(5);
+        robot.moveLeft(5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveRight -5");
         telemetry.update();
-        robot.moveRight(-5);
+        robot.moveRight(-5,1);
         sleep(2000);
         telemetry.addData("Status:", "MoveLeft -5");
         telemetry.update();
-        robot.moveLeft(-5);
+        robot.moveLeft(-5,1);
 
         //move sideways left
         /*

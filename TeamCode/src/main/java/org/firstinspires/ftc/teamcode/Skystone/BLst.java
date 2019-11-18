@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "BLst")
 public class BLst extends LinearOpMode {
 
-    private basicChassis robot   = new basicChassis();
+    private hexChassis robot   = new hexChassis();
     private ElapsedTime  runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -43,18 +43,36 @@ public class BLst extends LinearOpMode {
         robot.initChassis(this);
 
         waitForStart();
-        robot.moveForward(28);
+        robot.moveForward(38, 1);
         stone_claw_servo.setPosition(-6);
-        sleep(2500);
-        robot.moveBackward(12);
-        robot.inPlaceTurn(90,true);
-        robot.moveForward(70);
-        stone_claw_servo.setPosition(7.5);
-        sleep(2500);
-        robot.moveBackward(30);
-
+        sleep(1500);
+        robot.moveBackward(25, 1);
+        robot.liftAutonomous(0.2);
+        robot.inPlaceTurn(90,true, .75);
+        robot.moveForward(50, 1);
+        //robot.moveLeft(80);
+        sleep(100);
+        robot.liftAutonomous(-0.1);
+        sleep(100);
+        stone_claw_servo.setPosition(6.5);
+        sleep(250);
+        robot.moveBackward(12, 1);
+        //robot.moveRight(40);
+        //robot.moveForwardUntilBlue();
+        robot.moveBackward(30, 1);
+        robot.inPlaceTurn(90,false, .75);
+        robot.moveForward(25, 1);
+        stone_claw_servo.setPosition(-6);
+        sleep(100);
+        robot.moveBackward(25, 1);
+        robot.liftAutonomous(0.2);
+        robot.inPlaceTurn(90,true,.75);
+        robot.moveForward(50, 1);
+        robot.liftAutonomous(-0.1);
+        sleep(200);
+        stone_claw_servo.setPosition(6.5);
+        sleep(1500);
+        robot.moveBackward(20, 1);
         stop();
-
-
     }
 }
