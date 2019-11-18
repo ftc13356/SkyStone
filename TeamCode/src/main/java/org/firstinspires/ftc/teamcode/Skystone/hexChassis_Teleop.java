@@ -84,11 +84,11 @@ public class hexChassis_Teleop extends LinearOpMode {
             if (motor_lift_up) {
                 telemetry.addData("Motor", " RACK UP right_bumper");
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(0.4);
+                if (!testing) robot.liftAutonomous(1.25);
             } else if (motor_lift_down == 1.00) {
                 telemetry.addData("Motor", " RACK DOWN right_trigger (%.2f)", motor_lift_down);
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(-0.4);
+                if (!testing) robot.liftAutonomous(-1.25);
             } else if (stone_claw_up) {
                 telemetry.addData("Servo", " CLAW UP left_bumper");
                 telemetry.update();
@@ -97,6 +97,10 @@ public class hexChassis_Teleop extends LinearOpMode {
                 telemetry.addData("Servo", " CLAW DOWN left_trigger (%.2f)",stone_claw_down);
                 telemetry.update();
                 if (!testing) robot.clawClamp(false);
+            }else if (motor_lift_up == false) {
+                telemetry.addData("STOP", " LIFT right_bumper (%.2f)");
+                telemetry.update();
+                if (!testing) robot.stopAllAccessories();
             }
 
             //telemetry.addData("Motor", "left (%.2f), right (%.2f)", left_stick_y, left_stick_x);
