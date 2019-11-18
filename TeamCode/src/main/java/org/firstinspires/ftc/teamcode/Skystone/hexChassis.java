@@ -586,7 +586,7 @@ public class hexChassis {
         double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
         motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorLift.setPower(0.5);
+        motorLift.setPower(1.0);
         while (op.opModeIsActive() && motorLift.isBusy())
         {
             op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
