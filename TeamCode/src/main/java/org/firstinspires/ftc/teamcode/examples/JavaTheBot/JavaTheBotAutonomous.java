@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.examples.JavaTheBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name="JavaTheBotAutonomous")
 
+@Disabled
 public class JavaTheBotAutonomous extends LinearOpMode {
     int x;
     int y;

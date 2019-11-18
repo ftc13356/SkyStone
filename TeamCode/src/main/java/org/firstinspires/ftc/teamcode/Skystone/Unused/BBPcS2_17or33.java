@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 
 
 /**
@@ -21,6 +22,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 @Autonomous(name = "BBPcS2_17or33")
 
+@Disabled
 public class BBPcS2_17or33 extends LinearOpMode{
 
     private hexChassis robot = new hexChassis();

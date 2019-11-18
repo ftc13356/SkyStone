@@ -1,8 +1,10 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 
 @Autonomous(name = "Test_HexChassis")
 public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{

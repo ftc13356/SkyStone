@@ -1,11 +1,16 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
+
 
 @Autonomous(name = "RLf_BLf")
+
+@Disabled
 public class RLf_BLf_15 extends LinearOpMode {
     hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();

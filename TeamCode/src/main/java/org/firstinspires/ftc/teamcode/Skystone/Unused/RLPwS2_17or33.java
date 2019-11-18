@@ -1,13 +1,17 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 
-    @Autonomous(name = "RBFbPc_15")
-    public class RBFbPc_15 extends LinearOpMode {
+
+@Autonomous(name = "RLPwS2_17or33")
+
+@Disabled
+    public class RLPwS2_17or33 extends LinearOpMode {
         /**
          * <h1>first SkyStone autonomous program</h1>
          * for testing basicChassis that Nathan and Andrew wrote
@@ -19,8 +23,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
          * @version 1.0
          * @since   2019-Nov-13
          */
-
-
         private hexChassis robot = new hexChassis();
         private ElapsedTime runtime = new ElapsedTime();
 
@@ -41,16 +43,30 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             sleep((long) 100);
             waitForStart();
             robot.moveForward(18, 1);
-            robot.clawClamp(false);
-            sleep(1000);
-            robot.liftAutonomous(-1.3);
-            robot.moveBackward(18, 1);
             robot.clawClamp(true);
             sleep(1000);
+            robot.liftAutonomous(-1.3);
+            robot.moveBackward(5, 1);
+            robot.moveLeft(54, .75);
+            robot.moveForward(5, 1);
+            robot.clawClamp(false);
+            sleep(1000);
             robot.liftAutonomous(1.3);
-            robot.moveLeft(18, .75);
-            robot.moveForward(18, 1);
-            robot.moveLeft(9, .75);
+            robot.moveBackward(5, 1);
+            robot.moveRight(60, .75);
+            robot.moveForward(5, 1);
+            robot.liftAutonomous(-1.3);
+            robot.clawClamp(false);
+            robot.moveBackward(5,1);
+            robot.moveLeft(60,.75);
+            robot.moveForward(5, 1);
+            robot.clawClamp(false);
+            sleep(1000);
+            robot.liftAutonomous(1.3);
+            robot.moveRight(40, .75);
+
             stop();
         }
     }
+
+

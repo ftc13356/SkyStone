@@ -1,10 +1,15 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Skystone.Outreach.basicChassis;
+
 @Autonomous(name = "SkyAuto_Aamod_2_Basic_Chassis")
+
+@Disabled
 public class SkystoneAutonomous_Aamod_2 extends LinearOpMode {
 
 

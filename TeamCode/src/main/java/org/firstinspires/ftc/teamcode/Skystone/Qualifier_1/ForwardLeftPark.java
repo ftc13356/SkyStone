@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 
 
 /**
@@ -19,15 +19,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @since   2019-Nov-16
  *
  */
-@Autonomous(name = "ForwardRightPark")
-public class ForwardRightPark extends LinearOpMode{
-
+@Autonomous(name = "ForwardLeftPark")
+public class ForwardLeftPark extends LinearOpMode {
     hexChassis robot = new hexChassis();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
 
-    public ForwardRightPark() {
+    public ForwardLeftPark() {
 
     }
 
@@ -42,12 +41,11 @@ public class ForwardRightPark extends LinearOpMode{
 
         sleep(21500);
         robot.moveForward(37, 1);
-        robot.inPlaceTurn(90, false, 1);
+        robot.inPlaceTurn(105, true, 1);
         robot.moveForward(15,1);
         robot.clawClampPosition(0.25);
         sleep(1500);
     }
 
 }
-
 

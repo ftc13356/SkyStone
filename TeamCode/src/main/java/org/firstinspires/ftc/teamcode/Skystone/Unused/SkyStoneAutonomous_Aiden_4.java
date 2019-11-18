@@ -1,9 +1,12 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Skystone.Outreach.basicChassis;
+
 /**
  * <h1>first SkyStone autonomous program</h1>
  * for testing basicChassis that Nathan and Andrew wrote
@@ -16,10 +19,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @since   2019-10-12
  */
 @Autonomous(name = "Skystone Demo4")
+
 @Disabled
 public class SkyStoneAutonomous_Aiden_4 extends LinearOpMode {
 
-    basicChassis         robot   = new basicChassis();
+    basicChassis robot   = new basicChassis();
     private ElapsedTime  runtime = new ElapsedTime();
 
     public void SkyStoneAutonomous_Aiden_4(){

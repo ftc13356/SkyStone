@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.Skystone;
+package org.firstinspires.ftc.teamcode.Skystone.Outreach;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * <h1>first ATnT_Outreach_basicChassis program</h1>
@@ -17,6 +17,8 @@ import com.qualcomm.robotcore.util.Range;
  * @since 2019-10-26
  */
 @TeleOp(name = "ATnT_Outreach_basicChassis")
+
+@Disabled
 public class ATnT_Outreach_basicChassis extends LinearOpMode {
 
     private basicChassis robot = new basicChassis();
