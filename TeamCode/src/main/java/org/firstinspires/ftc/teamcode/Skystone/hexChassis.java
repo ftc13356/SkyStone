@@ -109,6 +109,9 @@ public class hexChassis {
         motorLeftFront.setPower(0);
         motorRightFront.setPower(0);
     }
+    public void stopAllAccessories(){
+        motorLift.setPower(0);
+    }
 
     public void moveForwardTeleop(double distance) {
         // Changes motor mode back to default
@@ -145,10 +148,10 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(0.5);
-        motorRightBack.setPower(-0.5);
-        motorLeftFront.setPower(-0.5);
-        motorRightFront.setPower(0.5);
+        motorLeftBack.setPower(1.0);
+        motorRightBack.setPower(-1.0);
+        motorLeftFront.setPower(-1.0);
+        motorRightFront.setPower(1.0);
 
     }
 
@@ -159,12 +162,14 @@ public class hexChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(-0.5);
-        motorRightBack.setPower(0.5);
-        motorLeftFront.setPower(0.5);
-        motorRightFront.setPower(-0.5);
+        motorLeftBack.setPower(-1.0);
+        motorRightBack.setPower(1.0);
+        motorLeftFront.setPower(1.0);
+        motorRightFront.setPower(-1.0);
 
     }
+
+
 
     //@direction: true = left, false = right
     public void inPlaceTurnTeleop(double degrees, boolean direction) {
@@ -580,6 +585,22 @@ public class hexChassis {
         }
     }
 
+    public void moveRightUntilBlue() {
+        //to be continued
+    }
+
+    public void moveRightUntilRed() {
+        //to be continued
+    }
+
+    public void moveLeftUntilBlue() {
+        //to be continued
+    }
+
+    public void moveLeftUntilRed() {
+        //to be continued
+    }
+
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight){
         double ticksToMove = counts_per_inch_lift * liftheight;
@@ -587,6 +608,23 @@ public class hexChassis {
         motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
+        while (op.opModeIsActive() && motorLift.isBusy())
+        {
+            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorLift.setPower(0);
+        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void liftTeleop_NotWorking(double liftheight){
+        double ticksToMove = counts_per_inch_lift * liftheight;
+        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
+        motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
+        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLift.setPower(0.5);
         while (op.opModeIsActive() && motorLift.isBusy())
         {
             op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
