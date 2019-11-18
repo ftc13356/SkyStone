@@ -56,7 +56,8 @@ public class RLfst extends LinearOpMode {
 
         waitForStart();
 
-
+        /*
+        //commented out by Aiden bcs. code does not compile for anyone
         robot.moveForward(24);
 
         stone_claw_servo.setPosition(-4);
@@ -82,5 +83,6 @@ public class RLfst extends LinearOpMode {
         robot.moveForwardUntilBlue();
 
         stop();
+*/
     }
 }

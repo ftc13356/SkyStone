@@ -47,12 +47,12 @@ public class BLst extends LinearOpMode {
         stone_claw_servo.setPosition(-6);
         sleep(1500);
         robot.moveBackward(25, 1);
-        robot.liftAutonomous(0.2);
+        robot.liftAutonomous(0.25);
         robot.inPlaceTurn(90,true, 1);
         robot.moveForward(50, 1);
         //robot.moveLeft(80);
         sleep(100);
-        robot.liftAutonomous(-0.1);
+        robot.liftAutonomous(-0.2);
         sleep(100);
         stone_claw_servo.setPosition(6.5);
         sleep(250);
