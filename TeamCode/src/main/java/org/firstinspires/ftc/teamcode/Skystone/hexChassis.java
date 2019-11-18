@@ -537,6 +537,22 @@ public class hexChassis {
         }
     }
 
+    public void moveRightUntilBlue() {
+        //to be continued
+    }
+
+    public void moveRightUntilRed() {
+        //to be continued
+    }
+
+    public void moveLeftUntilBlue() {
+        //to be continued
+    }
+
+    public void moveLeftUntilRed() {
+        //to be continued
+    }
+
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight){
         double ticksToMove = counts_per_inch_tetrix_lift * liftheight;
