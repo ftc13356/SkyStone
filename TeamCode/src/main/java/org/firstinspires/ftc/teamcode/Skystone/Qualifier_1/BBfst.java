@@ -53,28 +53,28 @@ public class BBfst extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForward(33.8,0.75);
+        robot.moveForward(39.5,0.55);
         robot.inPlaceTurn(15,false,1);
 
         stone_claw_servo.setPosition(-6);
         sleep(1500);
         stone_claw_servo.setPosition(-5);
         sleep(1500);
-        robot.moveBackward(35.5,1);
+        robot.moveBackward(35,1);
         stone_claw_servo.setPosition(7);
         sleep(1500);
         //robot.moveForward(4);
         //robot.inPlaceTurn(145,false);
         robot.moveRight(15,.85);
-        robot.inPlaceTurn(15,false,1);
+        robot.inPlaceTurn(30,false,1);
         robot.moveRight(15,.85);
-        robot.inPlaceTurn(15,false,1);
+        robot.inPlaceTurn(30,false,1);
         robot.moveRight(10, .85);
-        robot.moveForward(8, 1);
+        robot.moveForward(10, 1);
         robot.inPlaceTurn(90,false,1);
-        robot.moveForward(80,1);
+        robot.moveForward(60,1);
         robot.inPlaceTurn(70,true,1);
-        robot.moveForward(10,1);
+        robot.moveForward(15,1);
         stone_claw_servo.setPosition(-6);
         sleep(1500);
         robot.liftAutonomous(0.90);
