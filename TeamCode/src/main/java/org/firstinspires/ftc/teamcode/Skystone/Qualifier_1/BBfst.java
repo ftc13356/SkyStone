@@ -53,35 +53,28 @@ public class BBfst extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForward(39.5,0.55);
-        robot.inPlaceTurn(15,false,1);
+        robot.moveForward(38,0.55);
+        robot.inPlaceTurn(100,true,1);
+        robot.moveForward(14,0.85);
+        robot.inPlaceTurn(100,false,1);
+        robot.moveForward(4,0.45);
+        robot.inPlaceTurn(25,false,1);
 
         stone_claw_servo.setPosition(-6);
-        sleep(1500);
+        sleep(1000);
         stone_claw_servo.setPosition(-5);
-        sleep(1500);
+        sleep(1000);
         robot.moveBackward(35,1);
         stone_claw_servo.setPosition(7);
-        sleep(1500);
+        sleep(200);
         //robot.moveForward(4);
-        //robot.inPlaceTurn(145,false);
-        robot.moveRight(15,.85);
-        robot.inPlaceTurn(30,false,1);
-        robot.moveRight(15,.85);
-        robot.inPlaceTurn(30,false,1);
-        robot.moveRight(10, .85);
-        robot.moveForward(10, 1);
-        robot.inPlaceTurn(90,false,1);
-        robot.moveForward(60,1);
-        robot.inPlaceTurn(70,true,1);
-        robot.moveForward(15,1);
-        stone_claw_servo.setPosition(-6);
-        sleep(1500);
-        robot.liftAutonomous(0.90);
-        robot.moveBackward(25,1);
-        robot.inPlaceTurn(80,true,1);
-        robot.moveForward(50,1);
-        robot.moveBackward(20,1);
+        robot.moveBackward(3.5,0.20);
+        robot.inPlaceTurn(112,true,.85);
+        robot.moveRight(15,0.85);
+        robot.moveForward(76,1);
+        sleep(100);
+        stone_claw_servo.setPosition(-5.5);
+        sleep(100);
         stop();
 
     }
