@@ -221,8 +221,8 @@ public class hexChassis {
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
-            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            op.telemetry.update();
+            //op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
+            //op.telemetry.update();
             op.idle();
         }
 
@@ -400,14 +400,14 @@ public class hexChassis {
         motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
         motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
 
-        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         motorLeftBack.setPower(power);
-        motorRightBack.setPower(power);
         motorLeftFront.setPower(power);
+        motorRightBack.setPower(power);
         motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
@@ -418,15 +418,15 @@ public class hexChassis {
             op.idle();
         }
         motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
         motorRightBack.setPower(0);
         motorRightFront.setPower(0);
-        motorLeftFront.setPower(0);
 
         // Changes motor mode back to default
-        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     //true = unclamp, false = clamp
