@@ -53,23 +53,32 @@ public class RBfst extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForward(39.5,0.55);
-        robot.inPlaceTurn(15,false,1);
+        robot.moveForward(38,0.55);
+        robot.inPlaceTurn(100,false,1);
+        robot.moveForward(14,0.85);
+        robot.inPlaceTurn(100,true,1);
+        robot.moveForward(4,0.45);
+        robot.inPlaceTurn(25,true,1);
 
         stone_claw_servo.setPosition(-6);
-        sleep(1500);
+        sleep(1000);
         stone_claw_servo.setPosition(-5);
-        sleep(1500);
+        sleep(1000);
         robot.moveBackward(35,1);
         stone_claw_servo.setPosition(7);
-        sleep(1500);
+        sleep(200);
         //robot.moveForward(4);
-        //robot.inPlaceTurn(145,false);
-        robot.moveLeft(15,.85);
-        robot.inPlaceTurn(30,true,1);
-        robot.moveLeft(15,.85);
-        robot.inPlaceTurn(30,true,1);
-        robot.moveLeft(10, .85);
+        robot.moveBackward(3.5,0.20);
+        robot.inPlaceTurn(112,true,.85);
+        robot.moveLeft(15,0.85);
+        robot.moveForward(76,1);
+        sleep(100);
+        stone_claw_servo.setPosition(-5.5);
+        sleep(100);
+         /*robot.moveLeft(15,.85);
+        robot.inPlaceTurn(40,true,1);
+        robot.moveLeft(15, .85);
+        robot.inPlaceTurn(90,true,1);
         robot.moveForward(10, 1);
         robot.inPlaceTurn(90,true,1);
         robot.moveForward(60,1);
@@ -83,6 +92,6 @@ public class RBfst extends LinearOpMode {
         robot.moveForward(50,1);
         robot.moveBackward(20,1);
         stop();
-
+        */
     }
 }
