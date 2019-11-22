@@ -109,63 +109,68 @@ public class hexChassis {
         motorLeftFront.setPower(0);
         motorRightFront.setPower(0);
     }
-    public void stopAllAccessories(){
+    public void stopLift()
+    {
         motorLift.setPower(0);
     }
 
-    public void moveForwardTeleop(double distance) {
+    public void moveForwardTeleop(double power, double distance) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(0.8);
-        motorRightBack.setPower(0.8);
-        motorLeftFront.setPower(0.8);
-        motorRightFront.setPower(0.8);
+        //was 0.70
+        motorLeftBack.setPower(power);
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power);
+        motorRightFront.setPower(power);
 
     }
 
-    public void moveBackwardTeleop(double distance) {
+    public void moveBackwardTeleop(double power, double distance) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(-0.8);
-        motorRightBack.setPower(-0.8);
-        motorLeftFront.setPower(-0.8);
-        motorRightFront.setPower(-0.8);
+        //was -0.80
+        motorLeftBack.setPower(-power);
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power);
+        motorRightFront.setPower(-power);
 
     }
 
-    public void moveRightTeleop(double distance) {
+    public void moveRightTeleop(double power, double distance) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(1.0);
-        motorRightBack.setPower(-1.0);
-        motorLeftFront.setPower(-1.0);
-        motorRightFront.setPower(1.0);
+        //this was 1.0 and -1.0
+        motorLeftBack.setPower(power);
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power);
+        motorRightFront.setPower(power);
 
     }
 
-    public void moveLeftTeleop(double distance) {
+    public void moveLeftTeleop(double power, double distance) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLeftBack.setPower(-1.0);
-        motorRightBack.setPower(1.0);
-        motorLeftFront.setPower(1.0);
-        motorRightFront.setPower(-1.0);
+        //was -1.0 and 1.0
+        motorLeftBack.setPower(-power);
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power);
+        motorRightFront.setPower(-power);
 
     }
 
@@ -436,6 +441,7 @@ public class hexChassis {
         } else {
             stone_claw_servo.setPosition(0.0);
         }
+        op.sleep(200);
     }
     //0.0 is clamped, 1.0 is unclamped
     public void clawClampPosition(double claw_position) {
