@@ -17,6 +17,7 @@ public class hexChassis {
     DcMotor motorLift;
     Servo stone_claw_servo;
     ColorSensor tape_color_sensor;
+    ColorSensor block_color_sensor;
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
@@ -75,8 +76,8 @@ public class hexChassis {
         motorLift = hardwareMap.dcMotor.get("motorLift");
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
-        // Color Sensor
-        tape_color_sensor = hardwareMap.colorSensor.get("C1");
+        // Color Sensors
+        block_color_sensor = hardwareMap.colorSensor.get("C1");
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -458,9 +459,9 @@ public class hexChassis {
         final double SCALE_FACTOR = 255;
         // Color.RGBToHSV((tape_color_sensor.red()), (tape_color_sensor.green()), (tape_color_sensor.blue()), hsvValues);
 
-        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
-                (int) (tape_color_sensor.green() * SCALE_FACTOR),
-                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                (int) (block_color_sensor.green() * SCALE_FACTOR),
+                (int) (block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
         if (hsvValues[0] >= 340 || hsvValues[0] <= 20) {
             redded = true;
@@ -482,9 +483,9 @@ public class hexChassis {
         boolean blued = false;
         float hsvValues[] = {0F, 0F, 0F};
         final double SCALE_FACTOR = 255;
-        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
-                (int) (tape_color_sensor.green() * SCALE_FACTOR),
-                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                (int) (block_color_sensor.green() * SCALE_FACTOR),
+                (int) (block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
         op.telemetry.addLine()
                 .addData("H", "%.3f", hsvValues[0])
@@ -510,9 +511,9 @@ public class hexChassis {
         boolean chinese = false;
         float hsvValues[] = {0F, 0F, 0F};
         final double SCALE_FACTOR = 255;
-        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
-                (int) (tape_color_sensor.green() * SCALE_FACTOR),
-                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                (int) (block_color_sensor.green() * SCALE_FACTOR),
+                (int) (block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
         op.telemetry.addLine()
                 .addData("H", "%.3f", hsvValues[0])
@@ -538,9 +539,9 @@ public class hexChassis {
         boolean black = false;
         float hsvValues[] = {0F, 0F, 0F};
         final double SCALE_FACTOR = 255;
-        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
-                (int) (tape_color_sensor.green() * SCALE_FACTOR),
-                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                (int) (block_color_sensor.green() * SCALE_FACTOR),
+                (int) (block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
         op.telemetry.addLine()
                 .addData("H", "%.3f", hsvValues[0])
