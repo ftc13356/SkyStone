@@ -178,7 +178,7 @@ public class hexChassis {
 
 
     //@direction: true = left, false = right
-    public void inPlaceTurnTeleop(double degrees, boolean direction) {
+    public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -186,15 +186,15 @@ public class hexChassis {
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         if (direction == true) {
-            motorLeftBack.setPower(-0.8);
-            motorLeftFront.setPower(-0.8);
-            motorRightBack.setPower(0.8);
-            motorRightFront.setPower(0.8);
+            motorLeftBack.setPower(-power);
+            motorLeftFront.setPower(-power);
+            motorRightBack.setPower(power);
+            motorRightFront.setPower(power);
         } else {
-            motorLeftBack.setPower(0.8);
-            motorLeftFront.setPower(0.8);
-            motorRightBack.setPower(-0.8);
-            motorRightFront.setPower(-0.8);
+            motorLeftBack.setPower(power);
+            motorLeftFront.setPower(power);
+            motorRightBack.setPower(-power);
+            motorRightFront.setPower(-power);
         }
     }
 
