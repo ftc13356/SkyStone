@@ -51,7 +51,11 @@ public class RBfst extends LinearOpMode {
 
         robot.initChassis(this);
 
-        waitForStart();
+        // Aiden - during competition day robot dissconnected so we are trying this code
+        while (!opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("status", "waiting for start command...");
+            telemetry.update();
+        }
 
         robot.moveForward(38,0.55);
         robot.inPlaceTurn(100,false,1);
@@ -61,16 +65,18 @@ public class RBfst extends LinearOpMode {
         robot.inPlaceTurn(25,true,1);
 
         stone_claw_servo.setPosition(-6);
-        sleep(1000);
+        sleep(500);
         stone_claw_servo.setPosition(-5);
-        sleep(1000);
-        robot.moveBackward(35,1);
+        sleep(500);
+        robot.moveBackward(35,1);// home 35,qualifier 40
         stone_claw_servo.setPosition(7);
         sleep(200);
         //robot.moveForward(4);
-        robot.moveBackward(3.5,0.20);
+        robot.moveBackward(2.5,0.20);
         robot.inPlaceTurn(112,true,.85);
         robot.moveLeft(15,0.85);
+        robot.inPlaceTurn(30,true,1);
+        //sleep(8000);
         robot.moveForward(76,1);
         sleep(100);
         stone_claw_servo.setPosition(-5.5);
