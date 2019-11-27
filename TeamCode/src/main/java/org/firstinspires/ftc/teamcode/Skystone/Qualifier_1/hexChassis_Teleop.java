@@ -37,7 +37,11 @@ public class hexChassis_Teleop extends LinearOpMode {
         telemetry.update();
         robot.initChassis(this);
 
-        waitForStart();
+        //Aiden - during competition day robot disconnected so we are trying this code
+        while (!opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("status", "waiting for start command...");
+            telemetry.update();
+        }
         //robot.clawClamp(true);
 
         while (!isStopRequested()) {
