@@ -37,7 +37,11 @@ public class hexChassis_Teleop extends LinearOpMode {
         telemetry.update();
         robot.initChassis(this);
 
-        waitForStart();
+        //Aiden - during competition day robot disconnected so we are trying this code
+        while (!opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("status", "waiting for start command...");
+            telemetry.update();
+        }
         //robot.clawClamp(true);
 
         while (!isStopRequested()) {
@@ -96,11 +100,11 @@ public class hexChassis_Teleop extends LinearOpMode {
             } else if (right_stick_x == -1.00) {
                 telemetry.addData("Motor", " TURN RIGHT right_x (%.2f)", right_stick_x);
                 telemetry.update();
-                if (!testing) robot.inPlaceTurnTeleop(90, false);
+                if (!testing) robot.inPlaceTurnTeleop(90, false, motor_power);
             } else if (right_stick_x == 1.00) {
                 telemetry.addData("Motor", " TURN LEFT right_x (%.2f)", right_stick_x);
                 telemetry.update();
-                if (!testing) robot.inPlaceTurnTeleop(90, true);
+                if (!testing) robot.inPlaceTurnTeleop(90, true, motor_power);
             } else if (left_stick_y == 0.00) {
                 telemetry.addData("STOP", " FORWARD left_y (%.2f)", left_stick_y);
                 telemetry.update();
