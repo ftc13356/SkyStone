@@ -1,15 +1,13 @@
-package org.firstinspires.ftc.teamcode.Skystone.Unused;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
-
 
 @Autonomous(name = "Warren Test")
 public class Warren_Test extends LinearOpMode {
-    hexChassis robot = new hexChassis();
+    RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     public Warren_Test () {
 

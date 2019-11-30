@@ -4,8 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
-
 /**
  * <h1>first SkyStone TeleOp program</h1>
  * for testing hexChassis that Nathan and Andrew wrote
@@ -20,7 +18,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 @TeleOp(name = "hexChassis_Teleop X")
 public class hexChassis_Teleop extends LinearOpMode {
 
-    private hexChassis robot = new hexChassis();
+    private RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     private double motor_power = 0.70;
     private boolean claw_is_up = true;
