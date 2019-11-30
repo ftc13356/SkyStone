@@ -4,12 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
-
 @Autonomous(name = "Test_HexChassis")
 public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{
 
-    hexChassis robot = new hexChassis(); //TODO: private?
+    RobotB robot = new RobotB(); //TODO: private?
     private ElapsedTime runtime = new ElapsedTime();
 
     public void SkyStoneAutonomous_Test_HexChassis() {

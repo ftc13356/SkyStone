@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
 
 @Autonomous(name = "BBFbPc_15")
 @Disabled
@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
          * @since   2019-Nov-13
          */
 
-        private hexChassis robot = new hexChassis();
+        private RobotB robot = new RobotB();
         private ElapsedTime runtime = new ElapsedTime();
 
         @Override

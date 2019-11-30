@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
-
 /**
  * <h1> SkyStone autonomous program</h1>
  * <p>
@@ -21,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 
 @Autonomous(name = "R_Foundation_Pull_10")
 public class R_Foundation_Pull_10 extends LinearOpMode {
-    hexChassis robot = new hexChassis();
+    RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
