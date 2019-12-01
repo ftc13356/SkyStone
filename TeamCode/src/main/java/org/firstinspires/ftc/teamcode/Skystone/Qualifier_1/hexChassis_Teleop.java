@@ -112,7 +112,7 @@ public class hexChassis_Teleop extends LinearOpMode {
             if (motor_lift_up) {
                 telemetry.addData("Motor", " RACK UP right_bumper");
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(1.25);
+                if (!testing) robot.liftAutonomous(3.75);
             } else if (motor_lift_down == 1.00) {
                 telemetry.addData("Motor", " RACK DOWN right_trigger (%.2f)", motor_lift_down);
                 telemetry.update();
