@@ -58,7 +58,7 @@ public class RobotB{
     }
     public void moveLeftUntilBlue(){
         while(accesories.tapeIsBlue()==false){
-            drivetrain.motorLeftBack.setPower(-1.0);
+            drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
             drivetrain.motorRightFront.setPower(1.0);
@@ -67,7 +67,7 @@ public class RobotB{
     }
     public void moveLeftUntilRed(){
         while(accesories.tapeIsRed()==false){
-            drivetrain.motorLeftBack.setPower(-1.0);
+            drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
             drivetrain.motorRightFront.setPower(1.0);
@@ -93,14 +93,13 @@ public class RobotB{
 
     public void moveLeftTeleop(double power, double distance) {
         drivetrain.moveLeftTeleop(power,distance);
-
     }
 
 
 
     //@direction: true = left, false = right
     public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
-    drivetrain.inPlaceTurnTeleop(degrees,direction,power);
+        drivetrain.inPlaceTurnTeleop(degrees,direction,power);
     }
 
     public void moveForward(double distance, double power) {
@@ -118,14 +117,14 @@ public class RobotB{
     public void moveLeft(double distance, double power) {
         drivetrain.moveLeft(distance,power);
     }
+
     //@direction: true = left, false = right
     public void inPlaceTurn(double degrees, boolean direction, double power) {
-
         drivetrain.inPlaceTurn(degrees,direction,power);
     }
-    public void moveMotorLeftFront(double distance){
-        drivetrain.moveMotorLeftFront(distance);
-    }
+
+    /******** Left Front Motor **********/
+    public void moveMotorLeftFront(double distance){ drivetrain.moveMotorLeftFront(distance); }
     /******** Right Front Motor **********/
     public void moveMotorRightFront(double distance){
         drivetrain.moveMotorRightFront(distance);
@@ -134,11 +133,11 @@ public class RobotB{
     public void moveMotorLeftBack(double distance){
         drivetrain.moveMotorLeftBack(distance);
     }
-
     /******** Right Back Motor **********/
     public void moveMotorRightBack(double distance){
         drivetrain.moveMotorRightBack(distance);
     }
+
     public void stopLift() {
         accesories.stopLift();
     }
@@ -175,7 +174,11 @@ public class RobotB{
         accesories.liftAutonomous(liftheight);
     }
 
-    public void liftTeleop_NotWorking(double liftheight) {
-        accesories.liftTeleop_NotWorking(liftheight);
+    public void liftPosition(double liftposition) {
+        accesories.liftPosition(liftposition);
+    }
+
+    public void liftTeleop_NotWorking(boolean up) {
+        accesories.liftTeleop_NotWorking(up);
     }
 }

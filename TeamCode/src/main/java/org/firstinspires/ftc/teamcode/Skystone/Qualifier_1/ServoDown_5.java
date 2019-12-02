@@ -17,14 +17,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @since   2019-Nov-16
  *
  */
-@Autonomous(name = "BBPw_5")
-public class BBPw_5 extends LinearOpMode {
+@Autonomous(name = "ServoDown_5")
+public class ServoDown_5 extends LinearOpMode {
     RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
 
-    public BBPw_5() {
+    public ServoDown_5() {
 
     }
 

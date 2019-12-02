@@ -124,7 +124,7 @@ public class Accesories {
     }
 
     public boolean blockIsYellow() {
-        boolean chinese = false;
+        boolean chinese = false; //TODO CHINESE?????
         float hsvValues[] = {0F, 0F, 0F};
         final double SCALE_FACTOR = 255;
         Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
@@ -186,8 +186,9 @@ public class Accesories {
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
         double ticksToMove = counts_per_inch_lift * liftheight;
-        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
-        motorLift.setTargetPosition((int) newmotorLift); //TODO : Check for rounding
+        int newmotorLift = (int) (motorLift.getCurrentPosition() + ticksToMove + 0.5); //adds .5 for rounding
+        //TODO: Check limits for safety
+        motorLift.setTargetPosition(newmotorLift);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
         while (op.opModeIsActive() && motorLift.isBusy()) {
@@ -200,12 +201,11 @@ public class Accesories {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void liftTeleop_NotWorking(double liftheight) {
-        double ticksToMove = counts_per_inch_lift * liftheight;
-        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
-        motorLift.setTargetPosition((int) newmotorLift); //TODO : Check for rounding
+    public void liftPosition(double liftposition){
+        int ticksPosition = (int) (counts_per_inch_lift * liftposition + 0.5); //adds .5 for rounding
+        motorLift.setTargetPosition(ticksPosition);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorLift.setPower(0.5);
+        motorLift.setPower(1.0);
         while (op.opModeIsActive() && motorLift.isBusy()) {
             op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
             op.telemetry.update();
@@ -214,5 +214,14 @@ public class Accesories {
         //brake
         motorLift.setPower(0);
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void liftTeleop_NotWorking(boolean up) { //true for up and false for down
+        motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        if (up) {
+            motorLift.setPower(1.0);
+        } else {
+            motorLift.setPower(-1.0);
+        }
     }
 }
