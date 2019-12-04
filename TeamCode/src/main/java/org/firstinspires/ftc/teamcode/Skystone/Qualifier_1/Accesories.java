@@ -5,6 +5,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,7 +14,7 @@ public class Accesories {
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
     private ElapsedTime period = new ElapsedTime();
-    DcMotor motorLift;
+    DcMotorEx motorLift;
     Servo stone_claw_servo;
     ColorSensor tape_color_sensor;
     ColorSensor block_color_sensor;
@@ -33,7 +34,7 @@ public class Accesories {
         op = opMode;
         hardwareMap = op.hardwareMap;
         // Lifting motors
-        motorLift = hardwareMap.dcMotor.get("motorLift");
+        motorLift = (DcMotorEx) hardwareMap.dcMotor.get("motorLift");
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensors
@@ -191,8 +192,8 @@ public class Accesories {
         motorLift.setTargetPosition(newmotorLift);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
-        while (op.opModeIsActive() && motorLift.isBusy()) {
-            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
+        while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
+            op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
             op.telemetry.update();
             op.idle();
         }
@@ -201,13 +202,13 @@ public class Accesories {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void liftPosition(double liftposition){
+    public void liftPosition(double liftposition) {
         int ticksPosition = (int) (counts_per_inch_lift * liftposition + 0.5); //adds .5 for rounding
         motorLift.setTargetPosition(ticksPosition);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
-        while (op.opModeIsActive() && motorLift.isBusy()) {
-            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
+        while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
+            op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
             op.telemetry.update();
             op.idle();
         }
@@ -216,12 +217,17 @@ public class Accesories {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void liftTeleop_NotWorking(boolean up) { //true for up and false for down
+    public void liftTeleop(boolean up) { //true for up and false for down
         motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if (up) {
             motorLift.setPower(1.0);
         } else {
             motorLift.setPower(-1.0);
         }
+    }
+
+    public void liftTeleopPower(float liftpower) {
+        motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLift.setPower(liftpower);
     }
 }

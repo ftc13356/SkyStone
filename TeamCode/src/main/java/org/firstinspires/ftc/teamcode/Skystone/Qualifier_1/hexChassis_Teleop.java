@@ -111,14 +111,19 @@ public class hexChassis_Teleop extends LinearOpMode {
                 if (!testing) robot.stopAllMotors();
             }
 
-            if (lift_up_manual != 0) {
+            if (lift_up_manual != 0 || lift_down_manual != 0) {
+                float liftSpeed = -lift_down_manual + lift_up_manual;
+                telemetry.addData("Lift", "Lift speed :", liftSpeed);
+                telemetry.update();
+                if (!testing) robot.liftTeleopPower(liftSpeed);
+            /*} else if (lift_up_manual != 0){
                 telemetry.addData("Lift", "Lift goes up");
                 telemetry.update();
-                if (!testing) robot.liftTeleop_NotWorking(true);
+                if (!testing) robot.liftTeleop(true);
             } else if (lift_down_manual != 0) {
                 telemetry.addData("Lift", "Lift goes down ");
                 telemetry.update();
-                if (!testing) robot.liftTeleop_NotWorking(false);
+                if (!testing) robot.liftTeleop(false);*/
             } else {
                 telemetry.addData("Lift", " Lift stops");
                 telemetry.update();
@@ -129,21 +134,21 @@ public class hexChassis_Teleop extends LinearOpMode {
                 telemetry.update();
                 if (!testing) robot.liftPosition(0);
             } else if (lift_little) {
-                telemetry.addData("Lift", " Lift up slightly");
+                telemetry.addData("Lift", " Lift up slightly(1.2)");
                 telemetry.update();
                 if (!testing) robot.liftPosition(1.2);
             } else if (lift_level_1) {
-                telemetry.addData("Lift", " Lift goes to level 1");
+                telemetry.addData("Lift", " Lift goes to level 1 (5)");
                 telemetry.update();
                 if (!testing) robot.liftPosition(5);
             } else if (lift_level_2) {
-                telemetry.addData("Lift", " Lift goes to level 2");
+                telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
                 telemetry.update();
-                if (!testing) robot.liftPosition(8.5);
+                if (!testing) robot.liftPosition(8.25);
             } else if (lift_level_3) {
-                telemetry.addData("Lift", " Lift goes to ground");
+                telemetry.addData("Lift", " Lift goes to ground (11.75)");
                 telemetry.update();
-                if (!testing) robot.liftPosition(12);
+                if (!testing) robot.liftPosition(11.75);
             }
 
             if (move_claw == true) {
