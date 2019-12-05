@@ -66,14 +66,14 @@ public class RBfst extends LinearOpMode {
         sleep(500);
         stone_claw_servo.setPosition(-5);
         sleep(500);
-        robot.moveBackward(35,1);// home 35,qualifier 40
+        robot.moveBackward(37,1);// home 35,qualifier 40
         stone_claw_servo.setPosition(7);
         sleep(200);
         //robot.moveForward(4);
         robot.moveBackward(2.5,0.20);
         robot.inPlaceTurn(112,true,.85);
         robot.moveLeft(15,0.85);
-        robot.inPlaceTurn(30,true,1);
+        robot.inPlaceTurn(20,true,1);
         //sleep(8000);
         robot.moveForward(76,1);
         sleep(100);

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "Test_HexChassis")
-public class SkyStoneAutonomous_Test_HexChassis extends LinearOpMode{
+public class Test_HexChassis extends LinearOpMode{
 
     RobotB robot = new RobotB(); //TODO: private?
     private ElapsedTime runtime = new ElapsedTime();

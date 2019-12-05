@@ -153,8 +153,6 @@ public class hexChassis {
 
     }
 
-
-
     //@direction: true = left, false = right
     public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
         // Changes motor mode back to default

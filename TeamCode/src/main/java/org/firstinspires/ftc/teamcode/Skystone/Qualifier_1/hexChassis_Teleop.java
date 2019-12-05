@@ -20,7 +20,7 @@ public class hexChassis_Teleop extends LinearOpMode {
 
     private RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
-    private double motor_power = 0.70;
+    private double motor_power = 1.0; //Drivetrain motor
     private boolean claw_is_up = true;
     private boolean move_claw = true;
 
@@ -44,16 +44,23 @@ public class hexChassis_Teleop extends LinearOpMode {
 
         while (!isStopRequested()) {
 
-            float left_stick_y = -gamepad1.left_stick_y;
+            float left_stick_y = -gamepad1.left_stick_y; //TODO: What are they used for?
             float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
             boolean x_button = gamepad1.x;
             boolean y_button = gamepad1.y;
-            boolean a_button = gamepad1.a;
-            boolean motor_lift_up = gamepad2.right_bumper;
-            float motor_lift_down = gamepad2.right_trigger;
+            boolean lift_ground = gamepad2.a;
+            boolean lift_little = gamepad2.b;
+            boolean lift_level_1 = gamepad2.x;
+            boolean lift_level_2 = gamepad2.y;
+            boolean claw = gamepad2.left_bumper;
+            float lift_up_manual = gamepad2.left_trigger;
+            boolean lift_level_3 = gamepad2.right_bumper;
+            float lift_down_manual = gamepad2.right_trigger;
 
-            if (gamepad2.left_trigger == 1.00) {
+            boolean testing = false;
+
+            if (claw == true) {
                 move_claw = true;
 
                 if (claw_is_up == true) {
@@ -68,15 +75,10 @@ public class hexChassis_Teleop extends LinearOpMode {
             // telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
             //telemetry.update();
 
-            boolean testing = false;
-
             if (x_button) {
                 motor_power = 0.3;
             }
             if (y_button) {
-                motor_power = 0.70;
-            }
-            if (a_button){
                 motor_power = 1.0;
             }
             if (left_stick_y == 1.00) {
@@ -109,18 +111,44 @@ public class hexChassis_Teleop extends LinearOpMode {
                 if (!testing) robot.stopAllMotors();
             }
 
-            if (motor_lift_up) {
-                telemetry.addData("Motor", " RACK UP right_bumper");
+            if (lift_up_manual != 0 || lift_down_manual != 0) {
+                float liftSpeed = -lift_down_manual + lift_up_manual;
+                telemetry.addData("Lift", "Lift speed :", liftSpeed);
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(1.25);
-            } else if (motor_lift_down == 1.00) {
-                telemetry.addData("Motor", " RACK DOWN right_trigger (%.2f)", motor_lift_down);
+                if (!testing) robot.liftTeleopPower(liftSpeed);
+            /*} else if (lift_up_manual != 0){
+                telemetry.addData("Lift", "Lift goes up");
                 telemetry.update();
-                if (!testing) robot.liftAutonomous(-1.25);
-            } else if (motor_lift_up == false) {
-                telemetry.addData("STOP", " LIFT right_bumper (%.2f)");
+                if (!testing) robot.liftTeleop(true);
+            } else if (lift_down_manual != 0) {
+                telemetry.addData("Lift", "Lift goes down ");
+                telemetry.update();
+                if (!testing) robot.liftTeleop(false);*/
+            } else {
+                telemetry.addData("Lift", " Lift stops");
                 telemetry.update();
                 if (!testing) robot.stopLift();
+            }
+            if (lift_ground) {
+                telemetry.addData("Lift", " Lift goes to ground");
+                telemetry.update();
+                if (!testing) robot.liftPosition(0);
+            } else if (lift_little) {
+                telemetry.addData("Lift", " Lift up slightly(1.2)");
+                telemetry.update();
+                if (!testing) robot.liftPosition(1.2);
+            } else if (lift_level_1) {
+                telemetry.addData("Lift", " Lift goes to level 1 (5)");
+                telemetry.update();
+                if (!testing) robot.liftPosition(5);
+            } else if (lift_level_2) {
+                telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
+                telemetry.update();
+                if (!testing) robot.liftPosition(8.25);
+            } else if (lift_level_3) {
+                telemetry.addData("Lift", " Lift goes to ground (11.75)");
+                telemetry.update();
+                if (!testing) robot.liftPosition(11.75);
             }
 
             if (move_claw == true) {
