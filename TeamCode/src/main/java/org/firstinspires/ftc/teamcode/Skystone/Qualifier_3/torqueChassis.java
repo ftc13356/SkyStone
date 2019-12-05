@@ -50,15 +50,16 @@ public class torqueChassis {
         /******* hex motors ******/
         counts_per_motor_rev = 288;
         //counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
-        counts_per_inch = 288 / (4 * Math.PI);
+        //counts_per_inch = 288 / (4 * Math.PI);
         //counts_per_inch = 23 ticks
 
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
         /******* Lift motor ********/
-        counts_per_motor_tetrix = 1440; //TODO
-        //counts_per_inch
+        counts_per_motor_tetrix = 1440;
+        counts_per_inch = (counts_per_motor_tetrix / (wheel_diameter * Math.PI));
+        counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
         counts_per_inch_lift = 101 ; //550 for Tetrix and 100 for Hex
     }
 
@@ -712,4 +713,3 @@ public class torqueChassis {
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
-
