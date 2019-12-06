@@ -19,14 +19,22 @@ public class Test_HexChassis extends LinearOpMode{
         telemetry.addData("Status", "Ready to go");
         telemetry.update();
         robot.initChassis(this);
-        waitForStart();
+
+        //****** Wait for Start *******
+        while (!opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("status", "waiting for start command...");
+            telemetry.update();
+        }
 
         //******* Lift Mechanism *******//
         robot.liftAutonomous(4);
         robot.clawClamp(false); //Clamp
         sleep(1500);
         robot.clawClamp(true); //Unclamp
+        sleep(500);
         robot.liftAutonomous(-4);
+        robot.liftPosition(4);
+        robot.liftPosition(0);
         sleep(500);
 
         telemetry.addData("Order:", "LeftFront, RightFront, LeftBack, RightBack");

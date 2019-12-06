@@ -40,28 +40,33 @@ public class stone1_foundation_parkCenter extends LinearOpMode{
             telemetry.update();
         }
 
-        robot.moveForward(24,1); // robot approaches foundation
-        robot.clawClampPosition(1); // robot grabs stone
+        robot.moveForward(45,1); // robot approaches foundation
+        robot.clawClampPosition(0); // robot grabs stone
         sleep(500); // just in case
-        robot.moveBackward(8,1); // robot moves away from foundation
-        robot.liftAutonomous(1.2); // robot lifts stone so it doesn't drag
-        robot.inPlaceTurn(90,true,1);
-        robot.moveForward(90,1); // robot gets close to foundation
-        robot.liftAutonomous(5); // robot lifts stone
+        robot.moveBackward(35,1); // robot moves away from foundation
+        robot.liftPosition(3); // robot lifts stone so it doesn't drag
+        sleep(300);
+        robot.inPlaceTurn(108,true,1);
+        robot.liftPosition(1.2);
+        sleep(200);
+        robot.moveForward(100,1); // robot gets close to foundation
+        robot.liftAutonomous(4); // robot lifts stone
         robot.inPlaceTurn(90,false,1);
-        robot.moveForward(8,1); // robot should be in front of foundation
-        robot.moveForward(4, 0.35); // robot touches foundation
-        robot.liftAutonomous(4); // robot lowers stone
+        robot.moveForward(15,1); // robot should be in front of foundation
+        robot.moveForward(8, 0.35); // robot touches foundation
+        robot.liftAutonomous(-3); // robot lowers stone
         robot.clawClampPosition(1); // robot releases stone
         robot.moveBackward(5,1); // robot backs up
-        robot.moveLeft(5,1);
-        robot.moveForward(2,0.35); // robot should be touching foundation
+        robot.moveLeft(10,1);
+        robot.inPlaceTurn(30,true,1);
+        robot.moveForward(5,0.35); // robot should be touching foundation
+        robot.liftAutonomous(-2);
         robot.clawClampPosition(0); // robot is grabbing foundation
-        robot.moveBackward(15,0.75); // robot backs up towards building site
-        robot.inPlaceTurn(100,true, 1); // foundation should be in building site
+        robot.moveBackward(20,0.75); // robot backs up towards building site
+        robot.inPlaceTurn(150,true, 1); // foundation should be in building site
         robot.clawClampPosition(1); // robot unclamps from foundation
-        robot.inPlaceTurn(20,true,1);
-        robot.moveBackward(15,1); // robot should be on tape
+        robot.inPlaceTurn(45,true,1);
+        robot.moveBackward(25,1); // robot should be on tape
         robot.clawClampPosition(0); // just in case
     }
 }
