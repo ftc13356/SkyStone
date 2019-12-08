@@ -15,17 +15,17 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
  * user friendly and it is assumed as a high quality code.
  *
  * @author Aamod
- * @version 1.0
+ * @version 1.3
  * @since 2019-Dec-2
  */
-@Autonomous(name = "stone2_parkCenter")
-public class stone2_parkCenter extends LinearOpMode {
+@Autonomous(name = "B_stone2_parkCenter")
+public class B_stone2_parkCenter extends LinearOpMode {
     RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
 
-    public stone2_parkCenter() {
+    public B_stone2_parkCenter() {
 
     }
 
