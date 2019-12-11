@@ -75,7 +75,7 @@ public class RBfst extends LinearOpMode {
         robot.moveLeft(15,0.85);
         robot.inPlaceTurn(15,true,1);
         //sleep(8000);
-        robot.moveForward(76,1);
+        robot.moveForward(72,1);
         sleep(100);
         stone_claw_servo.setPosition(-5.5);
         sleep(100);
