@@ -65,9 +65,9 @@ public class R_stone2_parkCenter extends LinearOpMode {
         robot.moveBackward(18, 1);
         robot.inPlaceTurn(110, false, 1);
         robot.liftPosition(0.85);
-        robot.moveForward(60, 1);
+        robot.moveForward(65, 1);
         robot.clawClampPosition(1);
-        robot.moveBackward(12, 1);
+        robot.moveBackward(16, 1);
         robot.clawClampPosition(0);
     }
 }

@@ -39,7 +39,7 @@ public class ForwardRightPark extends LinearOpMode{
         waitForStart();
 
         sleep(21500);
-        robot.moveForward(37, 1);
+        robot.moveForward(35, 1);
         robot.inPlaceTurn(90, false, 1);
         robot.moveForward(15,1);
         robot.clawClampPosition(0.25);
