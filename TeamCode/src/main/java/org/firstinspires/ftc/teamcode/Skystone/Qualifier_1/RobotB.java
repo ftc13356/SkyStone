@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -210,7 +211,7 @@ public class RobotB {
      * @version 1.0
      * @since 2019-Dec-2
      */
-
+    @Disabled //TODO why is this here?
     @Autonomous(name = "BLPcS1_17or25")
     public static class BLFPcS1_17or25 extends LinearOpMode {
         RobotB robot = new RobotB();
