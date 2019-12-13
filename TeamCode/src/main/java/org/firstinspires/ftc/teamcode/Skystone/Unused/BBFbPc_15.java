@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
 
-@Autonomous(name = "BBFbPc_15")
 @Disabled
+@Autonomous(name = "BBFbPc_15")
+
     public class BBFbPc_15 extends LinearOpMode {
         /**
          * <h1>first SkyStone autonomous program</h1>

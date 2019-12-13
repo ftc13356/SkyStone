@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
  * @version 1.5
  * @since   2019-Nov-8
  */
+@Disabled
 @Autonomous(name = "BBFPwS1_17or25")
 public class BBFPwS1_17or25 extends LinearOpMode{
 

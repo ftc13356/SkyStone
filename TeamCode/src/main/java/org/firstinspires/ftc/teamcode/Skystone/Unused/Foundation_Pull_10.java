@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -18,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
  * @since   2019-Nov-19
  *
  */
-
+@Disabled
 @Autonomous(name = "Foundation_Pull_10")
 public class Foundation_Pull_10 extends LinearOpMode {
     RobotB robot = new RobotB();

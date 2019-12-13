@@ -19,9 +19,11 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
  * @version 1.0
  * @since   2019-10-12
  */
-@Autonomous(name = "BBFw_15")
 
 @Disabled
+@Autonomous(name = "BBFw_15")
+
+
 public class BBFPw_15 extends LinearOpMode {
 
     private hexChassis robot   = new hexChassis();

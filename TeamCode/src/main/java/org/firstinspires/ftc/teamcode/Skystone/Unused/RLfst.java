@@ -15,17 +15,17 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
  * Giving proper comments in your program makes it more
  * user friendly and it is assumed as a high quality code.
  *
- * @author  Andrew
+ * @author Andrew
  * @version 1.0
- * @since   2019-11-11
+ * @since 2019-11-11
  */
+@Disabled
 @Autonomous(name = "BBfst")
 
-@Disabled
 public class RLfst extends LinearOpMode {
 
-    private hexChassis robot   = new hexChassis();
-    private ElapsedTime  runtime = new ElapsedTime();
+    private hexChassis robot = new hexChassis();
+    private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
     /**
@@ -52,7 +52,8 @@ public class RLfst extends LinearOpMode {
 
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
-        telemetry.addData("Status", "Ready to go"); telemetry.update();
+        telemetry.addData("Status", "Ready to go");
+        telemetry.update();
 
         robot.initChassis(this);
 
