@@ -41,12 +41,16 @@ public class BLst extends LinearOpMode {
 
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
-
         telemetry.addData("Status", "Ready to go"); telemetry.update();
 
         robot.initChassis(this);
 
-        waitForStart();
+        // Aiden - during competition day robot dissconnected so we are trying this code
+        while (!opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("status", "waiting for start command...");
+            telemetry.update();
+        }
+
         robot.moveForward(38, 1);
         stone_claw_servo.setPosition(-6);
         sleep(1500);

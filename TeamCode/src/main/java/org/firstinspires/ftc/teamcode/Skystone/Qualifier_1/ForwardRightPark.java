@@ -31,12 +31,17 @@ public class ForwardRightPark extends LinearOpMode{
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Ready to go");
-        telemetry.update();
+        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
+
+        telemetry.addData("Status", "Ready to go"); telemetry.update();
+
         robot.initChassis(this);
-        telemetry.addData("Status", "InitComplete, Ready to Start");
-        telemetry.update();
-        waitForStart();
+
+        // Aiden - during competition day robot dissconnected so we are trying this code
+        while (!opModeIsActive() && !isStopRequested()) {
+            telemetry.addData("status", "waiting for start command...");
+            telemetry.update();
+        }
 
         sleep(21500);
         robot.moveForward(35, 1);
