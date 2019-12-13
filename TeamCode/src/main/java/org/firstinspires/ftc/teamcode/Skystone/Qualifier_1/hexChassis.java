@@ -16,7 +16,7 @@ public class hexChassis {
     double counts_per_motor_rev = 0;
     double counts_per_inch = 0;
     double counts_per_degree = 0;
-    double liftheight = 0;
+    //double liftheight = 0;
 
     //variables for lifting mechanism
     double counts_per_motor_tetrix = 0;
