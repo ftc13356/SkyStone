@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
+package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
 
 
 /**
@@ -12,19 +14,19 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Giving proper comments in your program makes it more
  * user friendly and it is assumed as a high quality code.
  *
- * @author  Aamod
+ * @author Aamod
  * @version 1.5
- * @since   2019-Nov-8
+ * @since 2019-Nov-8
  */
-@Autonomous(name = "BBPwS2_17or33")
-public class BBPwS2_17or33 extends LinearOpMode{
+@Autonomous(name = "BBPwS2_17or33DoesntWorkProperly")
+public class BBPwS2_17or33DoesntWorkProperly extends LinearOpMode {
 
     RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
 
-    public BBPwS2_17or33() {
+    public BBPwS2_17or33DoesntWorkProperly() {
 
     }
 
@@ -66,13 +68,13 @@ public class BBPwS2_17or33 extends LinearOpMode{
         waitForStart();
 
         //true = left, right = false
-        robot.moveForward(15,1);
+        robot.moveForward(15, 1);
         //robot.moveRight(100,.75);
         robot.inPlaceTurn(90, false, .75);
-        robot.moveForward(0,0);
+        robot.moveForward(0, 0);
         robot.moveForward(100, 1);
         robot.inPlaceTurn(90, true, .75);
-        robot.moveForward(0,0);
+        robot.moveForward(0, 0);
         robot.moveForward(17, 1);
         //robot.stone_claw_servo.setPosition(0.0);
         //robot.clawClampPosition(0.0);
@@ -81,22 +83,22 @@ public class BBPwS2_17or33 extends LinearOpMode{
         robot.liftAutonomous(1);
         robot.moveBackward(25, 1);
         //robot.moveLeft(70,.75);
-        robot.inPlaceTurn(140, true,.75);
+        robot.inPlaceTurn(140, true, .75);
         robot.moveForward(120, 1);
         robot.liftAutonomous(3);
         sleep(500);
-        robot.inPlaceTurn(100, false,1);
+        robot.inPlaceTurn(100, false, 1);
         robot.moveForward(30, 1);
         //robot.clawClampPosition(0.8);
         robot.liftAutonomous(-2);
         robot.clawClamp(true);
         robot.liftAutonomous(0.2);
         sleep(300);
-        robot.moveBackward(5,1);
+        robot.moveBackward(5, 1);
         robot.clawClamp(false);
-        robot.moveBackward(15,1);
-        robot.moveForward(3,1);
-        robot.moveRight(15,.75);
+        robot.moveBackward(15, 1);
+        robot.moveForward(3, 1);
+        robot.moveRight(15, .75);
         /*robot.inPlaceTurn(90, true, .75);
         robot.moveForward(15, 1);
         robot.liftAutonomous(-4);

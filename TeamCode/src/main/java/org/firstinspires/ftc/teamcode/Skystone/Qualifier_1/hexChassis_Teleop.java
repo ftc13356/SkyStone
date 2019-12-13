@@ -76,7 +76,7 @@ public class hexChassis_Teleop extends LinearOpMode {
             //telemetry.update();
 
             if (x_button) {
-                motor_power = 0.3;
+                motor_power = 0.4;
             }
             if (y_button) {
                 motor_power = 1.0;
@@ -100,12 +100,12 @@ public class hexChassis_Teleop extends LinearOpMode {
             } else if (right_stick_x == -1.00) {
                 telemetry.addData("Motor", " TURN RIGHT right_x (%.2f)", right_stick_x);
                 telemetry.update();
-                if (!testing) robot.inPlaceTurnTeleop(90, false, motor_power);
+                if (!testing) robot.inPlaceTurnTeleop(45, false, motor_power);
             } else if (right_stick_x == 1.00) {
                 telemetry.addData("Motor", " TURN LEFT right_x (%.2f)", right_stick_x);
                 telemetry.update();
-                if (!testing) robot.inPlaceTurnTeleop(90, true, motor_power);
-            } else if (left_stick_y == 0.00) {
+                if (!testing) robot.inPlaceTurnTeleop(45, true, motor_power);
+            } else {
                 telemetry.addData("STOP", " FORWARD left_y (%.2f)", left_stick_y);
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
@@ -132,22 +132,27 @@ public class hexChassis_Teleop extends LinearOpMode {
             if (lift_ground) {
                 telemetry.addData("Lift", " Lift goes to ground");
                 telemetry.update();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(0);
             } else if (lift_little) {
                 telemetry.addData("Lift", " Lift up slightly(1.2)");
                 telemetry.update();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(1.2);
             } else if (lift_level_1) {
                 telemetry.addData("Lift", " Lift goes to level 1 (5)");
                 telemetry.update();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(5);
             } else if (lift_level_2) {
                 telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
                 telemetry.update();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(8.25);
             } else if (lift_level_3) {
                 telemetry.addData("Lift", " Lift goes to ground (11.75)");
                 telemetry.update();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(11.75);
             }
 

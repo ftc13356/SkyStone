@@ -192,6 +192,7 @@ public class Accesories {
         motorLift.setTargetPosition(newmotorLift);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
+        op.sleep(100);
         while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
             op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
             op.telemetry.update();
@@ -207,6 +208,7 @@ public class Accesories {
         motorLift.setTargetPosition(ticksPosition);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
+        op.sleep(100);
         while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
             op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
             op.telemetry.update();
