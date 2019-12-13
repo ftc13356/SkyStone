@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.examples.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * Purpose: Main Teleop Program
  * Author: Jonathan Ma, Ansh Gandhi
  */
-
+@Disabled
 @TeleOp(name = "Relic Recovery Teleop Drivetrain and Arm")
 public class seasonTeleop extends OpMode {
 
