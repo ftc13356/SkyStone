@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 @Autonomous(name = "BBfst")
 public class BBfst extends LinearOpMode {
 
-    private hexChassis robot   = new hexChassis();
+    private RobotB robot   = new RobotB();
     private ElapsedTime  runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -80,7 +80,7 @@ public class BBfst extends LinearOpMode {
         sleep(100);
         stone_claw_servo.setPosition(-5.5);
         sleep(100);
-        stop();
+        //stop();
 
     }
 }
