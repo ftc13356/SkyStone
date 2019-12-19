@@ -1,8 +1,10 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
 
 /**
  * <h1>first SkyStone TeleOp program</h1>
@@ -15,16 +17,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @version 1.0
  * @since 2019-10-19
  */
-@TeleOp(name = "hexChassis_Teleop X")
-public class hexChassis_Teleop extends LinearOpMode {
+@TeleOp(name = "torqueChassis_Teleop X")
+public class torqueChassis_Teleop extends LinearOpMode {
 
-    private RobotB robot = new RobotB();
+    private RobotA robot = new RobotA();
     private ElapsedTime runtime = new ElapsedTime();
     private double motor_power = 1.0; //Drivetrain motor
     private boolean claw_is_up = true;
     private boolean move_claw = true;
 
-    public hexChassis_Teleop() {
+    public torqueChassis_Teleop() {
 
     }
 

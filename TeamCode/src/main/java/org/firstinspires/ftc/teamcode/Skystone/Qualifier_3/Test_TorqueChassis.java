@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "Test_HexChassis")
-public class Test_HexChassis extends LinearOpMode{
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
 
-    RobotB robot = new RobotB(); //TODO: private?
+@Autonomous(name = "Test_TorqueChassis")
+public class Test_TorqueChassis extends LinearOpMode{
+
+    RobotA robot = new RobotA(); //TODO: private?
     private ElapsedTime runtime = new ElapsedTime();
 
     public void SkyStoneAutonomous_Test_HexChassis() {
@@ -39,10 +41,13 @@ public class Test_HexChassis extends LinearOpMode{
 
         telemetry.addData("Order:", "LeftFront, RightFront, LeftBack, RightBack");
         telemetry.update();
-        robot.moveMotorLeftFront(5);
-        robot.moveMotorRightFront(5);
-        robot.moveMotorLeftBack(5);
-        robot.moveMotorRightBack(5);
+        robot.moveMotorLeftFront(10);
+        sleep(1000);
+        robot.moveMotorRightFront(10);
+        sleep(1000);
+        robot.moveMotorLeftBack(10);
+        sleep(1000);
+        robot.moveMotorRightBack(10);
         sleep(1000);
         telemetry.addData("Status:", "MoveForward 5");
         telemetry.update();
