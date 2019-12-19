@@ -4,6 +4,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -86,9 +87,9 @@ public class torqueChassis {
         motorRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
-        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
+        motorRightFront.setDirection(DcMotor.Direction.FORWARD);
         motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
-        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+        motorRightBack.setDirection(DcMotor.Direction.FORWARD);
         // reset encoder count kept by left motor.
         motorLeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
