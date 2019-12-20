@@ -50,6 +50,7 @@ public class hexChassis_Teleop extends LinearOpMode {
             boolean x_button = gamepad1.x;
             boolean y_button = gamepad1.y;
             boolean b_button = gamepad1.b;
+            boolean a_button = gamepad1.a;
             boolean lift_ground = gamepad2.a;
             boolean lift_little = gamepad2.b;
             boolean lift_level_1 = gamepad2.x;
@@ -85,7 +86,13 @@ public class hexChassis_Teleop extends LinearOpMode {
             if (b_button) {
                 robot.clawClamp(true);
                 robot.moveBackwardTeleop(0.2,0.10);
+                sleep(1000);
+                robot.stopAllMotors();
                 robot.liftPosition(0);
+            }
+            if (a_button) {
+                robot.clawClamp(false);
+                robot.liftPosition(1.2);
             }
             if (left_stick_y == 1.00) {
                 telemetry.addData("Motor", " FORWARD left_y (%.2f)", left_stick_y);
