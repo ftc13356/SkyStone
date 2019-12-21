@@ -27,7 +27,7 @@ public class FoundationPuller {
     //true = unclamp, false = clamp
     public void moveFoundationRightdown(boolean direction) {
         if (direction == true) {
-            foundationMoverRight.setPosition(0.5);
+            foundationMoverRight.setPosition(0.4);
         } else {
             foundationMoverRight.setPosition(0.0);
         }
@@ -44,7 +44,7 @@ public class FoundationPuller {
 */
     public void  moveFoundationLeftdown(boolean direction) {
         if (direction == true) {
-            foundationMoverLeft.setPosition(0.4);
+            foundationMoverLeft.setPosition(0.3);
         } else {
             foundationMoverLeft.setPosition(0.0);
         }
