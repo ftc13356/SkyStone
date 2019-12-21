@@ -25,10 +25,10 @@ public class torqueChassis_Teleop extends LinearOpMode {
     private double motor_power = 1.0; //Drivetrain motor
     private boolean claw_is_up = true;
     private boolean move_claw = true;
-    private boolean right_stick_is_up = true;
-    private boolean move_right_stick = true;
-    private boolean left_stick_is_up = true;
-    private boolean move_left_stick = true;
+    private boolean both_sticks_is_up = true;
+    private boolean move_both_sticks = true;
+    //private boolean left_stick_is_up = true;
+    //private boolean move_left_stick = true;
 
     public torqueChassis_Teleop() {
 
@@ -53,8 +53,8 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float left_stick_y = -gamepad1.left_stick_y; //TODO: What are they used for?
             float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
-            boolean stick_right = gamepad1.right_bumper;
-            boolean stick_left = gamepad1.left_bumper;
+            boolean both_sticks = gamepad1.right_bumper;
+            //boolean stick_left = gamepad1.left_bumper;
             boolean x_button = gamepad1.x;
             boolean y_button = gamepad1.y;
             boolean b_button = gamepad1.b;
@@ -82,19 +82,19 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 move_claw = false;
             }
 
-            if (stick_right == true) {
-                move_right_stick = true;
+            if (both_sticks == true) {
+                move_both_sticks = true;
 
-                if (right_stick_is_up == true) {
-                    right_stick_is_up = false;
-                } else if (right_stick_is_up == false) {
-                    right_stick_is_up = true;
+                if (both_sticks_is_up == true) {
+                    both_sticks_is_up = false;
+                } else if (both_sticks_is_up == false) {
+                    both_sticks_is_up = true;
                 }
             } else {
-                move_right_stick = false;
+                move_both_sticks = false;
             }
 
-            if (stick_left == true) {
+            /*if (stick_left == true) {
                 move_left_stick = true;
 
                 if (left_stick_is_up == true) {
@@ -104,7 +104,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 }
             } else {
                 move_left_stick = false;
-            }
+            }*/
             // telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
             //telemetry.update();
 
@@ -213,17 +213,19 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 }
             }
             //following are the code that handles the raising and lowering of the puller for foundation
-            if (move_right_stick == true) {
-                if (right_stick_is_up) {
-                    telemetry.addData("Servo", " STICK UP  right_trigger");
+            if (move_both_sticks == true) {
+                if (both_sticks_is_up) {
+                    telemetry.addData("Servo", " BOTH STICKS UP  right_trigger");
                     telemetry.update();
                     if (!testing) robot.moveFoundationRightdown(true);
-                } else if (right_stick_is_up == false) {
-                    telemetry.addData("Servo", " STICK DOWN  right_trigger");
+                    if (!testing) robot.moveFoundationLefttdown(true);
+                } else if (both_sticks_is_up == false) {
+                    telemetry.addData("Servo", " BOTH STICKS DOWN  right_trigger");
                     telemetry.update();
                     if (!testing) robot.moveFoundationRightdown(false);
+                    if (!testing) robot.moveFoundationLefttdown(false);
                 }
-            } else if (move_left_stick == true) {
+            } /*else if (move_left_stick == true) {
                 if (left_stick_is_up) {
                     telemetry.addData("Servo", " STICK UP  left_trigger");
                     telemetry.update();
@@ -234,7 +236,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
                     if (!testing) robot.moveFoundationLefttdown(false);
                 }
             }
-
+*/
 
         }
     }
