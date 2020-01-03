@@ -9,7 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class RobotA {
     torqueChassis drivetrain = new torqueChassis();
-    Accesories accesories = new Accesories();
+    AccesoriesQ3 accesories = new AccesoriesQ3();
+    FoundationPuller puller = new FoundationPuller();
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
@@ -23,6 +24,7 @@ public class RobotA {
         hardwareMap = op.hardwareMap;
         drivetrain.initChassis(opMode);
         accesories.initChassis(opMode);
+        puller.initChassis(opMode);
     }
 
     public void moveForwardUntilBlue() {
@@ -168,6 +170,15 @@ public class RobotA {
     public void clawClampPosition(double claw_position) {
         accesories.clawClampPosition(claw_position);
     }
+    //moves foundation sticks down to move the foundation to horizontal position
+    public void moveFoundationRightdown(boolean direction) {
+        puller.moveFoundationRightdown(direction);
+    }
+    //moves foundation sticks down to move the foundation to horizontal position
+    public void moveFoundationLefttdown(boolean direction) {
+        puller.moveFoundationLeftdown(direction);
+    }
+
 
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
@@ -185,6 +196,7 @@ public class RobotA {
     public boolean blockIsSky() {
         return accesories.blockIsSky();
     }
+
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
