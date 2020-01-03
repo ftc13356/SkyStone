@@ -153,6 +153,8 @@ public class RobotA {
         drivetrain.moveMotorRightBack(distance);
     }
 
+    public void testIMU() {drivetrain.testIMU();}
+
     public void stopLift() {
         accesories.stopLift();
     }
