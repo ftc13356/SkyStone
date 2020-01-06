@@ -180,9 +180,6 @@ public class RobotB {
         return accesories.blockIsYellow();
     }
 
-    public boolean blockIsSky() {
-        return accesories.blockIsSky();
-    }
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
@@ -259,4 +256,5 @@ public class RobotB {
             robot.stopLift();
         }
     }
+
 }

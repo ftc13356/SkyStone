@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -18,6 +19,7 @@ public class Accesories {
     Servo stone_claw_servo;
     ColorSensor tape_color_sensor;
     ColorSensor block_color_sensor;
+    DistanceSensor block_distance_sensor;
     //variables for lifting mechanism
     double counts_per_motor_tetrix = 0;
     double counts_per_inch_lift = 0;
@@ -38,7 +40,8 @@ public class Accesories {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensors
-        block_color_sensor = hardwareMap.colorSensor.get("C1");
+        block_color_sensor = hardwareMap.get(ColorSensor.class, "C1");
+        block_distance_sensor = hardwareMap.get(DistanceSensor.class,"C1");
         // Lifting Motors
         motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
@@ -79,7 +82,11 @@ public class Accesories {
                 (int) (block_color_sensor.green() * SCALE_FACTOR),
                 (int) (block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-        if (hsvValues[0] >= 340 || hsvValues[0] <= 20) {
+        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                (int) (block_color_sensor.green() * SCALE_FACTOR),
+                (int) (block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        if (hsvValues[0] >= 10 || hsvValues[0] <= 30) {
             redded = true;
             op.telemetry.addData("ColorSensorStatus", "Red");
 
@@ -103,13 +110,17 @@ public class Accesories {
                 (int) (block_color_sensor.green() * SCALE_FACTOR),
                 (int) (block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
+        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                (int) (block_color_sensor.green() * SCALE_FACTOR),
+                (int) (block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
         op.telemetry.addLine()
                 .addData("H", "%.3f", hsvValues[0])
                 .addData("S", "%.3f", hsvValues[1])
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         op.sleep(200);
-        if (hsvValues[0] >= 200 && hsvValues[0] <= 275) {
+        if (hsvValues[0] >= 160 && hsvValues[0] <= 205) {
             op.telemetry.addData("ColorSensorStatus", "Blue");
             blued = true;
         } else {
@@ -125,18 +136,25 @@ public class Accesories {
     }
 
     public boolean blockIsYellow() {
-        boolean chinese = false; //TODO CHINESE?????
-        float hsvValues[] = {0F, 0F, 0F};
-        final double SCALE_FACTOR = 255;
-        Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
-                (int) (block_color_sensor.green() * SCALE_FACTOR),
-                (int) (block_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
+        boolean chinese = false; //TODO CHINESE
+                float hsvValues[] = {0F, 0F, 0F};
+                final float values[] = hsvValues;
+                final double SCALE_FACTOR = 255;
+
+                    Color.RGBToHSV((int) (block_color_sensor.red() * SCALE_FACTOR),
+                            (int) (block_color_sensor.green() * SCALE_FACTOR),
+                            (int) (block_color_sensor.blue() * SCALE_FACTOR),
+                            hsvValues);
+                    op.telemetry.addData("Alpha", block_color_sensor.alpha());
+                    op.telemetry.addData("Red  ", block_color_sensor.red());
+                    op.telemetry.addData("Green", block_color_sensor.green());
+                    op.telemetry.addData("Blue ", block_color_sensor.blue());
         op.telemetry.addLine()
                 .addData("H", "%.3f", hsvValues[0])
                 .addData("S", "%.3f", hsvValues[1])
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
+
         op.sleep(200);
         if (hsvValues[0] >= 20 && hsvValues[0] <= 70 && hsvValues[2] >= 25) {
             op.telemetry.addData("ColorSensorStatus", "Yellow");
@@ -145,11 +163,6 @@ public class Accesories {
             op.telemetry.addData("ColorSensorStatus", "Unknown");
             chinese = false;
         }
-        op.telemetry.addLine()
-                .addData("H", "%.3f", hsvValues[0])
-                .addData("S", "%.3f", hsvValues[1])
-                .addData("V", "%.3f", hsvValues[2]);
-        op.telemetry.update();
         return chinese;
 
     }
