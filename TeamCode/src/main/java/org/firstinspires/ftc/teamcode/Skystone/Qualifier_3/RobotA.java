@@ -12,8 +12,8 @@ import java.util.Locale;
 
 public class RobotA {
     torqueChassis drivetrain = new torqueChassis();
-    AccesoriesQ3 accesories = new AccesoriesQ3();
     myColorSensors sensor = new myColorSensors();
+    LiftandClaw liftandClaw = new LiftandClaw();
     FoundationPuller puller = new FoundationPuller();
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
@@ -27,13 +27,13 @@ public class RobotA {
         op = opMode;
         hardwareMap = op.hardwareMap;
         drivetrain.initChassis(opMode);
-        accesories.initChassis(opMode);
         puller.initChassis(opMode);
         sensor.init(opMode);
+        liftandClaw.init(opMode);
     }
 
     public void moveForwardUntilBlue() {
-        while (accesories.tapeIsBlue() == false) {
+        while (sensor.tapeIsBlue() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -43,7 +43,7 @@ public class RobotA {
     }
 
     public void moveForwardUntilRed() {
-        while (accesories.tapeIsRed() == false) {
+        while (sensor.tapeIsRed() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -53,7 +53,7 @@ public class RobotA {
     }
 
     public void moveRightUntilBlue() {
-        while (accesories.tapeIsBlue() == false) {
+        while (sensor.tapeIsBlue() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(-1.0);
             drivetrain.motorLeftFront.setPower(-1.0);
@@ -63,7 +63,7 @@ public class RobotA {
     }
 
     public void moveRightUntilRed() {
-        while (accesories.tapeIsRed() == false) {
+        while (sensor.tapeIsRed() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(-1.0);
             drivetrain.motorLeftFront.setPower(-1.0);
@@ -73,7 +73,7 @@ public class RobotA {
     }
 
     public void moveLeftUntilBlue() {
-        while (accesories.tapeIsBlue() == false) {
+        while (sensor.tapeIsBlue() == false) {
             drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -83,7 +83,7 @@ public class RobotA {
     }
 
     public void moveLeftUntilRed() {
-        while (accesories.tapeIsRed() == false) {
+        while (sensor.tapeIsRed() == false) {
             drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -161,17 +161,17 @@ public class RobotA {
     }
 
     public void stopLift() {
-        accesories.stopLift();
+        liftandClaw.stopLift();
     }
 
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
-        accesories.clawClamp(direction);
+        liftandClaw.clawClamp(direction);
     }
 
     //0.0 is clamped, 1.0 is unclamped
     public void clawClampPosition(double claw_position) {
-        accesories.clawClampPosition(claw_position);
+        liftandClaw.clawClampPosition(claw_position);
     }
     //moves foundation sticks down to move the foundation to horizontal position
     public void moveFoundationRightdown(boolean direction) {
@@ -232,19 +232,19 @@ public class RobotA {
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
-        accesories.liftAutonomous(liftheight);
+        liftandClaw.liftAutonomous(liftheight);
     }
 
     public void liftPosition(double liftposition) {
-        accesories.liftPosition(liftposition);
+        liftandClaw.liftPosition(liftposition);
     }
 
     public void liftTeleop(boolean up) {
-        accesories.liftTeleop(up);
+        liftandClaw.liftTeleop(up);
     }
 
     public void liftTeleopPower(float power) {
-        accesories.liftTeleopPower(power);
+        liftandClaw.liftTeleopPower(power);
     }
 
 
