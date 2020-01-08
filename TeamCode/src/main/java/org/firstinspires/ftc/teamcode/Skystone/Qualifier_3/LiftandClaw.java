@@ -24,7 +24,7 @@ public class LiftandClaw {
 
         /******* Lift motor ********/
         //counts_per_inch
-        counts_per_inch_lift = 101; //550 for Tetrix and 100 for Hex
+        counts_per_inch_lift = 46; //550 for Tetrix and 100 for Hex
     }
     public void init(LinearOpMode opMode) {
         op = opMode;

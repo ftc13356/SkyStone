@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+//public class Accesories extends hexChassis_Teleop{
 public class Accesories {
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
@@ -222,6 +223,7 @@ public class Accesories {
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
         op.sleep(100);
+        //while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 && gamepad2.left_trigger<0.1 || gamepad2.right_trigger<0.1) {
         while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
             op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
             op.telemetry.update();

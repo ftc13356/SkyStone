@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,6 +19,8 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
  * @version 2.0
  * @since   2019-10-12
  */
+
+@Disabled
 @Autonomous(name = "BBfst")
 public class BBfst extends LinearOpMode {
 

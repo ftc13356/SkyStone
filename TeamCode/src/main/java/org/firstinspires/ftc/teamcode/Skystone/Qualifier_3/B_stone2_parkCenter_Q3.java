@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,17 +17,18 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
  *
  * @author Aamod
  * @version 1.0
- * @since 2019-Dec-7
+ * @since 2020 Jan-7
  */
-@Disabled
-@Autonomous(name = "R_stone2_parkCenter")
-public class R_stone2_parkCenter extends LinearOpMode {
-    RobotB robot = new RobotB();
+
+//@Disabled
+@Autonomous(name = "B_stone2_parkCenter_Q3")
+public class B_stone2_parkCenter_Q3 extends LinearOpMode {
+    RobotA robot = new RobotA();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
 
-    public R_stone2_parkCenter() {
+    public B_stone2_parkCenter_Q3() {
 
     }
 
@@ -44,19 +45,20 @@ public class R_stone2_parkCenter extends LinearOpMode {
             telemetry.addData("status", "waiting for start command...");
             telemetry.update();
         }
-        //Main Autonomous
+
+        //Main Autonomous program
         robot.moveForward(40, 1); // robot approaches foundation
         robot.moveForward(5, 0.5);
         robot.clawClampPosition(0); // robot grabs stone
         sleep(500); // just in
         robot.liftPosition(3);
         robot.moveBackward(13, 1); // robot moves away from foundation
-        robot.inPlaceTurn(110, false, 1.0);
+        robot.inPlaceTurn(130, true, 1.0);
         robot.liftPosition(0.85); // robot lifts stone so it doesn't drag
         robot.moveForward(50, 1);
         robot.clawClampPosition(1);
         robot.moveBackward(60, 1);
-        robot.inPlaceTurn(95, true, 1);
+        robot.inPlaceTurn(115, false, 1);
         robot.liftPosition(0.5);
         robot.moveForward(12, 1);
         robot.moveForward(4, 0.5);
@@ -65,11 +67,34 @@ public class R_stone2_parkCenter extends LinearOpMode {
         robot.liftPosition(3);
         //sleep(100);
         robot.moveBackward(18, 1);
-        robot.inPlaceTurn(110, false, 1);
+        robot.inPlaceTurn(130, true, 1);
         robot.liftPosition(0.85);
-        robot.moveForward(65, 1);
+        robot.moveForward(60, 1);
         robot.clawClampPosition(1);
-        robot.moveBackward(16, 1);
+        robot.moveBackward(15, 1);
         robot.clawClampPosition(0);
+        /*
+        //robot.moveForward(100,1); // robot gets close to foundation
+        robot.liftAutonomous(4); // robot lifts stone
+        robot.inPlaceTurn(90, false, 1);
+        robot.moveForward(15, 1); // robot should be in front of foundation
+        robot.moveForward(8, 0.35); // robot touches foundation
+        robot.liftAutonomous(-3); // robot lowers stone
+        robot.clawClampPosition(1); // robot releases stone
+        robot.moveBackward(5, 1); // robot backs up
+        robot.moveLeft(10, 1);
+        robot.inPlaceTurn(30, true, 1);
+        robot.moveForward(5, 0.35); // robot should be touching foundation
+        robot.liftAutonomous(-2);
+        robot.clawClampPosition(0); // robot is grabbing foundation
+        robot.moveBackward(20, 0.75); // robot backs up towards building site
+        robot.inPlaceTurn(150, true, 1); // foundation should be in building site
+        robot.clawClampPosition(1); // robot unclamps from foundation
+        robot.inPlaceTurn(45, true, 1);
+        robot.moveBackward(25, 1); // robot should be on tape
+        robot.clawClampPosition(0); // just in case
+
+         */
+
     }
 }
