@@ -27,14 +27,10 @@ public class RobotA {
         op = opMode;
         hardwareMap = op.hardwareMap;
         drivetrain.initChassis(opMode);
-<<<<<<< HEAD
-        accesories.initChassis(opMode);
-        // puller.initChassis(opMode);
-=======
         puller.initChassis(opMode);
         sensor.init(opMode);
         liftandClaw.init(opMode);
->>>>>>> d726e39abd76c5c9c94ddb2e3cd012954716ff29
+
     }
 
     public void moveForwardUntilBlue() {

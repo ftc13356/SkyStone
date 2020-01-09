@@ -4,7 +4,6 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,18 +11,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 public class torqueChassis {
     //initialize motor
-    private DcMotor motorLeftFront;
-    private DcMotor motorRightFront;
-    private DcMotor motorLeftBack;
-    private DcMotor motorRightBack;
+    DcMotor motorLeftFront;
+    DcMotor motorRightFront;
+    DcMotor motorLeftBack;
+    DcMotor motorRightBack;
     DcMotor motorLift;
-    Servo stone_claw_servo;
     ColorSensor tape_color_sensor;
     ColorSensor block_color_sensor;
 
@@ -91,7 +87,6 @@ public class torqueChassis {
         // Lifting motors
         motorLift = hardwareMap.dcMotor.get("motorLift");
         // Claw Servo
-        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensors
         //block_color_sensor = hardwareMap.colorSensor.get("C1");
         // IMU
@@ -121,15 +116,6 @@ public class torqueChassis {
         motorLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Lifting Motors
-        motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorLift.setDirection(DcMotor.Direction.FORWARD);
-        motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        //Initialize claw
-        //clawClamp(true);
-        clawClampPosition(1.0);
     }
     public void stopAllMotors() {
         motorLeftBack.setPower(0);
@@ -548,23 +534,6 @@ public class torqueChassis {
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    //true = unclamp, false = clamp
-    public void clawClamp(boolean direction) {
-        if (direction == true) {
-            stone_claw_servo.setPosition(1.0);
-        } else {
-            stone_claw_servo.setPosition(0.0);
-        }
-        op.sleep(200);
-    }
-    //0.0 is clamped, 1.0 is unclamped
-    public void clawClampPosition(double claw_position) {
-        op.telemetry.addData("claw position :", claw_position);
-        op.telemetry.update();
-        stone_claw_servo.setPosition(claw_position);
-        op.sleep(50);
-    }
-
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         boolean redded= false;
@@ -648,7 +617,9 @@ public class torqueChassis {
         op.telemetry.update();
         return chinese;
 
-    } public boolean blockIsSky(){
+
+    }
+    public boolean blockIsSky() {
         boolean black = false;
         float hsvValues[] = {0F, 0F, 0F};
         final double SCALE_FACTOR = 255;
@@ -662,7 +633,7 @@ public class torqueChassis {
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         op.sleep(200);
-        if (hsvValues[1]<=0.5) {
+        if (hsvValues[1] <= 0.5) {
             op.telemetry.addData("ColorSensorStatus", "Black");
             black = true;
         } else {
@@ -675,7 +646,6 @@ public class torqueChassis {
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return black;
-
     }
     //will move until it detects blue/red, momentum causse bug
     public void moveForwardUntilBlue(){
