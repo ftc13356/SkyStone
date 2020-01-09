@@ -38,7 +38,7 @@ public class AccesoriesQ3 {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensors
-        block_color_sensor = hardwareMap.colorSensor.get("C1");
+        //block_color_sensor = hardwareMap.colorSensor.get("C1");
         // Lifting Motors
         motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLift.setDirection(DcMotor.Direction.FORWARD);

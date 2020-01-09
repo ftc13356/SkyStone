@@ -18,14 +18,15 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 public class torqueChassis {
     //initialize motor
-    DcMotor motorLeftFront;
-    DcMotor motorRightFront;
-    DcMotor motorLeftBack;
-    DcMotor motorRightBack;
+    private DcMotor motorLeftFront;
+    private DcMotor motorRightFront;
+    private DcMotor motorLeftBack;
+    private DcMotor motorRightBack;
     DcMotor motorLift;
     Servo stone_claw_servo;
     ColorSensor tape_color_sensor;
     ColorSensor block_color_sensor;
+
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
@@ -57,6 +58,8 @@ public class torqueChassis {
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
     double                  globalAngle, power = .30, correction;
+    //set true to enable imu vice versa
+    final boolean enableIMU = false;
 
     public torqueChassis() {
         /******* hex motors ******/
@@ -90,9 +93,19 @@ public class torqueChassis {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensors
-        block_color_sensor = hardwareMap.colorSensor.get("C1");
+        //block_color_sensor = hardwareMap.colorSensor.get("C1");
         // IMU
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
+        parameters.mode                = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled      = false;
+
         imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -243,17 +256,12 @@ public class torqueChassis {
         {
             correction = checkDirection();
 
-            motorRightFront.setPower(power);
-            motorLeftFront.setPower(power);
-            motorRightBack.setPower(power);
-            motorLeftBack.setPower(power);
-
-            motorRightBack.setPower(power + correction);
-            motorRightFront.setPower(power + correction);
-            motorLeftBack.setPower(power - correction);
-            motorLeftFront.setPower(power - correction);
-            //op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            //op.telemetry.update();
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(power - correction);
+            motorLeftBack.setPower(power + correction);
+            motorLeftFront.setPower(power + correction);
+            op.telemetry.addData("correction", correction);
+            op.telemetry.update();
             op.idle();
         }
 
@@ -284,7 +292,9 @@ public class torqueChassis {
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
+        op.telemetry.addData("first angle: ", (int)angles.firstAngle);
+        op.telemetry.update();
+        op.sleep(1000);
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
         if (deltaAngle < -180)
@@ -304,7 +314,7 @@ public class torqueChassis {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .90;
+        double correction, angle, gain = .1;
 
         angle = getAngle();
 
@@ -314,7 +324,9 @@ public class torqueChassis {
             correction = -angle;        // reverse sign of angle for correction.
 
         correction = correction * gain;
-
+        if (enableIMU == false) {
+            correction = 0;
+        }
         return correction;
     }
 
@@ -348,9 +360,14 @@ public class torqueChassis {
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
-//            op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-//            op.telemetry.update();
-//            op.idle();
+            correction = checkDirection();
+
+            motorRightBack.setPower(power + correction);
+            motorRightFront.setPower(power + correction);
+            motorLeftBack.setPower(power - correction);
+            motorLeftFront.setPower(power - correction);
+            op.telemetry.addData("correction", correction);
+            op.telemetry.update();
             op.idle();
         }
         motorLeftBack.setPower(0);
@@ -394,8 +411,14 @@ public class torqueChassis {
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
-            //        op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            //        op.telemetry.update();
+            correction = checkDirection();
+
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(power + correction);
+            motorLeftBack.setPower(power - correction);
+            motorLeftFront.setPower(power + correction);
+            op.telemetry.addData("correction", correction);
+            op.telemetry.update();
             op.idle();
         }
         motorLeftBack.setPower(0);
@@ -414,7 +437,7 @@ public class torqueChassis {
         while (true) {
             op.telemetry.addData("angle: ", (int)getAngle());
             op.telemetry.update();
-
+            op.sleep(1000);
         }
     }
 
@@ -451,17 +474,12 @@ public class torqueChassis {
         {
             correction = checkDirection();
 
-            motorRightFront.setPower(power);
-            motorLeftFront.setPower(power);
-            motorRightBack.setPower(power);
-            motorLeftBack.setPower(power);
-
-            motorRightBack.setPower(power - correction);
-            motorRightFront.setPower(power + correction);
-            motorLeftBack.setPower(power - correction);
-            motorLeftFront.setPower(power + correction);
-            //op.telemetry.addData("encoder-fwd", motorLeftBack.getCurrentPosition() + "  busy=" + motorLeftBack.isBusy());
-            //op.telemetry.update();
+            motorRightBack.setPower(power + correction);
+            motorRightFront.setPower(power - correction);
+            motorLeftBack.setPower(power + correction);
+            motorLeftFront.setPower(power - correction);
+            op.telemetry.addData("correction", correction);
+            op.telemetry.update();
             op.idle();
         }
         motorLeftBack.setPower(0);
