@@ -27,9 +27,9 @@ public class myColorSensors {
         hardwareMap = op.hardwareMap;
 
         // Color Sensors
-        block_color_sensor = hardwareMap.get(ColorSensor.class, "C1");
-        block_distance_sensor = hardwareMap.get(DistanceSensor.class, "C1");
-        tape_color_sensor = hardwareMap.get(ColorSensor.class, "C2");
+        block_color_sensor = hardwareMap.get(ColorSensor.class, "block_color_sensor");
+        block_distance_sensor = hardwareMap.get(DistanceSensor.class, "block_color_sensor");
+        tape_color_sensor = hardwareMap.get(ColorSensor.class, "tape_color_sensor");
     }
 
     //detects if red or if blue returns true and false

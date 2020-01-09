@@ -1,16 +1,15 @@
 package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
+import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
 
-@Disabled
+
 @Autonomous(name = "Warren Test")
 public class Warren_Test extends LinearOpMode {
-    RobotB robot = new RobotB();
+    RobotA robot = new RobotA();
     private ElapsedTime runtime = new ElapsedTime();
     public Warren_Test () {
 
@@ -19,13 +18,13 @@ public class Warren_Test extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Status", "Ready to go");
         telemetry.update();
-        int a=0;
+        //int a=0;
 
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.initChassis(this);
+        /*robot.initChassis(this);
         waitForStart();
         //move to the blocks
         robot.moveForward(30,1.0);
@@ -40,13 +39,12 @@ public class Warren_Test extends LinearOpMode {
             sleep(300);
             a++;
         }
-        robot.moveForward(4,0.4);
+        robot.moveForward(5,0.4);
         //pick up the stone
         robot.clawClamp(false);
         sleep(200);
         robot.moveBackward(20,0.5);
         sleep(300);
-        robot.moveForward(2,0.4);
         robot.liftAutonomous(1.00);
         robot.inPlaceTurn(90,true,1.0);
         robot.moveForward(60-(a*5),1.0);
@@ -57,7 +55,8 @@ public class Warren_Test extends LinearOpMode {
         robot.inPlaceTurn(30,false,1.0);
         //move backward depending on amount of times it took to detect skystone
         robot.moveBackward(20,1.0);
-        robot.clawClamp(false);
+        robot.clawClamp(false);*/
+        robot.moveForwardUntilBlue();
         stop();
 
     }
