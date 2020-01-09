@@ -198,6 +198,20 @@ public class torqueChassis {
             motorRightFront.setPower(-power);
         }
     }
+    //not tested yet
+    /*public void normalTurnTeleop(double degrees, boolean direction, double power) {
+        if (direction == true) {
+            motorLeftBack.setPower(power);
+            motorLeftFront.setPower(power);
+            motorRightBack.setPower(0.0);
+            motorRightFront.setPower(0.0);
+        } else {
+            motorLeftBack.setPower(0.0);
+            motorLeftFront.setPower(0.0);
+            motorRightBack.setPower(power);
+            motorRightFront.setPower(power);
+        }
+    }*/
 
     public void moveForward(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
@@ -435,6 +449,7 @@ public class torqueChassis {
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
 
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
