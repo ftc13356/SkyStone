@@ -35,60 +35,55 @@ public class RobotA {
 
     public void moveForwardUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.motorLeftBack.setPower(1.0);
-            drivetrain.motorRightBack.setPower(1.0);
-            drivetrain.motorLeftFront.setPower(1.0);
-            drivetrain.motorRightFront.setPower(1.0);
+            drivetrain.moveForward(2, 0.5);
         }
 
     }
 
     public void moveForwardUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.motorLeftBack.setPower(1.0);
-            drivetrain.motorRightBack.setPower(1.0);
-            drivetrain.motorLeftFront.setPower(1.0);
-            drivetrain.motorRightFront.setPower(1.0);
+            drivetrain.moveForward(2, 0.5);
+        }
+
+    }
+    public void moveBackwardUntilBlue() {
+        while (sensor.tapeIsBlue() == false) {
+            drivetrain.moveBackward(2, 0.5);
+        }
+
+    }
+
+    public void moveBackwardUntilRed() {
+        while (sensor.tapeIsRed() == false) {
+            drivetrain.moveBackward(2, 0.5);
         }
 
     }
 
     public void moveRightUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.motorLeftBack.setPower(1.0);
-            drivetrain.motorRightBack.setPower(-1.0);
-            drivetrain.motorLeftFront.setPower(-1.0);
-            drivetrain.motorRightFront.setPower(1.0);
+            drivetrain.moveRight(2, 0.5);
         }
 
     }
 
     public void moveRightUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.motorLeftBack.setPower(1.0);
-            drivetrain.motorRightBack.setPower(-1.0);
-            drivetrain.motorLeftFront.setPower(-1.0);
-            drivetrain.motorRightFront.setPower(1.0);
+            drivetrain.moveRight(2, 0.5);
         }
 
     }
 
     public void moveLeftUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
-            drivetrain.motorRightBack.setPower(1.0);
-            drivetrain.motorLeftFront.setPower(1.0);
-            drivetrain.motorRightFront.setPower(1.0);
+            drivetrain.moveLeft(2, 0.5);
         }
 
     }
 
     public void moveLeftUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
-            drivetrain.motorRightBack.setPower(1.0);
-            drivetrain.motorLeftFront.setPower(1.0);
-            drivetrain.motorRightFront.setPower(1.0);
+            drivetrain.moveLeft(2, 0.5);
         }
 
     }
