@@ -1,15 +1,19 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.Locale;
 
 public class RobotA {
     torqueChassis drivetrain = new torqueChassis();
-    AccesoriesQ3 accesories = new AccesoriesQ3();
+    myColorSensors sensor = new myColorSensors();
+    LiftandClaw liftandClaw = new LiftandClaw();
     FoundationPuller puller = new FoundationPuller();
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
@@ -23,12 +27,18 @@ public class RobotA {
         op = opMode;
         hardwareMap = op.hardwareMap;
         drivetrain.initChassis(opMode);
+<<<<<<< HEAD
         accesories.initChassis(opMode);
         // puller.initChassis(opMode);
+=======
+        puller.initChassis(opMode);
+        sensor.init(opMode);
+        liftandClaw.init(opMode);
+>>>>>>> d726e39abd76c5c9c94ddb2e3cd012954716ff29
     }
 
     public void moveForwardUntilBlue() {
-        while (accesories.tapeIsBlue() == false) {
+        while (sensor.tapeIsBlue() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -38,7 +48,7 @@ public class RobotA {
     }
 
     public void moveForwardUntilRed() {
-        while (accesories.tapeIsRed() == false) {
+        while (sensor.tapeIsRed() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -48,7 +58,7 @@ public class RobotA {
     }
 
     public void moveRightUntilBlue() {
-        while (accesories.tapeIsBlue() == false) {
+        while (sensor.tapeIsBlue() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(-1.0);
             drivetrain.motorLeftFront.setPower(-1.0);
@@ -58,7 +68,7 @@ public class RobotA {
     }
 
     public void moveRightUntilRed() {
-        while (accesories.tapeIsRed() == false) {
+        while (sensor.tapeIsRed() == false) {
             drivetrain.motorLeftBack.setPower(1.0);
             drivetrain.motorRightBack.setPower(-1.0);
             drivetrain.motorLeftFront.setPower(-1.0);
@@ -68,7 +78,7 @@ public class RobotA {
     }
 
     public void moveLeftUntilBlue() {
-        while (accesories.tapeIsBlue() == false) {
+        while (sensor.tapeIsBlue() == false) {
             drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -78,7 +88,7 @@ public class RobotA {
     }
 
     public void moveLeftUntilRed() {
-        while (accesories.tapeIsRed() == false) {
+        while (sensor.tapeIsRed() == false) {
             drivetrain.motorLeftBack.setPower(-1.0); //TODO Is this correct? Only one motor is neagative
             drivetrain.motorRightBack.setPower(1.0);
             drivetrain.motorLeftFront.setPower(1.0);
@@ -158,17 +168,17 @@ public class RobotA {
     public void testIMU() {drivetrain.testIMU();}
 
     public void stopLift() {
-        accesories.stopLift();
+        liftandClaw.stopLift();
     }
 
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
-        accesories.clawClamp(direction);
+        liftandClaw.clawClamp(direction);
     }
 
     //0.0 is clamped, 1.0 is unclamped
     public void clawClampPosition(double claw_position) {
-        accesories.clawClampPosition(claw_position);
+        liftandClaw.clawClampPosition(claw_position);
     }
     //moves foundation sticks down to move the foundation to horizontal position
     public void moveFoundationRightdown(boolean direction) {
@@ -182,38 +192,68 @@ public class RobotA {
 
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
-        return accesories.tapeIsRed();
+        return sensor.tapeIsRed();
     }
 
     public boolean tapeIsBlue() {
-        return accesories.tapeIsBlue();
+        return sensor.tapeIsBlue();
+    }
+    public boolean blockIsSky (){
+        float hsvValues[] = {0F, 0F, 0F};
+        boolean altitude = true;
+        final float values[] = hsvValues;
+        final double SCALE_FACTOR = 255;
+        double distance=0;
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        op.sleep(10);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        op.telemetry.addData("Alpha", sensor.block_color_sensor.alpha());
+        op.telemetry.addData("Red  ", sensor.block_color_sensor.red());
+        op.telemetry.addData("Green", sensor.block_color_sensor.green());
+        op.telemetry.addData("Blue ", sensor.block_color_sensor.blue());
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2])
+                .addData ("Distance (cm)",
+                        String.format(Locale.US, "%.02f", sensor.block_distance_sensor.getDistance(DistanceUnit.CM)));
+        op.telemetry.update();
+        distance = sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+        while(distance>3.0){
+            drivetrain.moveForward(1, 0.2);
+        }
+        if(hsvValues[0]>75&&hsvValues[0]<=90&&hsvValues[1]>=0.6){
+            altitude=false;
+        }
+        return altitude;
     }
 
-    public boolean blockIsYellow() {
-        return accesories.blockIsYellow();
-    }
 
-    public boolean blockIsSky() {
-        return accesories.blockIsSky();
-    }
 
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
-        accesories.liftAutonomous(liftheight);
+        liftandClaw.liftAutonomous(liftheight);
     }
 
     public void liftPosition(double liftposition) {
-        accesories.liftPosition(liftposition);
+        liftandClaw.liftPosition(liftposition);
     }
 
     public void liftTeleop(boolean up) {
-        accesories.liftTeleop(up);
+        liftandClaw.liftTeleop(up);
     }
 
     public void liftTeleopPower(float power) {
-        accesories.liftTeleopPower(power);
+        liftandClaw.liftTeleopPower(power);
     }
+
 
     /**
      * <h1> SkyStone autonomous program</h1>
@@ -225,6 +265,7 @@ public class RobotA {
      * @version 1.0
      * @since 2019-Dec-2
      */
+    /*
     @Disabled //TODO why is this here?
     @Autonomous(name = "BLPcS1_17or25")
     public static class BLFPcS1_17or25 extends LinearOpMode {
@@ -271,6 +312,6 @@ public class RobotA {
 
             robot.stopAllMotors();
             robot.stopLift();
-        }
+        }*/
+
     }
-}

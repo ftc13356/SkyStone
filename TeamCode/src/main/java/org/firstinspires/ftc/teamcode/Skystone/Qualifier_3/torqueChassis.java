@@ -72,7 +72,7 @@ public class torqueChassis {
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
         /******* Lift motor ********/
-        counts_per_motor_tetrix = 1440;
+        counts_per_motor_tetrix = 1100;
         counts_per_inch = (counts_per_motor_tetrix / (wheel_diameter * Math.PI));
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
         counts_per_inch_lift = 101 ; //550 for Tetrix and 100 for Hex

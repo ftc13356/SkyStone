@@ -30,19 +30,13 @@ public class Warren_Test extends LinearOpMode {
         //move to the blocks
         robot.moveForward(30,1.0);
         robot.moveForward(5,0.4);
-        //account for the curve
-        robot.inPlaceTurn(20,true, 1.0);
         //move left until skystone is detected
         for (int i=0; i<3; i++) {
             if(robot.blockIsYellow()==false){
                 break;
             }
             //move left one block
-            robot.moveLeft(14, 1.0);
-            sleep(300);
-            //account for the curve
-            robot.inPlaceTurn(30, true,1.0);
-            robot.moveBackward(1,1.0);
+            robot.moveLeft(8, 1.0);
             sleep(300);
             a++;
         }
@@ -54,7 +48,7 @@ public class Warren_Test extends LinearOpMode {
         sleep(300);
         robot.moveForward(2,0.4);
         robot.liftAutonomous(1.00);
-        robot.inPlaceTurn(200,true,1.0);
+        robot.inPlaceTurn(90,true,1.0);
         robot.moveForward(60-(a*5),1.0);
         //drop the stone
         robot.clawClamp(true);
@@ -64,7 +58,6 @@ public class Warren_Test extends LinearOpMode {
         //move backward depending on amount of times it took to detect skystone
         robot.moveBackward(20,1.0);
         robot.clawClamp(false);
-
         stop();
 
     }

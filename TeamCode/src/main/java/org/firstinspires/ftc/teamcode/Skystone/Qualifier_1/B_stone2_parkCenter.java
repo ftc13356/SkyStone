@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -18,7 +19,8 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
  * @version 1.3
  * @since 2019-Dec-2
  */
-@Autonomous(name = "B_stone2_parkCenter")
+@Disabled
+@Autonomous(name = "B_stone2_parkCenter_Q3")
 public class B_stone2_parkCenter extends LinearOpMode {
     RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();

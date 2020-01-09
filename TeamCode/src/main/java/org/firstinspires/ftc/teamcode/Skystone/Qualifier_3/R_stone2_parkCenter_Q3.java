@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_1;
+package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -17,17 +16,18 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
  *
  * @author Aamod
  * @version 1.0
- * @since 2019-Dec-7
+ * @since 2020-Jan-7
  */
-@Disabled
-@Autonomous(name = "R_stone2_parkCenter")
-public class R_stone2_parkCenter extends LinearOpMode {
+
+//@Disabled
+@Autonomous(name = "R_stone2_parkCenter_Q3")
+public class R_stone2_parkCenter_Q3 extends LinearOpMode {
     RobotB robot = new RobotB();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
 
-    public R_stone2_parkCenter() {
+    public R_stone2_parkCenter_Q3() {
 
     }
 
