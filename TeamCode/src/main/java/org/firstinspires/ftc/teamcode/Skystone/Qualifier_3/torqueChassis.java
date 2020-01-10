@@ -30,7 +30,7 @@ public class torqueChassis {
     // Initialize Encoder Variables
     final double robot_diameter = 10.5;
     final double drive_gear_reduction = 1.0;
-    final double wheel_diameter = 4.0;
+    final double wheel_diameter = 3.0;
 
     // Motor Speed for various Operations
     final double motor_speed_fb = 1; //forward & backward
@@ -52,7 +52,7 @@ public class torqueChassis {
 
     public torqueChassis() {
         /******* hex motors ******/
-        counts_per_motor_rev = 288;
+        //counts_per_motor_rev = 600;
         //counts_per_inch = (counts_per_motor_rev / (wheel_diameter * Math.PI));
         //counts_per_inch = 288 / (4 * Math.PI);
         //counts_per_inch = 23 ticks
@@ -60,11 +60,10 @@ public class torqueChassis {
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
-        /******* Lift motor ********/
-        counts_per_motor_tetrix = 1100;
+        counts_per_motor_tetrix = 960;
         counts_per_inch = (counts_per_motor_tetrix / (wheel_diameter * Math.PI));
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
-        counts_per_inch_lift = 101 ; //550 for Tetrix and 100 for Hex
+
     }
 
     public void initChassis(LinearOpMode opMode) {
@@ -89,6 +88,17 @@ public class torqueChassis {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        // make sure the imu gyro is calibrated before continuing.
+        while (!op.isStopRequested() && !imu.isGyroCalibrated())
+        {
+            op.sleep(50);
+            op.idle();
+        }
+
+        op.telemetry.addData("Mode", "waiting for start");
+        op.telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
+        op.telemetry.update();
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
