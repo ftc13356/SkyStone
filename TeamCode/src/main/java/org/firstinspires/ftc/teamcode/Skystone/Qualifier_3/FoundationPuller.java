@@ -21,8 +21,8 @@ public class FoundationPuller {
         //foundation servo 2
         // foundationMoverLeft = hardwareMap.servo.get("foundationMoverLeft");
         //starting position
-        foundationMoverRight.setPosition(0.0);
-        foundationMoverLeft.setPosition(0.0);
+        //foundationMoverRight.setPosition(0.0);
+        //foundationMoverLeft.setPosition(0.0);
     }
     //true = unclamp, false = clamp
     public void moveFoundationRightdown(boolean direction) {
