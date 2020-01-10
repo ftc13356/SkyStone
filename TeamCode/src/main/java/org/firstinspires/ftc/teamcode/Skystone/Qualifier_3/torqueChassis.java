@@ -21,10 +21,6 @@ public class torqueChassis {
     DcMotor motorLeftBack;
     DcMotor motorRightBack;
 
-    DcMotor motorLift;
-    ColorSensor tape_color_sensor;
-    ColorSensor block_color_sensor;
-
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
     double counts_per_inch = 0;
@@ -114,10 +110,6 @@ public class torqueChassis {
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // Lifting Motors
-        motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorLift.setDirection(DcMotor.Direction.FORWARD);
-        motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
     public void stopAllMotors() {
@@ -126,10 +118,7 @@ public class torqueChassis {
         motorLeftFront.setPower(0);
         motorRightFront.setPower(0);
     }
-    public void stopLift()
-    {
-        motorLift.setPower(0);
-    }
+
 
     public void moveForwardTeleop(double power, double distance) {
         // Changes motor mode back to default
