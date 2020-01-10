@@ -1,12 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -20,6 +15,7 @@ public class torqueChassis {
     DcMotor motorRightFront;
     DcMotor motorLeftBack;
     DcMotor motorRightBack;
+
 
     // these encoder variables vary depending on chassis type
     double counts_per_motor_rev = 0;
@@ -119,7 +115,6 @@ public class torqueChassis {
         motorRightFront.setPower(0);
     }
 
-
     public void moveForwardTeleop(double power, double distance) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -202,6 +197,20 @@ public class torqueChassis {
             motorRightFront.setPower(-power);
         }
     }
+    //not tested yet
+    /*public void normalTurnTeleop(double degrees, boolean direction, double power) {
+        if (direction == true) {
+            motorLeftBack.setPower(power);
+            motorLeftFront.setPower(power);
+            motorRightBack.setPower(0.0);
+            motorRightFront.setPower(0.0);
+        } else {
+            motorLeftBack.setPower(0.0);
+            motorLeftFront.setPower(0.0);
+            motorRightBack.setPower(power);
+            motorRightFront.setPower(power);
+        }
+    }*/
 
     public void moveForward(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
@@ -525,6 +534,12 @@ public class torqueChassis {
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+
+    //true = unclamp, false = clamp
+
+    //will move until it detects blue/red, momentum causse bug
+
 
     /******** Left Front Motor **********/
     public void moveMotorLeftFront(double distance){

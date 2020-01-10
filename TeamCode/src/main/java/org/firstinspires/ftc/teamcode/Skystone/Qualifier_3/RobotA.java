@@ -115,6 +115,11 @@ public class RobotA {
         drivetrain.inPlaceTurnTeleop(degrees, direction, power);
     }
 
+    //not tested yet
+    /*public void normalTurnTeleop(double degrees, boolean direction, double power) {
+        drivetrain.normalTurnTeleop(degrees, direction, power);
+    }*/
+
     public void moveForward(double distance, double power) {
         drivetrain.moveForward(distance, power);
     }
