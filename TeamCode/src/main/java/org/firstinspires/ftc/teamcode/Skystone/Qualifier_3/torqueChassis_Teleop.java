@@ -176,27 +176,27 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 telemetry.addData("Lift", " Lift goes to ground");
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
-                if (!testing) robot.liftPosition(0);
+                if (!testing) robot.liftPosition(0, gamepad2);
             } else if (lift_little) {
                 telemetry.addData("Lift", " Lift up slightly(1.2)");
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
-                if (!testing) robot.liftPosition(1.2);
+                if (!testing) robot.liftPosition(1.2, gamepad2);
             } else if (lift_level_1) {
                 telemetry.addData("Lift", " Lift goes to level 1 (5)");
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
-                if (!testing) robot.liftPosition(5);
+                if (!testing) robot.liftPosition(5, gamepad2);
             } else if (lift_level_2) {
                 telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
-                if (!testing) robot.liftPosition(8.25);
+                if (!testing) robot.liftPosition(8.25, gamepad2);
             } else if (lift_level_3) {
                 telemetry.addData("Lift", " Lift goes to ground (11.75)");
                 telemetry.update();
                 if (!testing) robot.stopAllMotors();
-                if (!testing) robot.liftPosition(11.75);
+                if (!testing) robot.liftPosition(11.75,gamepad2);
             }
 
             if (move_claw == true) {

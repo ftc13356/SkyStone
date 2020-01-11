@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -80,12 +78,30 @@ public class LiftandClaw {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void liftPosition(double liftposition, Gamepad gp) {
+        int ticksPosition = (int) (counts_per_inch_lift * liftposition + 0.5); //adds .5 for rounding
+        motorLift.setTargetPosition(ticksPosition);
+        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLift.setPower(1.0);
+        op.sleep(100);
+        while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 && gp.left_trigger <=0.1 && gp.right_trigger <=0.1) {
+            //while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
+            op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //brake
+        motorLift.setPower(0);
+        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     public void liftPosition(double liftposition) {
         int ticksPosition = (int) (counts_per_inch_lift * liftposition + 0.5); //adds .5 for rounding
         motorLift.setTargetPosition(ticksPosition);
         motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLift.setPower(1.0);
         op.sleep(100);
+        //while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 && gp.left_trigger <=0.1 && gp.right_trigger <=0.1) {
         while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
             op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
             op.telemetry.update();

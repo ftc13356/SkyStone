@@ -4,15 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.RobotB;
-
 @Autonomous(name = "Test_TorqueChassis")
 public class Test_TorqueChassis extends LinearOpMode{
 
     RobotA robot = new RobotA(); //TODO: private?
     private ElapsedTime runtime = new ElapsedTime();
 
-    public void SkyStoneAutonomous_Test_HexChassis() {
+    public void Test_TorqueChassis() {
     }
 
     @Override
@@ -36,7 +34,7 @@ public class Test_TorqueChassis extends LinearOpMode{
         sleep(500);
         robot.liftAutonomous(-4);
         robot.liftPosition(4);
-        robot.liftPosition(0);
+        robot.liftPosition(0, gamepad2);
         sleep(500);
 
         telemetry.addData("Order:", "LeftFront, RightFront, LeftBack, RightBack");

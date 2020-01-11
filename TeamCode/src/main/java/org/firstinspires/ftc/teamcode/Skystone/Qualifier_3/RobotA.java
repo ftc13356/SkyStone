@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
 import java.util.Locale;
 
 public class RobotA {
@@ -230,12 +228,13 @@ public class RobotA {
         return altitude;
     }
 
-
-
-
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
         liftandClaw.liftAutonomous(liftheight);
+    }
+
+    public void liftPosition(double liftposition, Gamepad gp) {
+        liftandClaw.liftPosition(liftposition, gp);
     }
 
     public void liftPosition(double liftposition) {
