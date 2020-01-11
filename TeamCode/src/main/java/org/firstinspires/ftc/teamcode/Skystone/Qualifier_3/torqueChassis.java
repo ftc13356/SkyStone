@@ -140,6 +140,21 @@ public class torqueChassis {
 
     }
 
+    public void moveForwardTeleop(double power) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was 0.70
+        motorLeftBack.setPower(power);
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power);
+        motorRightFront.setPower(power);
+
+    }
+
     public void moveBackwardTeleop(double power, double distance) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -18,6 +18,7 @@ public class Warren_Test extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Status", "Ready to go");
         telemetry.update();
+        robot.initChassis(this);
         //int a=0;
 
         /*
@@ -57,6 +58,8 @@ public class Warren_Test extends LinearOpMode {
         robot.moveBackward(20,1.0);
         robot.clawClamp(false);*/
         robot.moveForwardUntilBlue();
+        robot.clawClamp(false);
+        sleep(5000);
         stop();
 
     }

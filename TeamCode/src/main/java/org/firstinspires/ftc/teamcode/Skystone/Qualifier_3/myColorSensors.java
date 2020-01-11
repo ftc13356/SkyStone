@@ -43,11 +43,8 @@ public class myColorSensors {
                 (int) (tape_color_sensor.green() * SCALE_FACTOR),
                 (int) (tape_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
-                (int) (tape_color_sensor.green() * SCALE_FACTOR),
-                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
-        if (hsvValues[0] >= 10 || hsvValues[0] <= 30) {
+
+        if (hsvValues[0] >= 70 || hsvValues[0] <= 100) {
             redded = true;
             op.telemetry.addData("ColorSensorStatus", "Red");
 
@@ -71,17 +68,7 @@ public class myColorSensors {
                 (int) (tape_color_sensor.green() * SCALE_FACTOR),
                 (int) (tape_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-        Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
-                (int) (tape_color_sensor.green() * SCALE_FACTOR),
-                (int) (tape_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
-        op.telemetry.addLine()
-                .addData("H", "%.3f", hsvValues[0])
-                .addData("S", "%.3f", hsvValues[1])
-                .addData("V", "%.3f", hsvValues[2]);
-        op.telemetry.update();
-        op.sleep(200);
-        if (hsvValues[0] >= 160 && hsvValues[0] <= 205) {
+        if (hsvValues[0] >= 140 && hsvValues[0] <= 185) {
             op.telemetry.addData("ColorSensorStatus", "Blue");
             blued = true;
         } else {
@@ -94,6 +81,32 @@ public class myColorSensors {
                 .addData("V", "%.3f", hsvValues[2]);
         op.telemetry.update();
         return blued;
+    }
+    public void ColorTest() {
+        float hsvValues[] = {0F, 0F, 0F};
+        final double SCALE_FACTOR = 255;
+        int h=0;
+        int s=0;
+        int v=0;
+        for(int i =0; i<100; i++) {
+            Color.RGBToHSV((int) (tape_color_sensor.red() * SCALE_FACTOR),
+                    (int) (tape_color_sensor.green() * SCALE_FACTOR),
+                    (int) (tape_color_sensor.blue() * SCALE_FACTOR),
+                    hsvValues);
+            h += hsvValues[0] ;
+            s+= hsvValues[1] ;
+            v += hsvValues[2];
+            op.sleep(100);
+        }
+        h /= 100;
+        s/= 100;
+        v /= 100;
+        op.telemetry.addLine()
+                .addData("H", h)
+                .addData("S", s)
+                .addData("V", v);
+        op.telemetry.update();
+        op.sleep(10000);
     }
 
 }

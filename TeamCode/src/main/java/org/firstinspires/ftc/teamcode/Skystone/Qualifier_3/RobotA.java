@@ -33,55 +33,56 @@ public class RobotA {
 
     public void moveForwardUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveForward(2, 0.5);
+            drivetrain.moveForwardTeleop(0.75);
         }
+        drivetrain.stopAllMotors();
 
     }
 
     public void moveForwardUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveForward(2, 0.5);
+            drivetrain.moveForwardTeleop( 1.0);
         }
 
     }
     public void moveBackwardUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveBackward(2, 0.5);
+            drivetrain.moveBackwardTeleop(1.0, 0.5);
         }
 
     }
 
     public void moveBackwardUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveBackward(2, 0.5);
+            drivetrain.moveBackwardTeleop(1.0, 0.5);
         }
 
     }
 
     public void moveRightUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveRight(2, 0.5);
+            drivetrain.moveRightTeleop(1.0, 0.5);
         }
 
     }
 
     public void moveRightUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveRight(2, 0.5);
+            drivetrain.moveRightTeleop(1.0, 0.5);
         }
 
     }
 
     public void moveLeftUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveLeft(2, 0.5);
+            drivetrain.moveLeftTeleop(1.0, 0.5);
         }
 
     }
 
     public void moveLeftUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveLeft(2, 0.5);
+            drivetrain.moveLeftTeleop(1.0, 0.5);
         }
 
     }
@@ -226,6 +227,9 @@ public class RobotA {
             altitude=false;
         }
         return altitude;
+    }
+    public void ColorTest() {
+        sensor.ColorTest();
     }
 
     /******** Lifting Motor **********/
