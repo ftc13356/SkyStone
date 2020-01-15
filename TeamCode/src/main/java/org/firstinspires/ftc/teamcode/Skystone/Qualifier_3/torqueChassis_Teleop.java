@@ -107,23 +107,26 @@ public class torqueChassis_Teleop extends LinearOpMode {
             //telemetry.update();
 
             if (x_button) {
-                motor_power = 0.4;
+                motor_power = 0.25;
             }
             if (y_button) {
                 motor_power = 1.0;
             }
+
+            //unclamps claw
+            //moves backward
             if (b_button) {
                 robot.clawClamp(true);
                 robot.moveBackwardTeleop(0.2, 0.10);
                 sleep(1000);
                 robot.stopAllMotors();
-                robot.liftPosition(0);
+                //robot.liftPosition(0);
             }
-            if (a_button) {
+            /*if (a_button) {
                 robot.clawClamp(false);
                 robot.liftPosition(1.2);
 
-            }
+            }*/
             if (left_stick_y == 1.00) {
                 telemetry.addData("Motor", " FORWARD left_y (%.2f)", left_stick_y);
                 telemetry.update();
@@ -180,17 +183,17 @@ public class torqueChassis_Teleop extends LinearOpMode {
             } else if (lift_little) {
                 telemetry.addData("Lift", " Lift up slightly(1.2)");
                 telemetry.update();
-                if (!testing) robot.stopAllMotors();
+                //if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(1.2, gamepad2);
             } else if (lift_level_1) {
                 telemetry.addData("Lift", " Lift goes to level 1 (5)");
                 telemetry.update();
-                if (!testing) robot.stopAllMotors();
+                //if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(5, gamepad2);
             } else if (lift_level_2) {
                 telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
                 telemetry.update();
-                if (!testing) robot.stopAllMotors();
+                //if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(8.25, gamepad2);
             } else if (lift_level_3) {
                 telemetry.addData("Lift", " Lift goes to ground (11.75)");
