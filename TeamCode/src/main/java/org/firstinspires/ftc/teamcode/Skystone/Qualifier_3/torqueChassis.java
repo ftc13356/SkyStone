@@ -172,30 +172,30 @@ public class torqueChassis {
 
     public void moveRightTeleop(double power, double distance) {
         // Changes motor mode back to default
-        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //this was 1.0 and -1.0
-        motorLeftBack.setPower(power);
+        motorLeftBack.setPower(power*0.95);
         motorRightBack.setPower(-power);
-        motorLeftFront.setPower(-power);
+        motorLeftFront.setPower(-power*0.85);
         motorRightFront.setPower(power);
 
     }
 
     public void moveLeftTeleop(double power, double distance) {
         // Changes motor mode back to default
-        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //was -1.0 and 1.0
-        motorLeftBack.setPower(-power);
+        motorLeftBack.setPower(-power*0.95); //TODO: change back & use encoders for sideways
         motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
+        motorLeftFront.setPower(power*0.85);
         motorRightFront.setPower(-power);
 
     }
@@ -223,7 +223,7 @@ public class torqueChassis {
         }
     }
     //not tested yet
-    /*public void normalTurnTeleop(double degrees, boolean direction, double power) {
+    public void normalTurnTeleop(double degrees, boolean direction, double power) {
         if (direction == true) {
             motorLeftBack.setPower(power);
             motorLeftFront.setPower(power);
@@ -235,7 +235,7 @@ public class torqueChassis {
             motorRightBack.setPower(power);
             motorRightFront.setPower(power);
         }
-    }*/
+    }
 
     public void moveForward(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
@@ -415,9 +415,9 @@ public class torqueChassis {
                 "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
         op.telemetry.update();
 
-        motorLeftBack.setPower(power);
+        motorLeftBack.setPower(power*0.95);
         motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
+        motorLeftFront.setPower(power*0.85);
         motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
@@ -476,9 +476,9 @@ public class torqueChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(power);
+        motorLeftBack.setPower(power*0.95);
         motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
+        motorLeftFront.setPower(power*0.85);
         motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
