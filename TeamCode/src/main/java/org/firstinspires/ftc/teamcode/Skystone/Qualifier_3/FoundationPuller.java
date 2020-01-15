@@ -17,12 +17,12 @@ public class FoundationPuller {
         op = opMode;
         hardwareMap = op.hardwareMap;
         //foundation servo 1
-        // foundationMoverRight = hardwareMap.servo.get("foundationMoverRight");
+          foundationMoverRight = hardwareMap.servo.get("foundationMoverRight");
         //foundation servo 2
-        // foundationMoverLeft = hardwareMap.servo.get("foundationMoverLeft");
+         foundationMoverLeft = hardwareMap.servo.get("foundationMoverLeft");
         //starting position
-        //foundationMoverRight.setPosition(0.0);
-        //foundationMoverLeft.setPosition(0.0);
+         foundationMoverRight.setPosition(0.0);
+          foundationMoverLeft.setPosition(0.0);
     }
     //true = unclamp, false = clamp
     public void moveFoundationRightdown(boolean direction) {
