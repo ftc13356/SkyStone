@@ -28,7 +28,10 @@ public class RobotA {
         puller.initChassis(opMode);
         sensor.init(opMode);
         liftandClaw.init(opMode);
+    }
 
+    public double getAngle() {
+        return drivetrain.getAngle();
     }
 
     public void moveForwardUntilBlue() {
@@ -112,6 +115,10 @@ public class RobotA {
     //@direction: true = left, false = right
     public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
         drivetrain.inPlaceTurnTeleop(degrees, direction, power);
+    }
+
+    public void inPlaceTurnIMU(double degrees, double power) {
+        drivetrain.inPlaceTurnIMU(degrees, power);
     }
 
     //not tested yet
