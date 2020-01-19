@@ -579,7 +579,7 @@ public class torqueChassis {
         if (leftPower>1) {leftPower=1;}
         if (rightPower>1) {rightPower=1;}
         if (leftPower<-1) {leftPower=-1;}
-        if (rightPower<-1) {rightPower=1;}
+        if (rightPower<-1) {rightPower=-1;}
 
         if (newDegrees>180){newDegrees=newDegrees-360;}
         if (newDegrees<=-180){newDegrees=newDegrees+360;}
@@ -587,24 +587,11 @@ public class torqueChassis {
 
         op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
         op.telemetry.update();
-        op.sleep(1000);
+        op.sleep(500);
         motorLeftBack.setPower(leftPower);
         motorLeftFront.setPower(leftPower);
         motorRightBack.setPower(rightPower);
         motorRightFront.setPower(rightPower);
-        /*op.sleep(300);
-
-        motorLeftBack.setPower(0);
-        motorLeftFront.setPower(0);
-        motorRightBack.setPower(0);
-        motorRightFront.setPower(0);
-        currentAngle = getAngle();
-        error = newDegrees - currentAngle;
-        leftPower = power*gain*error;
-        rightPower = -power*gain*error;
-        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
-        op.telemetry.update();
-        op.sleep(3000);*/
 
         while (op.opModeIsActive() && (error > 3 || error < -3))
         {
@@ -617,7 +604,7 @@ public class torqueChassis {
             if (leftPower>1) {leftPower=1;}
             if (rightPower>1) {rightPower=1;}
             if (leftPower<-1) {leftPower=-1;}
-            if (rightPower<-1) {rightPower=1;}
+            if (rightPower<-1) {rightPower=-1;}
             motorLeftBack.setPower(leftPower);
             motorLeftFront.setPower(leftPower);
             motorRightBack.setPower(rightPower);
@@ -636,6 +623,66 @@ public class torqueChassis {
         op.telemetry.update();
     }
 
+    public void AbsoluteTurnIMU(double degrees, double power) { //degress is positive for left and negative for right
+
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        double currentAngle = getAngle();
+        double newDegrees =  degrees;
+        double error = degrees-currentAngle;
+        double gain = -0.005;
+        double leftPower = power*gain*error;
+        double rightPower = -leftPower; // power*gain*error
+
+        if (leftPower>1) {leftPower=1;}
+        if (rightPower>1) {rightPower=1;}
+        if (leftPower<-1) {leftPower=-1;}
+        if (rightPower<-1) {rightPower=-1;}
+
+        if (newDegrees>180){newDegrees=newDegrees-360;}
+        if (newDegrees<=-180){newDegrees=newDegrees+360;}
+
+
+        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        op.telemetry.update();
+        op.sleep(500);
+        motorLeftBack.setPower(leftPower);
+        motorLeftFront.setPower(leftPower);
+        motorRightBack.setPower(rightPower);
+        motorRightFront.setPower(rightPower);
+
+        while (op.opModeIsActive() && (error > 2 || error < -2))
+        {
+            currentAngle = getAngle();
+            error = degrees - currentAngle;
+            leftPower = power*gain*error;
+            rightPower = -power*gain*error;
+            //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+            //op.telemetry.update();
+            if (leftPower>1) {leftPower=1;}
+            if (rightPower>1) {rightPower=1;}
+            if (leftPower<-1) {leftPower=-1;}
+            if (rightPower<-1) {rightPower=-1;}
+            motorLeftBack.setPower(leftPower);
+            motorLeftFront.setPower(leftPower);
+            motorRightBack.setPower(rightPower);
+            motorRightFront.setPower(rightPower);
+            op.idle();
+        }
+
+        motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+
+        currentAngle = getAngle();
+        error = degrees - currentAngle;
+        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        op.telemetry.update();
+    }
     //will move until it detects blue/red, momentum causse bug
 
 

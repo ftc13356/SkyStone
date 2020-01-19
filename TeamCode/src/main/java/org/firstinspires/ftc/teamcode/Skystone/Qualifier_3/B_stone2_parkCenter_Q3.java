@@ -31,8 +31,6 @@ public class B_stone2_parkCenter_Q3 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Ready to go");
-        telemetry.update();
         robot.initChassis(this);
         telemetry.addData("Status", "InitComplete, Ready to Start");
         telemetry.update();
@@ -44,54 +42,32 @@ public class B_stone2_parkCenter_Q3 extends LinearOpMode {
         }
 
         //Main Autonomous program
-        robot.moveForward(40, 1); // robot approaches foundation
-        robot.moveForward(5, 0.5);
+        robot.moveForward(30, 1); // robot approaches stones
+        robot.moveForward(5, 0.5); // slows down
         robot.clawClampPosition(0); // robot grabs stone
-        sleep(500); // just in
-        robot.liftPosition(3);
-        robot.moveBackward(13, 1); // robot moves away from foundation
-        robot.inPlaceTurn(130, true, 1.0);
-        robot.liftPosition(0.85); // robot lifts stone so it doesn't drag
-        robot.moveForward(50, 1);
-        robot.clawClampPosition(1);
-        robot.moveBackward(60, 1);
-        robot.inPlaceTurn(115, false, 1);
-        robot.liftPosition(0.5);
-        robot.moveForward(12, 1);
-        robot.moveForward(4, 0.5);
+        sleep(500); // just in case
+        robot.liftPosition(1.2); // lifts stone slightly
+        robot.moveBackward(13, 1); // backs away from stones
+        robot.AbsoluteTurnIMU(90, 1.0); //positive is left // turns. Robot should be facing tape
+        robot.liftPosition(0.85); // lowers lift slightly
+        robot.moveForward(36, 1); //crosses tape
+        robot.clawClampPosition(1); // unclamps stone
+        robot.moveBackward(44, 1); // moves to get second stone
+        robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone
+        robot.liftPosition(0); // lowers lift to ground
+        robot.moveForward(6, 1); // approaches stones
+        robot.moveForward(4, 0.5); // slows down
         robot.clawClampPosition(0); // robot grabs 2nd stone
+        sleep(500); // just in case
+        robot.liftPosition(1.2); // lifts stone slightly
+        robot.moveBackward(15, 1); // backs away from stones
+        robot.inPlaceTurnIMU(90, 1); // turns. Robot should be facing tape
+        robot.liftPosition(0.85); // lowers lift
+        robot.moveForward(40, 1); // crosses tape
+        robot.clawClampPosition(1); // unclamps stone
         sleep(500);
-        robot.liftPosition(3);
-        //sleep(100);
-        robot.moveBackward(18, 1);
-        robot.inPlaceTurn(130, true, 1);
-        robot.liftPosition(0.85);
-        robot.moveForward(60, 1);
-        robot.clawClampPosition(1);
-        robot.moveBackward(15, 1);
-        robot.clawClampPosition(0);
-        /*
-        //robot.moveForward(100,1); // robot gets close to foundation
-        robot.liftAutonomous(4); // robot lifts stone
-        robot.inPlaceTurn(90, false, 1);
-        robot.moveForward(15, 1); // robot should be in front of foundation
-        robot.moveForward(8, 0.35); // robot touches foundation
-        robot.liftAutonomous(-3); // robot lowers stone
-        robot.clawClampPosition(1); // robot releases stone
-        robot.moveBackward(5, 1); // robot backs up
-        robot.moveLeft(10, 1);
-        robot.inPlaceTurn(30, true, 1);
-        robot.moveForward(5, 0.35); // robot should be touching foundation
-        robot.liftAutonomous(-2);
-        robot.clawClampPosition(0); // robot is grabbing foundation
-        robot.moveBackward(20, 0.75); // robot backs up towards building site
-        robot.inPlaceTurn(150, true, 1); // foundation should be in building site
-        robot.clawClampPosition(1); // robot unclamps from foundation
-        robot.inPlaceTurn(45, true, 1);
-        robot.moveBackward(25, 1); // robot should be on tape
+        robot.moveBackward(8,1); // parks on tape
         robot.clawClampPosition(0); // just in case
-
-         */
 
     }
 }
