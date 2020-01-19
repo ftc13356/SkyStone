@@ -66,7 +66,7 @@ public class torqueChassis {
 
     }
 
-    public void initChassis(LinearOpMode opMode) {
+    public void init(LinearOpMode opMode) {
 
         op = opMode;
         hardwareMap = op.hardwareMap;
