@@ -11,14 +11,14 @@ public class CapstoneStick {
     private ElapsedTime period = new ElapsedTime();
     Servo capstoneStick;
 
-    public void initChassis(LinearOpMode opMode) {
+    public void init(LinearOpMode opMode) {
 
         op = opMode;
         hardwareMap = op.hardwareMap;
         //foundation servo 1
         capstoneStick = hardwareMap.servo.get("capstoneStick");
         //starting position
-        capstoneStick.setPosition(0.0);
+        capstoneStick.setPosition(1.0);
     }
     //true = unclamp, false = clamp
     public void moveCapstoneStickdown(boolean direction) {
