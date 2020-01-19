@@ -12,7 +12,7 @@ public class FoundationPuller {
     Servo foundationMoverRight;
     Servo foundationMoverLeft;
 
-    public void initChassis(LinearOpMode opMode) {
+    public void init(LinearOpMode opMode) {
 
         op = opMode;
         hardwareMap = op.hardwareMap;
@@ -22,7 +22,7 @@ public class FoundationPuller {
          foundationMoverLeft = hardwareMap.servo.get("foundationMoverLeft");
         //starting position
          foundationMoverRight.setPosition(0.0);
-          foundationMoverLeft.setPosition(0.0);
+         foundationMoverLeft.setPosition(0.0);
     }
     //true = unclamp, false = clamp
     public void moveFoundationRightdown(boolean direction) {
