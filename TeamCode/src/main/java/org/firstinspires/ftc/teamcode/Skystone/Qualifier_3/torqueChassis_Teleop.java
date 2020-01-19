@@ -25,8 +25,9 @@ public class torqueChassis_Teleop extends LinearOpMode {
     private boolean move_claw = true;
     private boolean both_sticks_is_up = true;
     private boolean move_both_sticks = true;
-    //private boolean left_stick_is_up = true;
-    //private boolean move_left_stick = true;
+    private boolean capstone_stick_is_up = true;
+    private boolean move_capstone_stick = true;
+
 
     public torqueChassis_Teleop() {
 
@@ -52,7 +53,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
             boolean both_sticks = gamepad1.right_bumper;
-            //boolean stick_left = gamepad1.left_bumper;
+            boolean capstone_stick = gamepad1.left_bumper;
             boolean x_button = gamepad1.x;
             boolean y_button = gamepad1.y;
             boolean b_button = gamepad1.b;
@@ -67,7 +68,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float lift_down_manual = gamepad2.right_trigger;
 
             boolean testing = false;
-
+            //claw
             if (claw == true) {
                 move_claw = true;
 
@@ -79,7 +80,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
             } else {
                 move_claw = false;
             }
-
+            //foundation sticks
             if (both_sticks == true) {
                 move_both_sticks = true;
 
@@ -91,39 +92,42 @@ public class torqueChassis_Teleop extends LinearOpMode {
             } else {
                 move_both_sticks = false;
             }
+            //capstone stick
+            if (capstone_stick == true) {
+                move_capstone_stick = true;
 
-            /*if (stick_left == true) {
-                move_left_stick = true;
-
-                if (left_stick_is_up == true) {
-                    left_stick_is_up = false;
-                } else if (left_stick_is_up == false) {
-                    left_stick_is_up = true;
+                if (capstone_stick_is_up == true) {
+                    capstone_stick_is_up = false;
+                } else if (capstone_stick_is_up == false) {
+                    capstone_stick_is_up = true;
                 }
             } else {
-                move_left_stick = false;
-            }*/
+                move_capstone_stick = false;
+            }
             // telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
             //telemetry.update();
 
             if (x_button) {
-                motor_power = 0.4;
+                motor_power = 0.25;
             }
             if (y_button) {
                 motor_power = 1.0;
             }
+
+            //unclamps claw
+            //moves backward
             if (b_button) {
                 robot.clawClamp(true);
                 robot.moveBackwardTeleop(0.2, 0.10);
                 sleep(1000);
                 robot.stopAllMotors();
-                robot.liftPosition(0);
+                //robot.liftPosition(0);
             }
-            if (a_button) {
+            /*if (a_button) {
                 robot.clawClamp(false);
                 robot.liftPosition(1.2);
 
-            }
+            }*/
             if (left_stick_y == 1.00) {
                 telemetry.addData("Motor", " FORWARD left_y (%.2f)", left_stick_y);
                 telemetry.update();
@@ -180,17 +184,17 @@ public class torqueChassis_Teleop extends LinearOpMode {
             } else if (lift_little) {
                 telemetry.addData("Lift", " Lift up slightly(1.2)");
                 telemetry.update();
-                if (!testing) robot.stopAllMotors();
+                //if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(1.2, gamepad2);
             } else if (lift_level_1) {
                 telemetry.addData("Lift", " Lift goes to level 1 (5)");
                 telemetry.update();
-                if (!testing) robot.stopAllMotors();
+                //if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(5, gamepad2);
             } else if (lift_level_2) {
                 telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
                 telemetry.update();
-                if (!testing) robot.stopAllMotors();
+                //if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(8.25, gamepad2);
             } else if (lift_level_3) {
                 telemetry.addData("Lift", " Lift goes to ground (11.75)");
@@ -213,28 +217,32 @@ public class torqueChassis_Teleop extends LinearOpMode {
             //following are the code that handles the raising and lowering of the puller for foundation
             if (move_both_sticks == true) {
                 if (both_sticks_is_up) {
-                    telemetry.addData("Servo", " BOTH STICKS UP  right_trigger");
+                    telemetry.addData("Servo", " BOTH STICKS UP  right_bumper");
                     telemetry.update();
                     if (!testing) robot.moveFoundationRightdown(true);
                     if (!testing) robot.moveFoundationLefttdown(true);
                 } else if (both_sticks_is_up == false) {
-                    telemetry.addData("Servo", " BOTH STICKS DOWN  right_trigger");
+                    telemetry.addData("Servo", " BOTH STICKS DOWN  right_bumper");
                     telemetry.update();
                     if (!testing) robot.moveFoundationRightdown(false);
                     if (!testing) robot.moveFoundationLefttdown(false);
                 }
-            } /*else if (move_left_stick == true) {
-                if (left_stick_is_up) {
-                    telemetry.addData("Servo", " STICK UP  left_trigger");
+            }
+            //following are the code that handles the raising and lowering stick for the capstone
+            if (move_capstone_stick == true) {
+                if (capstone_stick_is_up) {
+                    telemetry.addData("Servo", " CAPSTONE STICK UP  left_bumper");
                     telemetry.update();
-                    if (!testing) robot.moveFoundationLefttdown(true);
-                } else if (left_stick_is_up == false) {
-                    telemetry.addData("Servo", " STICK DOWN  left_trigger");
+                    if (!testing) robot.moveCapstoneStickdown(true);
+                    if (!testing) robot.moveCapstoneStickdown(true);
+                } else if (capstone_stick_is_up == false) {
+                    telemetry.addData("Servo", " CAPSTONE STICK DOWN  left_bumper");
                     telemetry.update();
-                    if (!testing) robot.moveFoundationLefttdown(false);
+                    if (!testing) robot.moveCapstoneStickdown(false);
+                    if (!testing) robot.moveCapstoneStickdown(false);
                 }
             }
-*/
+
 
         }
     }

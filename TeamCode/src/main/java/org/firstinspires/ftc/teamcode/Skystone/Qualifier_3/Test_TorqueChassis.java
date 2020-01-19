@@ -37,6 +37,10 @@ public class Test_TorqueChassis extends LinearOpMode{
         robot.liftPosition(0, gamepad2);
         sleep(500);
 
+        robot.inPlaceTurnIMU(90,1);
+        robot.inPlaceTurnIMU(-180,1);
+        robot.inPlaceTurnIMU(270,1);
+
         telemetry.addData("Order:", "LeftFront, RightFront, LeftBack, RightBack");
         telemetry.update();
         robot.moveMotorLeftFront(10);

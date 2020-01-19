@@ -13,6 +13,7 @@ public class RobotA {
     myColorSensors sensor = new myColorSensors();
     LiftandClaw liftandClaw = new LiftandClaw();
     FoundationPuller puller = new FoundationPuller();
+    CapstoneStick stick = new CapstoneStick();
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
@@ -24,11 +25,16 @@ public class RobotA {
     public void initChassis(LinearOpMode opMode) {
         op = opMode;
         hardwareMap = op.hardwareMap;
-        drivetrain.initChassis(opMode);
-        puller.initChassis(opMode);
+        
+        drivetrain.init(opMode);
+        puller.init(opMode);
         sensor.init(opMode);
         liftandClaw.init(opMode);
+        stick.init(opMode);
+    }
 
+    public double getAngle() {
+        return drivetrain.getAngle();
     }
 
     public void moveForwardUntilBlue() {
@@ -114,10 +120,18 @@ public class RobotA {
         drivetrain.inPlaceTurnTeleop(degrees, direction, power);
     }
 
+    public void inPlaceTurnIMU(double degrees, double power) {
+        drivetrain.inPlaceTurnIMU(degrees, power);
+    }
+
+    public void AbsoluteTurnIMU(double degrees, double power) {
+        drivetrain.AbsoluteTurnIMU(degrees, power);
+    }
+
     //not tested yet
-    /*public void normalTurnTeleop(double degrees, boolean direction, double power) {
+    public void normalTurnTeleop(double degrees, boolean direction, double power) {
         drivetrain.normalTurnTeleop(degrees, direction, power);
-    }*/
+    }
 
     public void moveForward(double distance, double power) {
         drivetrain.moveForward(distance, power);
@@ -183,8 +197,14 @@ public class RobotA {
     public void moveFoundationLefttdown(boolean direction) {
         puller.moveFoundationLeftdown(direction);
     }
-
-
+    //true = up, false = down
+    public void moveCapstoneStickdown(boolean direction) {
+        stick.moveCapstoneStickdown(direction);
+    }
+    //0.0 is down, 1.0 is up
+    public void capstoneStickPosition(double capstone_stick_position) {
+        stick.capstoneStickPosition(capstone_stick_position);
+    }
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         return sensor.tapeIsRed();

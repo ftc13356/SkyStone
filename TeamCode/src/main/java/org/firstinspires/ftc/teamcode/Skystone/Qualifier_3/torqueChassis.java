@@ -66,7 +66,7 @@ public class torqueChassis {
 
     }
 
-    public void initChassis(LinearOpMode opMode) {
+    public void init(LinearOpMode opMode) {
 
         op = opMode;
         hardwareMap = op.hardwareMap;
@@ -99,6 +99,7 @@ public class torqueChassis {
         op.telemetry.addData("Mode", "waiting for start");
         op.telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
         op.telemetry.update();
+        op.sleep(2500); //TODO Remove it
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -116,8 +117,8 @@ public class torqueChassis {
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
     }
+
     public void stopAllMotors() {
         motorLeftBack.setPower(0);
         motorRightBack.setPower(0);
@@ -125,7 +126,7 @@ public class torqueChassis {
         motorRightFront.setPower(0);
     }
 
-    public void moveForwardTeleop(double power, double distance) {
+    public void moveForwardTeleop(double power, double distance) { //TODO Remove this function and move all calls to function without distance parameter
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -137,7 +138,6 @@ public class torqueChassis {
         motorRightBack.setPower(power);
         motorLeftFront.setPower(power);
         motorRightFront.setPower(power);
-
     }
 
     public void moveForwardTeleop(double power) {
@@ -172,34 +172,33 @@ public class torqueChassis {
 
     public void moveRightTeleop(double power, double distance) {
         // Changes motor mode back to default
-        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //this was 1.0 and -1.0
-        motorLeftBack.setPower(.3);
-        motorRightBack.setPower(-1);
-        motorLeftFront.setPower(-1);
-        motorRightFront.setPower(.3);
+        motorLeftBack.setPower(power*0.95);
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power*0.85);
+        motorRightFront.setPower(power);
 
     }
 
     public void moveLeftTeleop(double power, double distance) {
         // Changes motor mode back to default
-        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //was -1.0 and 1.0
-        motorLeftBack.setPower(-power);
+        motorLeftBack.setPower(-power*0.95); //TODO: change back & use encoders for sideways
         motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
+        motorLeftFront.setPower(power*0.85);
         motorRightFront.setPower(-power);
 
     }
-
 
 
     //@direction: true = left, false = right
@@ -223,7 +222,7 @@ public class torqueChassis {
         }
     }
     //not tested yet
-    /*public void normalTurnTeleop(double degrees, boolean direction, double power) {
+    public void normalTurnTeleop(double degrees, boolean direction, double power) {
         if (direction == true) {
             motorLeftBack.setPower(power);
             motorLeftFront.setPower(power);
@@ -235,7 +234,7 @@ public class torqueChassis {
             motorRightBack.setPower(power);
             motorRightFront.setPower(power);
         }
-    }*/
+    }
 
     public void moveForward(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
@@ -296,7 +295,7 @@ public class torqueChassis {
         globalAngle = 0;
     }
 
-    private double getAngle()
+    double getAngle()
     {
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
@@ -304,12 +303,12 @@ public class torqueChassis {
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        op.telemetry.addData("first angle: ", (int)angles.firstAngle);
-        op.telemetry.update();
-        op.sleep(1000);
+        //op.telemetry.addData("first angle: ", (int)angles.firstAngle);
+        //op.telemetry.update();
+        //op.sleep(1000);
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
-        if (deltaAngle < -180)
+        if (deltaAngle <= -180) //If the angle is -180, it should be 180, because they are at the same point. The acceptable angles are (-180, 180]
             deltaAngle += 360;
         else if (deltaAngle > 180)
             deltaAngle -= 360;
@@ -330,14 +329,17 @@ public class torqueChassis {
 
         angle = getAngle();
 
-        if (angle == 0)
+        /*if (angle == 0)
             correction = 0;             // no adjustment.
         else
             correction = -angle;        // reverse sign of angle for correction.
 
-        correction = correction * gain;
+        correction = correction * gain;*/
+
         if (enableIMU == false) {
             correction = 0;
+        } else {
+            correction = angle * (-gain);
         }
         return correction;
     }
@@ -415,20 +417,20 @@ public class torqueChassis {
                 "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
         op.telemetry.update();
 
+        motorLeftBack.setPower(power*0.95);
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power*0.85);
+        motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
             correction = checkDirection();
 
-//            motorRightBack.setPower(power + correction);
-//            motorRightFront.setPower(power - correction);
-//            motorLeftBack.setPower(power - correction);
-//            motorLeftFront.setPower(power + correction);
-            motorRightBack.setPower(.4);
-            motorRightFront.setPower(1);
-            motorLeftBack.setPower(.4);
-            motorLeftFront.setPower(1);
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(power + correction);
+            motorLeftBack.setPower(power - correction);
+            motorLeftFront.setPower(power + correction);
             op.telemetry.addData("correction", correction);
             op.telemetry.update();
             op.idle();
@@ -477,9 +479,9 @@ public class torqueChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(power);
+        motorLeftBack.setPower(power*0.95);
         motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
+        motorLeftFront.setPower(power*0.85);
         motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
@@ -561,9 +563,127 @@ public class torqueChassis {
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void inPlaceTurnIMU(double degrees, double power) { //degress is positive for left and negative for right
 
-    //true = unclamp, false = clamp
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        double currentAngle = getAngle();
+        double newDegrees = currentAngle + degrees; // Add degrees to current angle to get new position
+        double error = degrees;
+        double gain = -0.005;
+        double leftPower = power*gain*error;
+        double rightPower = -power*gain*error;
+
+        if (leftPower>1) {leftPower=1;}
+        if (rightPower>1) {rightPower=1;}
+        if (leftPower<-1) {leftPower=-1;}
+        if (rightPower<-1) {rightPower=-1;}
+
+        if (newDegrees>180){newDegrees=newDegrees-360;}
+        if (newDegrees<=-180){newDegrees=newDegrees+360;}
+
+
+        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        op.telemetry.update();
+        op.sleep(500);
+        motorLeftBack.setPower(leftPower);
+        motorLeftFront.setPower(leftPower);
+        motorRightBack.setPower(rightPower);
+        motorRightFront.setPower(rightPower);
+
+        while (op.opModeIsActive() && (error > 3 || error < -3))
+        {
+            currentAngle = getAngle();
+            error = newDegrees - currentAngle;
+            leftPower = power*gain*error;
+            rightPower = -power*gain*error;
+            //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+            //op.telemetry.update();
+            if (leftPower>1) {leftPower=1;}
+            if (rightPower>1) {rightPower=1;}
+            if (leftPower<-1) {leftPower=-1;}
+            if (rightPower<-1) {rightPower=-1;}
+            motorLeftBack.setPower(leftPower);
+            motorLeftFront.setPower(leftPower);
+            motorRightBack.setPower(rightPower);
+            motorRightFront.setPower(rightPower);
+            op.idle();
+        }
+
+        motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+
+        currentAngle = getAngle();
+        error = newDegrees - currentAngle;
+        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        op.telemetry.update();
+    }
+
+    public void AbsoluteTurnIMU(double degrees, double power) { //degress is positive for left and negative for right
+
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        double currentAngle = getAngle();
+        double newDegrees =  degrees;
+        double error = degrees-currentAngle;
+        double gain = -0.005;
+        double leftPower = power*gain*error;
+        double rightPower = -leftPower; // power*gain*error
+
+        if (leftPower>1) {leftPower=1;}
+        if (rightPower>1) {rightPower=1;}
+        if (leftPower<-1) {leftPower=-1;}
+        if (rightPower<-1) {rightPower=-1;}
+
+        if (newDegrees>180){newDegrees=newDegrees-360;}
+        if (newDegrees<=-180){newDegrees=newDegrees+360;}
+
+
+        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        op.telemetry.update();
+        op.sleep(500);
+        motorLeftBack.setPower(leftPower);
+        motorLeftFront.setPower(leftPower);
+        motorRightBack.setPower(rightPower);
+        motorRightFront.setPower(rightPower);
+
+        while (op.opModeIsActive() && (error > 2 || error < -2))
+        {
+            currentAngle = getAngle();
+            error = degrees - currentAngle;
+            leftPower = power*gain*error;
+            rightPower = -power*gain*error;
+            //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+            //op.telemetry.update();
+            if (leftPower>1) {leftPower=1;}
+            if (rightPower>1) {rightPower=1;}
+            if (leftPower<-1) {leftPower=-1;}
+            if (rightPower<-1) {rightPower=-1;}
+            motorLeftBack.setPower(leftPower);
+            motorLeftFront.setPower(leftPower);
+            motorRightBack.setPower(rightPower);
+            motorRightFront.setPower(rightPower);
+            op.idle();
+        }
+
+        motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+
+        currentAngle = getAngle();
+        error = degrees - currentAngle;
+        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        op.telemetry.update();
+    }
     //will move until it detects blue/red, momentum causse bug
 
 
