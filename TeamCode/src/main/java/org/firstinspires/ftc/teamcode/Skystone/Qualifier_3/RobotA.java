@@ -121,6 +121,10 @@ public class RobotA {
         drivetrain.inPlaceTurnIMU(degrees, power);
     }
 
+    public void AbsoluteTurnIMU(double degrees, double power) {
+        drivetrain.AbsoluteTurnIMU(degrees, power);
+    }
+
     //not tested yet
     public void normalTurnTeleop(double degrees, boolean direction, double power) {
         drivetrain.normalTurnTeleop(degrees, direction, power);
