@@ -11,10 +11,10 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 public class torqueChassis {
     //initialize motor
-    DcMotor motorLeftFront;
-    DcMotor motorRightFront;
-    DcMotor motorLeftBack;
-    DcMotor motorRightBack;
+    private DcMotor motorLeftFront;
+    private DcMotor motorRightFront;
+    private DcMotor motorLeftBack;
+    private DcMotor motorRightBack;
 
 
     // these encoder variables vary depending on chassis type
@@ -178,10 +178,10 @@ public class torqueChassis {
         motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //this was 1.0 and -1.0
-        motorLeftBack.setPower(power);
-        motorRightBack.setPower(-power);
-        motorLeftFront.setPower(-power);
-        motorRightFront.setPower(power);
+        motorLeftBack.setPower(.3);
+        motorRightBack.setPower(-1);
+        motorLeftFront.setPower(-1);
+        motorRightFront.setPower(.3);
 
     }
 
@@ -415,28 +415,29 @@ public class torqueChassis {
                 "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
         op.telemetry.update();
 
-        motorLeftBack.setPower(power);
-        motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
-        motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
                 motorRightFront.isBusy()))
         {
             correction = checkDirection();
 
-            motorRightBack.setPower(power - correction);
-            motorRightFront.setPower(power + correction);
-            motorLeftBack.setPower(power - correction);
-            motorLeftFront.setPower(power + correction);
+//            motorRightBack.setPower(power + correction);
+//            motorRightFront.setPower(power - correction);
+//            motorLeftBack.setPower(power - correction);
+//            motorLeftFront.setPower(power + correction);
+            motorRightBack.setPower(.4);
+            motorRightFront.setPower(1);
+            motorLeftBack.setPower(.4);
+            motorLeftFront.setPower(1);
             op.telemetry.addData("correction", correction);
             op.telemetry.update();
             op.idle();
         }
-        motorLeftBack.setPower(0);
-        motorRightBack.setPower(0);
-        motorRightFront.setPower(0);
-        motorLeftFront.setPower(0);
+//        motorLeftBack.setPower(0);
+//        motorRightBack.setPower(0);
+//        motorRightFront.setPower(0);
+//        motorLeftFront.setPower(0);
+        stopAllMotors();
 
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
