@@ -47,48 +47,48 @@ public class RobotA {
 
     public void moveForwardUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveForwardTeleop( 1.0);
+            drivetrain.moveForwardTeleop( 0.75);
         }
 
     }
     public void moveBackwardUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveBackwardTeleop(1.0, 0.5);
+            drivetrain.moveBackwardTeleop(0.75, 0.5);
         }
 
     }
 
     public void moveBackwardUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveBackwardTeleop(1.0, 0.5);
+            drivetrain.moveBackwardTeleop(0.75, 0.5);
         }
 
     }
 
     public void moveRightUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveRightTeleop(1.0, 0.5);
+            drivetrain.moveRightTeleop(0.75, 0.5);
         }
 
     }
 
     public void moveRightUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveRightTeleop(1.0, 0.5);
+            drivetrain.moveRightTeleop(0.75, 0.5);
         }
 
     }
 
     public void moveLeftUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveLeftTeleop(1.0, 0.5);
+            drivetrain.moveLeftTeleop(0.75, 0.5);
         }
 
     }
 
     public void moveLeftUntilRed() {
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveLeftTeleop(1.0, 0.5);
+            drivetrain.moveLeftTeleop(0.75, 0.5);
         }
 
     }
@@ -216,14 +216,12 @@ public class RobotA {
     public boolean blockIsSky (){
         float hsvValues[] = {0F, 0F, 0F};
         boolean altitude = true;
-        final float values[] = hsvValues;
         final double SCALE_FACTOR = 255;
         double distance=0;
         Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-        op.sleep(10);
         Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
@@ -240,11 +238,17 @@ public class RobotA {
                         String.format(Locale.US, "%.02f", sensor.block_distance_sensor.getDistance(DistanceUnit.CM)));
         op.telemetry.update();
         distance = sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
-        while(distance>3.0){
-            drivetrain.moveForward(1, 0.2);
+        while(distance>4.5);{
+            drivetrain.moveForwardTeleop(0.25);
         }
         if(hsvValues[0]>75&&hsvValues[0]<=90&&hsvValues[1]>=0.6){
             altitude=false;
+            drivetrain.moveLeft(8,0.75);
+        }
+        else{
+            drivetrain.moveForward(5,0.75);
+            liftandClaw.clawClamp(false);
+            op.sleep(200);
         }
         return altitude;
     }
