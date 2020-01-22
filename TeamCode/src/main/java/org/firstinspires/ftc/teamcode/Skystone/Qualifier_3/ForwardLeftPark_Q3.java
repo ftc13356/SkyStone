@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * user friendly and it is assumed as a high quality code.
  *
  * @author  Aamod
- * @version 1.0
+ * @version 1.3
  * @since   2020-Jan-7
  *
  */
@@ -32,8 +32,6 @@ public class ForwardLeftPark_Q3 extends LinearOpMode {
     public void runOpMode() {
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
-        telemetry.addData("Status", "Ready to go"); telemetry.update();
-
         robot.initChassis(this);
 
         // Aiden - during competition day robot dissconnected so we are trying this code
@@ -44,7 +42,7 @@ public class ForwardLeftPark_Q3 extends LinearOpMode {
 
         sleep(21500);
         robot.moveForward(35, 1);
-        robot.inPlaceTurn(105, true, 1);
+        robot.AbsoluteTurnIMU(90,1);
         robot.moveForward(15,1);
         robot.clawClampPosition(0.25);
         sleep(1500);
