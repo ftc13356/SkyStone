@@ -21,7 +21,16 @@ public class CapstoneStick {
         capstoneStick.setPosition(1.0);
     }
     //true = unclamp, false = clamp
-    public void moveCapstoneStickdown(boolean direction) {
+    public void moveCapstoneStickdownToStone(boolean direction) {
+        if (direction == true) {
+            capstoneStick.setPosition(1.0);
+        } else {
+            capstoneStick.setPosition(0.35);
+        }
+        op.sleep(200);
+
+    }
+    public void moveCapstoneStickdownToFoundation(boolean direction) {
         if (direction == true) {
             capstoneStick.setPosition(1.0);
         } else {
