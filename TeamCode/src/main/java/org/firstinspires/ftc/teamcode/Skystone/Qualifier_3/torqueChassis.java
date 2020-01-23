@@ -417,9 +417,9 @@ public class torqueChassis {
                 "RB: " + (int)newRightBackTargetPosition + "LB: " + (int)newRightFrontTargetPosition);
         op.telemetry.update();
 
-        motorLeftBack.setPower(power*0.95);
-        motorRightBack.setPower(power);
-        motorLeftFront.setPower(power*0.85);
+        motorLeftBack.setPower(power);
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power);
         motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
