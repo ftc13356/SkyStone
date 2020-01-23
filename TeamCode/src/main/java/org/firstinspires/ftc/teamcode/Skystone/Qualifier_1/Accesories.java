@@ -41,8 +41,6 @@ public class Accesories {
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Color Sensors
-        block_color_sensor = hardwareMap.get(ColorSensor.class, "C1");
-        block_distance_sensor = hardwareMap.get(DistanceSensor.class,"C1");
         // Lifting Motors
         motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
