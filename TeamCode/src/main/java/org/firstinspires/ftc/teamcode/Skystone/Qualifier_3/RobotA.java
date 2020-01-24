@@ -49,12 +49,15 @@ public class RobotA {
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveForwardTeleop( 0.75);
         }
+        drivetrain.stopAllMotors();
+
 
     }
     public void moveBackwardUntilBlue() {
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveBackwardTeleop(0.75, 0.5);
+            drivetrain.moveBackwardTeleop(0.75 , 0.5);
         }
+        drivetrain.stopAllMotors();
 
     }
 
@@ -62,6 +65,8 @@ public class RobotA {
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveBackwardTeleop(0.75, 0.5);
         }
+        drivetrain.stopAllMotors();
+
 
     }
 
@@ -69,6 +74,7 @@ public class RobotA {
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveRightTeleop(0.75, 0.5);
         }
+        drivetrain.stopAllMotors();
 
     }
 
@@ -76,6 +82,8 @@ public class RobotA {
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveRightTeleop(0.75, 0.5);
         }
+        drivetrain.stopAllMotors();
+
 
     }
 
@@ -83,6 +91,8 @@ public class RobotA {
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveLeftTeleop(0.75, 0.5);
         }
+        drivetrain.stopAllMotors();
+
 
     }
 
@@ -90,6 +100,8 @@ public class RobotA {
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveLeftTeleop(0.75, 0.5);
         }
+        drivetrain.stopAllMotors();
+
 
     }
 
@@ -202,8 +214,11 @@ public class RobotA {
         puller.moveFoundationLeftdown(direction);
     }
     //true = up, false = down
-    public void moveCapstoneStickdown(boolean direction) {
-        stick.moveCapstoneStickdown(direction);
+    public void moveCapstoneStickdownToStone(boolean direction) {
+        stick.moveCapstoneStickdownToStone(direction);
+    }
+    public void moveCapstoneStickdownToFoundation(boolean direction) {
+        stick.moveCapstoneStickdownToFoundation(direction);
     }
     //0.0 is down, 1.0 is up
     public void capstoneStickPosition(double capstone_stick_position) {
@@ -247,7 +262,7 @@ public class RobotA {
         }
         if(hsvValues[0]>75&&hsvValues[0]<=90&&hsvValues[1]>=0.6){
             altitude=false;
-            drivetrain.moveLeft(8,0.75);
+            drivetrain.moveLeft(10,0.75);
         }
         else{
             drivetrain.moveForward(5,0.75);

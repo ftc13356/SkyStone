@@ -27,6 +27,8 @@ public class torqueChassis_Teleop extends LinearOpMode {
     private boolean move_both_sticks = true;
     private boolean capstone_stick_is_up = true;
     private boolean move_capstone_stick = true;
+    private boolean capstone_stick_is_foundation = false;
+    private boolean move_capstone_stick_foundation = false;
 
 
     public torqueChassis_Teleop() {
@@ -53,7 +55,8 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
             boolean both_sticks = gamepad1.right_bumper;
-            boolean capstone_stick = gamepad1.left_bumper;
+            boolean capstone_stick_stone = gamepad1.left_bumper;
+            boolean capstone_stick_foundation = true;
             boolean x_button = gamepad1.x;
             boolean y_button = gamepad1.y;
             boolean b_button = gamepad1.b;
@@ -68,6 +71,14 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float lift_down_manual = gamepad2.right_trigger;
 
             boolean testing = false;
+
+            if(gamepad1.left_trigger<0.25){
+                capstone_stick_foundation=true;
+            }
+            else if(gamepad1.left_trigger>0.75){
+                capstone_stick_foundation=false;
+            }
+            telemetry.addData("position",gamepad1.left_trigger);
             //claw
             if (claw == true) {
                 move_claw = true;
@@ -93,7 +104,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 move_both_sticks = false;
             }
             //capstone stick
-            if (capstone_stick == true) {
+            if (capstone_stick_stone == true) {
                 move_capstone_stick = true;
 
                 if (capstone_stick_is_up == true) {
@@ -103,6 +114,17 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 }
             } else {
                 move_capstone_stick = false;
+            }
+            if (capstone_stick_foundation == true) {
+                move_capstone_stick_foundation = true;
+
+                if (capstone_stick_is_foundation == false) {
+                    capstone_stick_is_foundation = true;
+                } else if (capstone_stick_is_foundation == true) {
+                    capstone_stick_is_foundation= true;
+                }
+            } else {
+                move_capstone_stick_foundation = false;
             }
             // telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
             //telemetry.update();
@@ -233,13 +255,26 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 if (capstone_stick_is_up) {
                     telemetry.addData("Servo", " CAPSTONE STICK UP  left_bumper");
                     telemetry.update();
-                    if (!testing) robot.moveCapstoneStickdown(true);
-                    if (!testing) robot.moveCapstoneStickdown(true);
+                    if (!testing) robot.moveCapstoneStickdownToStone(true);
+                    if (!testing) robot.moveCapstoneStickdownToStone(true);
                 } else if (capstone_stick_is_up == false) {
                     telemetry.addData("Servo", " CAPSTONE STICK DOWN  left_bumper");
                     telemetry.update();
-                    if (!testing) robot.moveCapstoneStickdown(false);
-                    if (!testing) robot.moveCapstoneStickdown(false);
+                    if (!testing) robot.moveCapstoneStickdownToStone(false);
+                    if (!testing) robot.moveCapstoneStickdownToStone(false);
+                }
+            }
+            if (move_capstone_stick_foundation == true) {
+                if (capstone_stick_is_foundation) {
+                    telemetry.addData("Servo", " CAPSTONE STICK UP  left_bumper");
+                    telemetry.update();
+                    if (!testing) robot.moveCapstoneStickdownToFoundation(true);
+                    if (!testing) robot.moveCapstoneStickdownToFoundation(true);
+                } else if (capstone_stick_is_foundation == false) {
+                    telemetry.addData("Servo", " CAPSTONE STICK DOWN  left_bumper");
+                    telemetry.update();
+                    if (!testing) robot.moveCapstoneStickdownToFoundation(false);
+                    if (!testing) robot.moveCapstoneStickdownToFoundation(false);
                 }
             }
 
