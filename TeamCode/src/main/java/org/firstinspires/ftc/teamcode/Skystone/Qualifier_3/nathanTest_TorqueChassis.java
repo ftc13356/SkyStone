@@ -65,8 +65,16 @@ public class nathanTest_TorqueChassis extends LinearOpMode{
 //        sleep(1000);
 //        telemetry.addData("Status:", "MoveRight 5");
 //        telemetry.update();
-        robot.moveRight(30,1);
+        robot.moveForwardIMU(30,0.5);
         sleep(1000);
+        robot.moveBackwardIMU(30,0.5);
+        sleep(1000);
+        robot.inPlaceTurnIMU(90, .5);
+        robot.moveRightIMU(30,0.5);
+        sleep(1000);
+        robot.moveLeftIMU(30,0.5);
+        sleep(1000);
+
 //        robot.moveBackward(30,1);
 //        sleep(1000);
 //        robot.moveLeft(30, 1);

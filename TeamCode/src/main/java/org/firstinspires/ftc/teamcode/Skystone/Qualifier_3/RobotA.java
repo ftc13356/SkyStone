@@ -133,17 +133,21 @@ public class RobotA {
         drivetrain.normalTurnTeleop(degrees, direction, power);
     }
 
-    public void moveForward(double distance, double power) {
-        drivetrain.moveForward(distance, power);
-    }
+    public void moveForwardIMU(double distance, double power) { drivetrain.moveForwardIMU(distance, power); }
 
-    public void moveBackward(double distance, double power) {
-        drivetrain.moveBackward(distance, power);
-    }
+    public void moveForward(double distance, double power) { drivetrain.moveForward(distance, power); }
+
+    public void moveBackwardIMU(double distance, double power) { drivetrain.moveBackwardIMU(distance, power); }
+
+    public void moveBackward(double distance, double power) { drivetrain.moveBackward(distance, power); }
+
+    public void moveLeftIMU(double distance, double power) { drivetrain.moveLeftIMU(distance, power); }
 
     public void moveRight(double distance, double power) {
         drivetrain.moveRight(distance, power);
     }
+
+    public void moveRightIMU(double distance, double power) { drivetrain.moveRightIMU(distance, power); }
 
     public void moveLeft(double distance, double power) {
         drivetrain.moveLeft(distance, power);

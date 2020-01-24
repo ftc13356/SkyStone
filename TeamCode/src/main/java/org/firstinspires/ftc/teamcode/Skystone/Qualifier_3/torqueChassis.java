@@ -237,6 +237,46 @@ public class torqueChassis {
         }
     }
 
+    public void moveForwardIMU(double distance, double power) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + ticksToMove;
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+
+        resetAngle();
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        currentPosition = motorLeftBack.getCurrentPosition();
+        deltaPosition = newLeftBackTargetPosition - currentPosition; //interchangable based on which way robot turns
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentPosition = motorLeftBack.getCurrentPosition();
+            deltaPosition = newLeftBackTargetPosition - currentPosition;
+            currentAngle = getAngle();
+            correction = currentAngle * .005;//gain
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(power + correction);
+            motorLeftBack.setPower(power - correction);
+            motorLeftFront.setPower(power + correction);
+            op.telemetry.addData("current pos", currentPosition + "delta pos", deltaPosition);
+            op.telemetry.update();
+            op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
+
     public void moveForward(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
@@ -345,6 +385,44 @@ public class torqueChassis {
         return correction;
     }
 
+    public void moveBackwardIMU(double distance, double power) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() - ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() - ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() - ticksToMove;
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+
+        resetAngle();
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        currentPosition = motorLeftBack.getCurrentPosition();
+        deltaPosition = currentPosition - newLeftBackTargetPosition; //interchangable based on which way robot turns
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentPosition = motorLeftBack.getCurrentPosition();
+            deltaPosition = currentPosition - newLeftBackTargetPosition;
+            currentAngle = getAngle();
+            correction = currentAngle * .005;//gain
+            motorRightBack.setPower(-power + correction);
+            motorRightFront.setPower(-power - correction);
+            motorLeftBack.setPower(-power + correction);
+            motorLeftFront.setPower(-power - correction);
+            op.telemetry.addData("current pos", currentPosition + "delta pos", deltaPosition);
+            op.telemetry.update();
+            op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
 
     public void moveBackward(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
@@ -395,6 +473,46 @@ public class torqueChassis {
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void moveRightIMU(double distance, double power) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() - ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() - ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + ticksToMove;
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+
+        resetAngle();
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        currentPosition = motorLeftBack.getCurrentPosition();
+        deltaPosition = newLeftBackTargetPosition - currentPosition; //interchangable based on which way robot turns
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentPosition = motorLeftBack.getCurrentPosition();
+            deltaPosition = newLeftBackTargetPosition - currentPosition;
+            currentAngle = getAngle();
+            correction = currentAngle * .005;//gain
+            motorRightBack.setPower(-power - correction);
+            motorRightFront.setPower(power - correction);
+            motorLeftBack.setPower(power + correction);
+            motorLeftFront.setPower(-power + correction);
+            op.telemetry.addData("current pos", currentPosition + "delta pos", deltaPosition);
+            op.telemetry.update();
+            op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
     }
 
     public void moveRight(double distance, double power) {
@@ -457,6 +575,44 @@ public class torqueChassis {
         }
     }
 
+    public void moveLeftIMU(double distance, double power) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() - ticksToMove;
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+
+        resetAngle();
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        currentPosition = motorLeftBack.getCurrentPosition();
+        deltaPosition = currentPosition - newLeftBackTargetPosition;
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentPosition = motorLeftBack.getCurrentPosition();
+            deltaPosition = currentPosition - newLeftBackTargetPosition ;
+            currentAngle = getAngle();
+            correction = currentAngle * .005;//gain
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(-power - correction);
+            motorLeftBack.setPower(-power + correction);
+            motorLeftFront.setPower(power + correction);
+            op.telemetry.addData("del ", deltaPosition + "cur "+ currentPosition);
+            op.telemetry.update();
+            op.idle();
+        }
+        motorLeftBack.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+    }
 
     public void moveLeft(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
@@ -480,9 +636,9 @@ public class torqueChassis {
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorLeftBack.setPower(power*0.95);
+        motorLeftBack.setPower(power);
         motorRightBack.setPower(power);
-        motorLeftFront.setPower(power*0.85);
+        motorLeftFront.setPower(power);
         motorRightFront.setPower(power);
 
         while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
