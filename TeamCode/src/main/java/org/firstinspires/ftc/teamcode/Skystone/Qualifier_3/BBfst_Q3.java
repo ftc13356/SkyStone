@@ -26,8 +26,11 @@ public class BBfst_Q3 extends LinearOpMode {
 
     private RobotA robot   = new RobotA();
     private ElapsedTime  runtime = new ElapsedTime();
+    /*
     private Servo stone_claw_servo;
-
+    private Servo foundationMoverRight;
+    private Servo foundationMoverLeft;
+*/
     /**
      * This method is for te autonomous operation of the robot on the Blue Alliance foundation side.
      * 1st you inPlaceTurn left
@@ -48,7 +51,7 @@ public class BBfst_Q3 extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
+        //stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
         telemetry.addData("Status", "Ready to go"); telemetry.update();
 
@@ -59,55 +62,57 @@ public class BBfst_Q3 extends LinearOpMode {
             telemetry.addData("status", "waiting for start command...");
             telemetry.update();
         }
-
-        /*robot.moveForward(37,0.55);
-        robot.inPlaceTurn(100,true,1);
-        robot.moveForward(20,0.85);
-        robot.inPlaceTurn(100,false,1);
-        robot.moveForward(4.5,0.45);
-        robot.inPlaceTurn(15,false,1);
-
-        stone_claw_servo.setPosition(-6);
-        sleep(1000);
-        stone_claw_servo.setPosition(-5);
-        sleep(1000);
-        robot.moveBackward(39,1);
-        stone_claw_servo.setPosition(7);
-        sleep(200);
-        //robot.moveForward(4);
-        robot.moveBackward(3.0,0.20);
-        robot.inPlaceTurn(107,false,.85);
-        robot.moveRight(12,0.85);
-        robot.inPlaceTurn(20,false,1);
-        robot.moveForward(68,1);
-        sleep(100);
-        stone_claw_servo.setPosition(-5.5);
-        sleep(100);
-        //stop();
-
-        robot.moveForward(26,0.5);
-        robot.moveLeft(18,1.0);
-        robot.inPlaceTurn(175,true,0.6);
-        robot.moveBackward(6,0.3);
+  /*
+        robot.liftPosition(2.5);
+        robot.moveForward(32,1);
+        robot.moveLeft(10,1.0);
+        robot.moveForward(5,0.2 );
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveForward(37,0.7);
+        robot.moveBackward(30,1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        robot.moveForward(1,0.2);
-        robot.moveLeft(20,1.0);
-        robot.moveBackward(22,0.5);
-        robot.moveForward(15,0.5);
-    */
-        robot.liftPosition(2.5);
-        robot.moveForward(25,1);
-        robot.moveLeft(10,1.0);
-        robot.moveForward(5,0.25);
-        robot.moveFoundationRightdown(false);
-        robot.moveFoundationLefttdown(false);
-        robot.moveBackward(15,1);
-        robot.inPlaceTurn(120,true,1.0);
+        robot.AbsoluteTurnIMU(-90,0.6);
+        robot.liftPosition(0);
         robot.moveForwardUntilBlue();
+
+*/
+        robot.liftPosition(2.5);
+        robot.moveForward(32,1);
+        robot.moveLeft(18,1.0);
+        robot.moveForward(3,0.25);
+        robot.moveFoundationLefttdown(true);
+        robot.moveFoundationRightdown(true);
+        robot.moveBackward(37,0.5);
+        robot.moveRight(26, 1.0);
+        robot.moveForward(30,0.6);
+        robot.moveFoundationLefttdown(false);
+        robot.moveFoundationRightdown(false);
+        //robot.AbsoluteTurnIMU(180,1.0);
+        //robot.moveForward(6,1.0);
+        robot.moveLeft(28,1.0);
+        //robot.inPlaceTurn(170,true,1.0);
+        //robot.liftPosition(0);
+        //robot.moveForwardUntilBlue();
+
+        robot.liftPosition(2.5);
+        robot.moveForward(32,1);
+        robot.moveLeft(12,1.0);
+        robot.moveForward(3,0.25);
+        robot.moveFoundationLefttdown(true);
+        robot.moveFoundationRightdown(true);
+        robot.moveBackward(20,0.5);
+        robot.moveRight(18, 1.0);
+        robot.moveForward(30,0.6);
+        robot.moveFoundationLefttdown(false);
+        robot.moveFoundationRightdown(false);
+        //robot.AbsoluteTurnIMU(180,1.0);
+        //robot.moveForward(6,1.0);
+        robot.moveLeft(28,1.0);
+        //robot.inPlaceTurn(170,true,1.0);
+        //robot.liftPosition(0);
+        //robot.moveForwardUntilBlue();
+
     }
 
 }
