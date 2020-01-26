@@ -25,10 +25,10 @@ public class torqueChassis_Teleop extends LinearOpMode {
     private boolean move_claw = true;
     private boolean both_sticks_is_up = true;
     private boolean move_both_sticks = true;
-    private boolean capstone_stick_is_up = true;
-    private boolean move_capstone_stick = true;
-    private boolean capstone_stick_is_foundation = false;
-    private boolean move_capstone_stick_foundation = false;
+    private boolean capstone_stick_f_is_up = true;
+    private  boolean move_capstone_f = true;
+    private double capstone_stick_s_is_up = 1.0;
+    private double move_capstone_s = 1.0;
 
 
     public torqueChassis_Teleop() {
@@ -54,9 +54,9 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float left_stick_y = -gamepad1.left_stick_y; //TODO: What are they used for?
             float left_stick_x = -gamepad1.left_stick_x;//idk "-" sign
             float right_stick_x = -gamepad1.right_stick_x;
+            float capstone_stick_stone = gamepad1.left_trigger;
             boolean both_sticks = gamepad1.right_bumper;
-            boolean capstone_stick_stone = gamepad1.left_bumper;
-            boolean capstone_stick_foundation = true;
+            boolean capstone_stick_foundation = gamepad1.left_bumper;
             boolean x_button = gamepad1.x;
             boolean y_button = gamepad1.y;
             boolean b_button = gamepad1.b;
@@ -72,12 +72,12 @@ public class torqueChassis_Teleop extends LinearOpMode {
 
             boolean testing = false;
 
-            if(gamepad1.left_trigger<0.25){
+           /* if(gamepad1.left_trigger<0.25){
                 capstone_stick_foundation=true;
             }
             else if(gamepad1.left_trigger>0.75){
                 capstone_stick_foundation=false;
-            }
+            }*/
             telemetry.addData("position",gamepad1.left_trigger);
             //claw
             if (claw == true) {
@@ -103,29 +103,31 @@ public class torqueChassis_Teleop extends LinearOpMode {
             } else {
                 move_both_sticks = false;
             }
-            //capstone stick
-            if (capstone_stick_stone == true) {
-                move_capstone_stick = true;
-
-                if (capstone_stick_is_up == true) {
-                    capstone_stick_is_up = false;
-                } else if (capstone_stick_is_up == false) {
-                    capstone_stick_is_up = true;
-                }
-            } else {
-                move_capstone_stick = false;
-            }
+            //capstone stick to foundation
             if (capstone_stick_foundation == true) {
-                move_capstone_stick_foundation = true;
+                move_capstone_f = true;
 
-                if (capstone_stick_is_foundation == false) {
-                    capstone_stick_is_foundation = true;
-                } else if (capstone_stick_is_foundation == true) {
-                    capstone_stick_is_foundation= true;
+                if (capstone_stick_f_is_up == true) {
+                    capstone_stick_f_is_up = false;
+                } else if (capstone_stick_f_is_up == false) {
+                    capstone_stick_f_is_up = true;
                 }
             } else {
-                move_capstone_stick_foundation = false;
+                move_capstone_f = false;
             }
+            //capstone stick to stone
+            if (capstone_stick_stone == 1.0) {
+                move_capstone_s = 1.0;
+
+                if (capstone_stick_s_is_up == 1.0) {
+                    capstone_stick_s_is_up = 0.0;
+                } else if (capstone_stick_s_is_up == 0.0) {
+                    capstone_stick_s_is_up = 1.0;
+                }
+            } else {
+                move_capstone_s = 0.0;
+            }
+
             // telemetry.addData("Motor", "left_y (%.2f), left_x (%.2f)", left_stick_y, left_stick_x);
             //telemetry.update();
 
@@ -206,17 +208,17 @@ public class torqueChassis_Teleop extends LinearOpMode {
             } else if (lift_little) {
                 telemetry.addData("Lift", " Lift up slightly(1.2)");
                 telemetry.update();
-                //if (!testing) robot.stopAllMotors();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(1.2, gamepad2);
             } else if (lift_level_1) {
                 telemetry.addData("Lift", " Lift goes to level 1 (5)");
                 telemetry.update();
-                //if (!testing) robot.stopAllMotors();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(5, gamepad2);
             } else if (lift_level_2) {
                 telemetry.addData("Lift", " Lift goes to level 2 (8.25)");
                 telemetry.update();
-                //if (!testing) robot.stopAllMotors();
+                if (!testing) robot.stopAllMotors();
                 if (!testing) robot.liftPosition(8.25, gamepad2);
             } else if (lift_level_3) {
                 telemetry.addData("Lift", " Lift goes to ground (11.75)");
@@ -251,31 +253,30 @@ public class torqueChassis_Teleop extends LinearOpMode {
                 }
             }
             //following are the code that handles the raising and lowering stick for the capstone
-            if (move_capstone_stick == true) {
-                if (capstone_stick_is_up) {
-                    telemetry.addData("Servo", " CAPSTONE STICK UP  left_bumper");
+            if (move_capstone_f == true) {
+                if (capstone_stick_f_is_up) {
+                    telemetry.addData("Servo", " CAPSTONE STICK FOUNDATION UP  left_bumper");
                     telemetry.update();
-                    if (!testing) robot.moveCapstoneStickdownToStone(true);
-                    if (!testing) robot.moveCapstoneStickdownToStone(true);
-                } else if (capstone_stick_is_up == false) {
-                    telemetry.addData("Servo", " CAPSTONE STICK DOWN  left_bumper");
+                    if (!testing) robot.moveCapstoneStickdownToFoundtion(true);
+                    if (!testing) robot.moveCapstoneStickdownToFoundtion(true);
+                } else if (capstone_stick_f_is_up == false) {
+                    telemetry.addData("Servo", " CAPSTONE STICK FOUNDATION DOWN   left_bumper");
                     telemetry.update();
-                    if (!testing) robot.moveCapstoneStickdownToStone(false);
-                    if (!testing) robot.moveCapstoneStickdownToStone(false);
+                    if (!testing) robot.moveCapstoneStickdownToFoundtion(false);
+                    if (!testing) robot.moveCapstoneStickdownToFoundtion(false);
                 }
             }
-            if (move_capstone_stick_foundation == true) {
-                if (capstone_stick_is_foundation) {
-                    telemetry.addData("Servo", " CAPSTONE STICK UP  left_bumper");
+            if (move_capstone_s == 1.0) {
+                if (capstone_stick_s_is_up == 1.0) {
+                    telemetry.addData("Servo", " CAPSTONE STICK STONE UP  left_trigger");
                     telemetry.update();
-                    if (!testing) robot.moveCapstoneStickdownToFoundation(true);
-                    if (!testing) robot.moveCapstoneStickdownToFoundation(true);
-                } else if (capstone_stick_is_foundation == false) {
-                    telemetry.addData("Servo", " CAPSTONE STICK DOWN  left_bumper");
+                    if (!testing) robot.moveCapstoneStickdownToStone(true);
+                    if (!testing) robot.moveCapstoneStickdownToStone(true);
+                } else if (capstone_stick_s_is_up == 0.0) {
+                    telemetry.addData("Servo", " CAPSTONE STICK STONE DOWN  left_trigger");
                     telemetry.update();
-                    if (!testing) robot.moveCapstoneStickdownToFoundation(false);
-                    if (!testing) robot.moveCapstoneStickdownToFoundation(false);
-                }
+                    if (!testing) robot.moveCapstoneStickdownToStone(false);
+                    if (!testing) robot.moveCapstoneStickdownToStone(false);                }
             }
 
 
