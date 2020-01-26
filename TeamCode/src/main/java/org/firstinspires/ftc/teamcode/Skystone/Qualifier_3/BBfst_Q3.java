@@ -62,21 +62,22 @@ public class BBfst_Q3 extends LinearOpMode {
             telemetry.addData("status", "waiting for start command...");
             telemetry.update();
         }
-  /*
-        robot.liftPosition(2.5);
-        robot.moveForward(32,1);
-        robot.moveLeft(10,1.0);
-        robot.moveForward(5,0.2 );
+
+       /* robot.liftPosition(2.5);
+        robot.moveForwardIMU(32,1);
+        robot.moveLeftIMU(10,1.0);
+        robot.moveForwardIMU(5,0.2 );
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackward(30,1.0);
+        robot.moveBackwardIMU(30,1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
+        robot.moveBackwardIMU(5,0.2);
         robot.AbsoluteTurnIMU(-90,0.6);
         robot.liftPosition(0);
         robot.moveForwardUntilBlue();
 
-*/
+
         robot.liftPosition(2.5);
         robot.moveForward(32,1);
         robot.moveLeft(18,1.0);
@@ -94,21 +95,23 @@ public class BBfst_Q3 extends LinearOpMode {
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();
-
+*/
         robot.liftPosition(2.5);
         robot.moveForward(32,1);
-        robot.moveLeft(12,1.0);
+        robot.moveLeftIMU(13,1.0);
         robot.moveForward(3,0.25);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackward(20,0.5);
-        robot.moveRight(18, 1.0);
+        robot.moveBackward(25,0.6);
+        robot.moveRightIMU(50, 1.0);
+        robot.moveLeftIMU(10,1.0);
         robot.moveForward(30,0.6);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
         //robot.AbsoluteTurnIMU(180,1.0);
         //robot.moveForward(6,1.0);
-        robot.moveLeft(28,1.0);
+        robot.moveLeft(27.5,1.0);
+        robot.moveBackwardUntilBlue();
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();
