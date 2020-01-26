@@ -63,7 +63,7 @@ public class B_stone2_parkCenter_Q3 extends LinearOpMode {
         robot.moveBackward(15, 1); // backs away from stones
         robot.inPlaceTurnIMU(90, 1); // turns. Robot should be facing tape
         robot.liftPosition(0.85); // lowers lift
-        robot.moveForward(40, 1); // crosses tape
+        robot.moveForward(43, 1); // crosses tape
         robot.clawClampPosition(1); // unclamps stone
         sleep(500);
         robot.moveBackward(8,1); // parks on tape

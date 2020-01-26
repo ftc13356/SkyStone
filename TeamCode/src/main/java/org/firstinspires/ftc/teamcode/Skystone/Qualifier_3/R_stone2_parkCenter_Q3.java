@@ -48,22 +48,22 @@ public class R_stone2_parkCenter_Q3 extends LinearOpMode {
         robot.moveBackward(13, 1); // backs away from stones
         robot.AbsoluteTurnIMU(-90,1.0); // turns. Robot should be facing tape
         robot.liftPosition(0.85); // robot lowers lift
-        robot.moveForward(50, 1); // crosses tape
+        robot.moveForward(40, 1); // crosses tape
         robot.clawClampPosition(1); // unclamps stone
-        robot.moveBackward(60, 1); // moves to get second stone
+        robot.moveBackward(50, 1); // moves to get second stone
         robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone
         robot.liftPosition(0.5); // lowers lift to ground
         robot.moveForward(12, 1); // approaches stones
-        robot.moveForward(4, 0.5); // slows done
+        robot.moveForward(7, 0.5); // slows done
         robot.clawClampPosition(0); // robot grabs 2nd stone
         sleep(500); // just in case
         robot.liftPosition(1.2); // robot lifts stone
-        robot.moveBackward(18, 1); // backs away from stones
+        robot.moveBackward(14, 1); // backs away from stones
         robot.AbsoluteTurnIMU(-90,1); // turns. Robot should be facing tape
         robot.liftPosition(0.85); // lowers lift
-        robot.moveForward(65, 1); // crosses tape
+        robot.moveForward(57, 1); // crosses tape
         robot.clawClampPosition(1); // unclamps stone
-        robot.moveBackwardUntilRed(); // parks on tape
+        robot.moveBackward(17,1); // parks on tape
         robot.clawClampPosition(0); // just in case
     }
 }
