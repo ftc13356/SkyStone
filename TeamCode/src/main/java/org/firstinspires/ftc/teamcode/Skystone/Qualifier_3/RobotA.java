@@ -213,17 +213,19 @@ public class RobotA {
     public void moveFoundationLefttdown(boolean direction) {
         puller.moveFoundationLeftdown(direction);
     }
-    //true = up, false = down
     public void moveCapstoneStickdownToStone(boolean direction) {
         stick.moveCapstoneStickdownToStone(direction);
     }
-    public void moveCapstoneStickdownToFoundation(boolean direction) {
+    public void moveCapstoneStickToStonePosition(double capstone_stick_position) {
+        stick.moveCapstoneStickToStonePosition(capstone_stick_position);
+    }
+    public void moveCapstoneStickdownToFoundtion(boolean direction) {
         stick.moveCapstoneStickdownToFoundation(direction);
     }
-    //0.0 is down, 1.0 is up
-    public void capstoneStickPosition(double capstone_stick_position) {
-        stick.capstoneStickPosition(capstone_stick_position);
+    public void moveCapstoneStickToFoundationPosition(double capstone_stick_position) {
+        stick.moveCapstoneStickToFoundationPosition(capstone_stick_position);
     }
+
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         return sensor.tapeIsRed();
