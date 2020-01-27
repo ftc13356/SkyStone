@@ -47,26 +47,26 @@ public class B_stone2_parkCenter_Q3 extends LinearOpMode {
         robot.clawClampPosition(0); // robot grabs stone
         sleep(500); // just in case
         robot.liftPosition(1.2); // lifts stone slightly
-        robot.moveBackward(13, 1); // backs away from stones
+        robot.moveBackward(12, 1); // backs away from stones
         robot.AbsoluteTurnIMU(90, 1.0); //positive is left // turns. Robot should be facing tape
         robot.liftPosition(0.85); // lowers lift slightly
         robot.moveForward(36, 1); //crosses tape
         robot.clawClampPosition(1); // unclamps stone
-        robot.moveBackward(44, 1); // moves to get second stone
+        robot.moveBackward(41, 1); // moves to get second stone
         robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone
         robot.liftPosition(0); // lowers lift to ground
-        robot.moveForward(6, 1); // approaches stones
-        robot.moveForward(4, 0.5); // slows down
+        robot.moveForward(8, 1); // approaches stones
+        robot.moveForward(6, 0.5); // slows down
         robot.clawClampPosition(0); // robot grabs 2nd stone
         sleep(500); // just in case
         robot.liftPosition(1.2); // lifts stone slightly
-        robot.moveBackward(15, 1); // backs away from stones
+        robot.moveBackward(16, 1); // backs away from stones
         robot.inPlaceTurnIMU(90, 1); // turns. Robot should be facing tape
         robot.liftPosition(0.85); // lowers lift
         robot.moveForward(43, 1); // crosses tape
         robot.clawClampPosition(1); // unclamps stone
         sleep(500);
-        robot.moveBackward(8,1); // parks on tape
+        robot.moveBackwardUntilBlue(); // parks on tape
         robot.clawClampPosition(0); // just in case
 
     }
