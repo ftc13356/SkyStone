@@ -98,19 +98,20 @@ public class RBfst_Q3 extends LinearOpMode {
 */
         robot.liftPosition(2.5);
         robot.moveForward(32,1);
-        robot.moveRightIMU(13,1.0);
+        robot.moveRightIMU(13,0.6);
         robot.moveForward(3,0.25);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
         robot.moveBackward(25,0.6);
-        robot.moveLeftIMU(50, 1.0);
-        robot.moveRightIMU(10,1.0);
+        robot.moveLeftIMU(50, 0.6);
+        robot.moveRightIMU(10,0.6);
         robot.moveForward(30,0.6);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
         //robot.AbsoluteTurnIMU(180,1.0);
         //robot.moveForward(6,1.0);
         robot.moveRightIMU(27.5,1.0);
+        robot.liftPosition(0);
         robot.moveBackwardUntilRed();
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
