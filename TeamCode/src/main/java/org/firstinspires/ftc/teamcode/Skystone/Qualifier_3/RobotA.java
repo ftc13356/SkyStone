@@ -259,23 +259,24 @@ public class RobotA {
                         String.format(Locale.US, "%.02f", sensor.block_distance_sensor.getDistance(DistanceUnit.CM)));
         op.telemetry.update();
         distance = sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
-        while(distance>4.5);{
+        while(distance>4.0);{
+            distance =sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
             drivetrain.moveForwardTeleop(0.25);
         }
-        if(hsvValues[0]>75&&hsvValues[0]<=90&&hsvValues[1]>=0.6){
+        drivetrain.stopAllMotors();
+        if(hsvValues[0]>75&&hsvValues[0]<=100){
             altitude=false;
-            drivetrain.moveLeft(10,0.75);
-        }
-        else{
-            drivetrain.moveForward(5,0.75);
-            liftandClaw.clawClamp(false);
-            op.sleep(200);
+            drivetrain.moveLeftIMU(10,0.75);
         }
         return altitude;
     }
-    public void ColorTest() {
-        sensor.ColorTest();
+    public void ColorTestTape() {
+        sensor.ColorTestTape();
     }
+    public void ColorTestBlock() {
+        sensor.ColorTestBlock();
+    }
+
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
