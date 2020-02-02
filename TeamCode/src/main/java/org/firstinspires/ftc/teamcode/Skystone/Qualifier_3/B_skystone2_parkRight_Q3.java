@@ -27,28 +27,29 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(20,1.0);
-        robot.moveRightIMU(8,0.5);
+        robot.moveForwardIMU(21.5,1.0);
+        robot.moveRightIMU(5,0.5);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveForwardIMU(3,0.4);
+        robot.moveForwardIMU(4,0.4);
         //move left until skystone is detected
         for (int i=0; i<2; i++) {
             if(robot.blockIsSky()==true){
                 break;
             }
             a++;
+            robot.moveBackwardIMU(1, 0.5);
         }
         robot.moveForwardIMU(5,0.75);
         robot.clawClamp(false);
-        robot.moveBackwardIMU(20,0.5);
+        robot.moveBackwardIMU(39,1.0);
         robot.liftPosition(1.2);
-        robot.moveLeftIMU(70-(a*8), 0.5);
+        robot.moveForwardIMU(1,0.2);
+        robot.fasterMoveLeftIMU(60-(a*8), 1.0);
         //drop the stone
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveRightIMU(86-(a*8),0.5);
-        robot.moveForwardIMU(15,1.0);
+        robot.fasterMoveRightIMU(83-(a*8),1.0);
+        robot.moveForwardIMU(25,0.7);
         if(a==0){
             robot.moveForwardIMU(10,0.5);
         }
@@ -57,9 +58,10 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
         if(a==0){
             robot.moveBackwardIMU(10,0.5);
         }
-        robot.moveBackwardIMU(20,1.0);
+        robot.moveBackwardIMU(45,1.0);
         robot.liftPosition(1.2);
-        robot.moveLeftIMU(86-(a*8),0.5);
+        robot.moveForwardIMU(1,0.2);
+        robot.fasterMoveLeftIMU(88-(a*8),1.0);
         robot.clawClamp(true);
         robot.liftPosition(0.0);
         robot.moveRightUntilBlue();

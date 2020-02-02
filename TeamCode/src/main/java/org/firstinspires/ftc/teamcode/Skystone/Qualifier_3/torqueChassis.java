@@ -578,7 +578,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .045;//gain
+            correction = currentAngle * .05;//gain
             motorRightBack.setPower(-power - correction);
             motorRightFront.setPower(power - correction);
             motorLeftBack.setPower(power + correction);
@@ -717,7 +717,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = currentAngle * .05;//gain
+            correction = currentAngle * .055;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);
@@ -765,10 +765,7 @@ public class torqueChassis {
             op.telemetry.update();
             op.idle();
         }
-        motorLeftBack.setPower(0);
-        motorRightBack.setPower(0);
-        motorLeftFront.setPower(0);
-        motorRightFront.setPower(0);
+        stopAllMotors();
     }
 
     public void moveLeft(double distance, double power) {
@@ -963,7 +960,7 @@ public class torqueChassis {
 
         op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
         op.telemetry.update();
-        op.sleep(500);
+        //op.sleep(500);
         motorLeftBack.setPower(leftPower);
         motorLeftFront.setPower(leftPower);
         motorRightBack.setPower(rightPower);
@@ -973,8 +970,8 @@ public class torqueChassis {
         {
             currentAngle = getAngle();
             error = degrees - currentAngle;
-            leftPower = power*gain*error;
-            rightPower = -power*gain*error;
+            leftPower = power*gain*error*2;
+            rightPower = -power*gain*error*2;
             //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
             //op.telemetry.update();
             if (leftPower>1) {leftPower=1;}

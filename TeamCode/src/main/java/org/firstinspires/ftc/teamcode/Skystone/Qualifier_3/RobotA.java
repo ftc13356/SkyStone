@@ -291,6 +291,10 @@ public class RobotA {
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
         op.telemetry.addData("Alpha", sensor.block_color_sensor.alpha());
         op.telemetry.addData("Red  ", sensor.block_color_sensor.red());
         op.telemetry.addData("Green", sensor.block_color_sensor.green());
@@ -308,9 +312,10 @@ public class RobotA {
             drivetrain.moveForwardTeleop(0.25);
         }
         drivetrain.stopAllMotors();*/
-        if(hsvValues[0]>75&&hsvValues[0]<=100){
+        if(hsvValues[0]>70&&hsvValues[0]<=100){
             altitude=false;
-            drivetrain.moveLeftIMU(10,0.75);
+            drivetrain.moveLeftIMU(8,0.5);
+            drivetrain.AbsoluteTurnIMU(0,1.0);
         }
         return altitude;
     }
