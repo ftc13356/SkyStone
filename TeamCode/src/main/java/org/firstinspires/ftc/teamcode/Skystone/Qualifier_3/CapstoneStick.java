@@ -30,6 +30,7 @@ public class CapstoneStick {
         op.sleep(200);
 
     }
+    //true = unclamp, false = clamp
     public void moveCapstoneStickdownToFoundation(boolean direction) {
         if (direction == true) {
             capstoneStick.setPosition(1.0);
@@ -40,13 +41,20 @@ public class CapstoneStick {
 
     }
 
-    public void capstoneStickPosition(double capstone_stick_position) {
+    //0.0 is clamped, 1.0 is unclamped
+    public void moveCapstoneStickToStonePosition(double capstone_stick_position) {
         op.telemetry.addData("stick position :", capstone_stick_position);
         op.telemetry.update();
         capstoneStick.setPosition(capstone_stick_position);
         op.sleep(50);
     }
-
+    //0.0 is clamped, 1.0 is unclamped
+    public void moveCapstoneStickToFoundationPosition(double capstone_stick_position) {
+        op.telemetry.addData("stick position :", capstone_stick_position);
+        op.telemetry.update();
+        capstoneStick.setPosition(capstone_stick_position);
+        op.sleep(50);
+    }
 
 }
 

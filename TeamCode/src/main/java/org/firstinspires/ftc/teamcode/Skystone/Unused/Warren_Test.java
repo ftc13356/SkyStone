@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
 
 
-@Autonomous(name = "Warren Test")
+@Autonomous(name = "Warren No IMU")
 public class Warren_Test extends LinearOpMode {
     RobotA robot = new RobotA();
     private ElapsedTime runtime = new ElapsedTime();
@@ -27,10 +27,11 @@ public class Warren_Test extends LinearOpMode {
          */
         waitForStart();
         //move to the blocks
-      robot.moveForward(24,1.0);
+
+        robot.moveForward(24,1.0);
         robot.moveForward(5,0.4);
         //move left until skystone is detected
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<2; i++) {
             if(robot.blockIsSky()==true){
                 break;
             }
@@ -56,6 +57,8 @@ public class Warren_Test extends LinearOpMode {
         robot.clawClamp(false);
        sleep(5000);
       sleep(1000);
+        robot.ColorTestBlock();
+        sleep(5000);
 
        stop();
 

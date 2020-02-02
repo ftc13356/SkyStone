@@ -38,32 +38,52 @@ public class RobotA {
     }
 
     public void moveForwardUntilBlue() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveForwardTeleop(0.75);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
     }
 
     public void moveForwardUntilRed() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveForwardTeleop( 0.75);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
 
     }
     public void moveBackwardUntilBlue() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveBackwardTeleop(0.75 , 0.5);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
     }
 
     public void moveBackwardUntilRed() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveBackwardTeleop(0.75, 0.5);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
@@ -71,16 +91,26 @@ public class RobotA {
     }
 
     public void moveRightUntilBlue() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveRightTeleop(0.75, 0.5);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
     }
 
     public void moveRightUntilRed() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveRightTeleop(0.75, 0.5);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
@@ -88,8 +118,13 @@ public class RobotA {
     }
 
     public void moveLeftUntilBlue() {
+        double x =0;
+        x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveLeftTeleop(0.75, 0.5);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
@@ -98,7 +133,12 @@ public class RobotA {
 
     public void moveLeftUntilRed() {
         while (sensor.tapeIsRed() == false) {
+            double x =0;
+            x = op.getRuntime();
             drivetrain.moveLeftTeleop(0.75, 0.5);
+            if(op.getRuntime()-x>=5){
+                break;
+            }
         }
         drivetrain.stopAllMotors();
 
@@ -213,17 +253,19 @@ public class RobotA {
     public void moveFoundationLefttdown(boolean direction) {
         puller.moveFoundationLeftdown(direction);
     }
-    //true = up, false = down
     public void moveCapstoneStickdownToStone(boolean direction) {
         stick.moveCapstoneStickdownToStone(direction);
     }
-    public void moveCapstoneStickdownToFoundation(boolean direction) {
+    public void moveCapstoneStickToStonePosition(double capstone_stick_position) {
+        stick.moveCapstoneStickToStonePosition(capstone_stick_position);
+    }
+    public void moveCapstoneStickdownToFoundtion(boolean direction) {
         stick.moveCapstoneStickdownToFoundation(direction);
     }
-    //0.0 is down, 1.0 is up
-    public void capstoneStickPosition(double capstone_stick_position) {
-        stick.capstoneStickPosition(capstone_stick_position);
+    public void moveCapstoneStickToFoundationPosition(double capstone_stick_position) {
+        stick.moveCapstoneStickToFoundationPosition(capstone_stick_position);
     }
+
     //detects if red or if blue returns true and false
     public boolean tapeIsRed() {
         return sensor.tapeIsRed();
@@ -257,23 +299,24 @@ public class RobotA {
                         String.format(Locale.US, "%.02f", sensor.block_distance_sensor.getDistance(DistanceUnit.CM)));
         op.telemetry.update();
         distance = sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
-        while(distance>4.5);{
+        /*while(distance>4.0);{
+            distance =sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
             drivetrain.moveForwardTeleop(0.25);
         }
-        if(hsvValues[0]>75&&hsvValues[0]<=90&&hsvValues[1]>=0.6){
+        drivetrain.stopAllMotors();*/
+        if(hsvValues[0]>75&&hsvValues[0]<=100){
             altitude=false;
-            drivetrain.moveLeft(10,0.75);
-        }
-        else{
-            drivetrain.moveForward(5,0.75);
-            liftandClaw.clawClamp(false);
-            op.sleep(200);
+            drivetrain.moveLeftIMU(10,0.75);
         }
         return altitude;
     }
-    public void ColorTest() {
-        sensor.ColorTest();
+    public void ColorTestTape() {
+        sensor.ColorTestTape();
     }
+    public void ColorTestBlock() {
+        sensor.ColorTestBlock();
+    }
+
 
     /******** Lifting Motor **********/
     public void liftAutonomous(double liftheight) {
