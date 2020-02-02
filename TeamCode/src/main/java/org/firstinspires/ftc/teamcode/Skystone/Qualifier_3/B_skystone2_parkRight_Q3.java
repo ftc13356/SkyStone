@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name = "Warren Test")
+@Autonomous(name = "B_skystone2_parkRight_Q3")
 public class B_skystone2_parkRight_Q3 extends LinearOpMode {
     RobotA robot = new RobotA();
     private ElapsedTime runtime = new ElapsedTime();
@@ -28,7 +28,7 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
          */
         //move to the blocks
         robot.moveForwardIMU(21.5,1.0);
-        robot.moveRightIMU(5,0.5);
+        robot.moveRightIMU(5.5,0.5);
         robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(4,0.4);
         //move left until skystone is detected

@@ -295,6 +295,10 @@ public class RobotA {
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues);
         op.telemetry.addData("Alpha", sensor.block_color_sensor.alpha());
         op.telemetry.addData("Red  ", sensor.block_color_sensor.red());
         op.telemetry.addData("Green", sensor.block_color_sensor.green());
