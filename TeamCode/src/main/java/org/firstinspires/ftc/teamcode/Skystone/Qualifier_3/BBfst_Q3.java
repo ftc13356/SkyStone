@@ -113,6 +113,7 @@ public class BBfst_Q3 extends LinearOpMode {
         robot.moveLeft(27.5,1.0);
         robot.liftPosition(0);
         robot.moveBackwardUntilBlue();
+        robot.clawClampPosition(0.0);
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();
