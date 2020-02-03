@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * <h1> SkyStone autonomous program</h1>
@@ -41,32 +44,73 @@ public class B_stone2_parkCenter_Q3 extends LinearOpMode {
             telemetry.update();
         }
 
-        //Main Autonomous program
-        robot.moveForward(30, 1); // robot approaches stones
-        robot.moveForward(5, 0.5); // slows down
+        /********Main Autonomous program***********/
+
+        robot.moveForward(28, 1); // robot approaches stones
+        //stop();
+        double distance = robot.sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+        robot.drivetrain.motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.drivetrain.motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.drivetrain.motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.drivetrain.motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        float power= (float) 0.5;
+        robot.drivetrain.motorLeftBack.setPower(power);
+        robot.drivetrain.motorRightBack.setPower(power);
+        robot.drivetrain.motorLeftFront.setPower(power);
+        robot.drivetrain.motorRightFront.setPower(power);
+        // move forward until stone
+
+        while(distance>4){
+            distance = robot.sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+            //idle()
+        }
+        robot.stopAllMotors();
+
+        //robot.moveForward(30, 1); // robot approaches stones
+        //robot.moveForward(5, 0.5); // slows down
         robot.clawClampPosition(0); // robot grabs stone
         sleep(500); // just in case
         robot.liftPosition(1.2); // lifts stone slightly
-        robot.moveBackward(12, 1); // backs away from stones
-        robot.AbsoluteTurnIMU(90, 1.0); //positive is left // turns. Robot should be facing tape
-        robot.liftPosition(0.85); // lowers lift slightly
-        robot.moveForward(36, 1); //crosses tape
+        robot.moveBackward(13, 1); // backs away from stones
+        //stop();
+        /*robot.AbsoluteTurnIMU(90, 1.0); //positive is left // turns. Robot should be facing tape
+        robot.moveForward(36, 1); //crosses tape*/
+        robot.fasterMoveLeftIMU(42,1);
         robot.clawClampPosition(1); // unclamps stone
-        robot.moveBackward(41, 1); // moves to get second stone
-        robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone
+        /*robot.moveBackward(43, 1); // moves to get second stone
+        robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone*/
+        robot.fasterMoveRightIMU(48,1);
         robot.liftPosition(0); // lowers lift to ground
-        robot.moveForward(8, 1); // approaches stones
-        robot.moveForward(6, 0.5); // slows down
+
+        robot.moveForward(7, 1);
+        double distance2 = robot.sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+        robot.drivetrain.motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.drivetrain.motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.drivetrain.motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.drivetrain.motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        float power2=(float)0.5;
+        robot.drivetrain.motorLeftBack.setPower(power2);
+        robot.drivetrain.motorRightBack.setPower(power2);
+        robot.drivetrain.motorLeftFront.setPower(power2);
+        robot.drivetrain.motorRightFront.setPower(power2);
+
+        while(distance2>4){
+            distance2 = robot.sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+            //idle()
+        }
+        robot.stopAllMotors();
+        //robot.moveForward(8, 1); // approaches stones
+        //robot.moveForward(6, 0.5); // slows down
         robot.clawClampPosition(0); // robot grabs 2nd stone
         sleep(500); // just in case
         robot.liftPosition(1.2); // lifts stone slightly
-        robot.moveBackward(16, 1); // backs away from stones
-        robot.inPlaceTurnIMU(90, 1); // turns. Robot should be facing tape
-        robot.liftPosition(0.85); // lowers lift
-        robot.moveForward(43, 1); // crosses tape
+        robot.moveBackward(13, 1); // backs away from stones
+        robot.fasterMoveLeftIMU(52,1);
+        /*robot.inPlaceTurnIMU(90, 1); // turns. Robot should be facing tape
+        robot.moveForward(43, 1); // crosses tape*/
         robot.clawClampPosition(1); // unclamps stone
-        sleep(500);
-        robot.moveBackwardUntilBlue(); // parks on tape
+        sleep(400);
+        robot.moveRightUntilBlue(); // parks on tape
         robot.clawClampPosition(0); // just in case
 
     }
