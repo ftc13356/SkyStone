@@ -69,7 +69,7 @@ public class BBft_Verticle_Q3 extends LinearOpMode {
         robot.moveForwardIMU(5,0.2 );
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackwardIMU(30,1.0);
+        robot.moveBackwardIMU(34,1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
         robot.moveBackwardIMU(7,0.2);
