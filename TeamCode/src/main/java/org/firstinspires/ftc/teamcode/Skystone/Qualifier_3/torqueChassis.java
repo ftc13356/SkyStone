@@ -578,7 +578,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .05;//gain
+            correction = currentAngle * .06;//gain
             motorRightBack.setPower(-power - correction);
             motorRightFront.setPower(power - correction);
             motorLeftBack.setPower(power + correction);
@@ -717,7 +717,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = currentAngle * .055;//gain
+            correction = currentAngle * .06;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);

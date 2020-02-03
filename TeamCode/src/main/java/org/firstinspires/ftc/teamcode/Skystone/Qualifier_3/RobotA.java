@@ -1,12 +1,17 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 import java.util.Locale;
+
+import static java.lang.Math.abs;
 
 public class RobotA {
     torqueChassis drivetrain = new torqueChassis();
@@ -42,7 +47,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveForwardTeleop(0.75);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -55,7 +60,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveForwardTeleop( 0.75);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -68,7 +73,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveBackwardTeleop(0.75 , 0.5);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -81,7 +86,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveBackwardTeleop(0.75, 0.5);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -95,7 +100,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveRightTeleop(0.75, 0.5);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -108,7 +113,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
             drivetrain.moveRightTeleop(0.75, 0.5);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -122,7 +127,7 @@ public class RobotA {
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
             drivetrain.moveLeftTeleop(0.75, 0.5);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -136,7 +141,7 @@ public class RobotA {
             double x =0;
             x = op.getRuntime();
             drivetrain.moveLeftTeleop(0.75, 0.5);
-            if(op.getRuntime()-x>=5){
+            if(op.getRuntime()-x>=3){
                 break;
             }
         }
@@ -280,33 +285,36 @@ public class RobotA {
     }
     public boolean blockIsSky (){
         float hsvValues[] = {0F, 0F, 0F};
+        float hsvValues2[] = {0F, 0F, 0F};
         boolean altitude = true;
         final double SCALE_FACTOR = 255;
         double distance=0;
+        double a =20;
+        double b = 0;
         Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
-        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
-                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
-                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
-        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
-                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
-                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
-        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
-                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
-                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
-                hsvValues);
+                hsvValues2);
+        while(a>5) {
+            hsvValues = hsvValues2;
+            Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                    (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                    (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                    hsvValues2);
+            a = abs(hsvValues[0] - hsvValues2[0]);
+            op.telemetry.addData("diffrence", a);
+            op.telemetry.addData("Hue1", hsvValues[0]);
+            op.telemetry.addData("Hue2", hsvValues2[0]);
+            op.telemetry.update();
+        }
         op.telemetry.addData("Alpha", sensor.block_color_sensor.alpha());
         op.telemetry.addData("Red  ", sensor.block_color_sensor.red());
         op.telemetry.addData("Green", sensor.block_color_sensor.green());
         op.telemetry.addData("Blue ", sensor.block_color_sensor.blue());
         op.telemetry.addLine()
-                .addData("H", "%.3f", hsvValues[0])
-                .addData("S", "%.3f", hsvValues[1])
-                .addData("V", "%.3f", hsvValues[2])
+                .addData("H", "%.3f", hsvValues2[0])
+                .addData("S", "%.3f", hsvValues2[1])
+                .addData("V", "%.3f", hsvValues2[2])
                 .addData ("Distance (cm)",
                         String.format(Locale.US, "%.02f", sensor.block_distance_sensor.getDistance(DistanceUnit.CM)));
         op.telemetry.update();
@@ -316,9 +324,9 @@ public class RobotA {
             drivetrain.moveForwardTeleop(0.25);
         }
         drivetrain.stopAllMotors();*/
-        if(hsvValues[0]>70&&hsvValues[0]<=100){
+        if(hsvValues2[0]>70&&hsvValues2[0]<=100){
             altitude=false;
-            drivetrain.moveLeftIMU(8,0.5);
+            drivetrain.moveLeftIMU(7.5,0.5);
             drivetrain.AbsoluteTurnIMU(0,1.0);
         }
         return altitude;
