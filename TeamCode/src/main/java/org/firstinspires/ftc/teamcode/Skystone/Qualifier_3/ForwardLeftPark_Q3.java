@@ -41,7 +41,7 @@ public class ForwardLeftPark_Q3 extends LinearOpMode {
         }
 
         sleep(21500);
-        robot.moveForward(35, 1);
+        robot.moveForward(31, 1);
         robot.AbsoluteTurnIMU(90,1);
         robot.moveForward(15,1);
         robot.clawClampPosition(0.25);
