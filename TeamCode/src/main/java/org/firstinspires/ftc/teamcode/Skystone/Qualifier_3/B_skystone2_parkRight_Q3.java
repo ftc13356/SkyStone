@@ -28,7 +28,7 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
          */
         //move to the blocks
         robot.moveForwardIMU(21.5,1.0);
-        robot.moveRightIMU(5.5,0.5);
+        robot.moveRightIMU(5,0.5);
         robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(4,0.4);
         //move left until skystone is detected
@@ -37,7 +37,7 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
                 break;
             }
             a++;
-            robot.moveBackwardIMU(1, 0.5);
+            robot.moveBackwardIMU(0.2, 0.5);
         }
         robot.moveForwardIMU(5,0.75);
         robot.clawClamp(false);
@@ -61,7 +61,7 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.moveBackwardIMU(45,1.0);
         robot.liftPosition(1.2);
         robot.moveForwardIMU(1,0.2);
-        robot.fasterMoveLeftIMU(88-(a*8),1.0);
+        robot.fasterMoveLeftIMU(92-(a*8),1.0);
         robot.clawClamp(true);
         robot.liftPosition(0.0);
         robot.moveRightUntilBlue();
