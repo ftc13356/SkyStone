@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @since 2020 Jan-7
  */
 
-//@Disabled
+@Disabled
 @Autonomous(name = "B_stone1_Foundation_park_Q3")
 public class B_stone1_Foundation_park_Q3 extends LinearOpMode {
     RobotA robot = new RobotA();
@@ -40,61 +40,66 @@ public class B_stone1_Foundation_park_Q3 extends LinearOpMode {
             telemetry.addData("status", "waiting for start command...");
             telemetry.update();
         }
-
-        //Main Autonomous program
-        robot.moveForward(30, 1); // robot approaches stones
-        robot.moveForward(5, 0.5); // slows down
-        robot.clawClampPosition(0); // robot grabs stone
-        sleep(500); // just in case
-        robot.liftPosition(1.2); // lifts stone slightly
-        robot.moveBackward(13, 1); // backs away from stones
-        robot.AbsoluteTurnIMU(90, 1.0); //positive is left // turns. Robot should be facing tape
-        robot.liftPosition(0.85); // lowers lift slightly
-        robot.moveForward(75, 1); //crosses tape
-        robot.inPlaceTurnIMU(-90,1.0); //turns robot 90 degrees right toward foundation
-        robot.moveForwardIMU(5,1.0); //robot approaches foundation
-        robot.liftPosition(2.5); // raises lift slightly
-        robot.moveForwardIMU(2,0.5); // slows down
-        robot.moveFoundationLefttdown(true);
-        robot.moveFoundationRightdown(true);
-        robot.moveBackward(25,0.6);
-        robot.moveRightIMU(50, 1.0);
-        robot.moveLeftIMU(10,1.0);
-        robot.moveForward(30,0.6);
-        /*robot.liftPosition(0.8);
-        robot.clawClampPosition(1);
-        robot.moveFoundationLefttdown(false);
-        robot.moveFoundationRightdown(false);
-        robot.moveLeft(27.5,1.0);
-        robot.moveBackwardUntilBlue();
-
-
-
-
-
-
-
-
+        int a=0;
 
         /*
-        robot.clawClampPosition(1); // unclamps stone
-        robot.moveBackward(44, 1); // moves to get second stone
-        robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone
-        robot.liftPosition(0); // lowers lift to ground
-        robot.moveForward(6, 1); // approaches stones
-        robot.moveForward(4, 0.5); // slows down
-        robot.clawClampPosition(0); // robot grabs 2nd stone
-        sleep(500); // just in case
-        robot.liftPosition(1.2); // lifts stone slightly
-        robot.moveBackward(15, 1); // backs away from stones
-        robot.inPlaceTurnIMU(90, 1); // turns. Robot should be facing tape
-        robot.liftPosition(0.85); // lowers lift
-        robot.moveForward(43, 1); // crosses tape
-        robot.clawClampPosition(1); // unclamps stone
-        sleep(500);
-        robot.moveBackward(8,1); // parks on tape
-        robot.clawClampPosition(0); // just in case
-*/
+         * Initialize the drive system variables.
+         * The init() method of the hardware clss does all the work here
+         */
+        //move to the blocks
+        robot.moveForwardIMU(21.5,1.0);
+        robot.moveRightIMU(5,0.5);
+        robot.AbsoluteTurnIMU(0,1.0);
+        robot.moveForwardIMU(4,0.4);
+        //move left until skystone is detected
+        for (int i=0; i<2; i++) {
+            if(robot.blockIsSky()==true){
+                break;
+            }
+            a++;
+            robot.moveBackwardIMU(1, 0.5);
+        }
+        robot.moveForwardIMU(5,0.75);
+        robot.clawClamp(false);
+        robot.moveBackwardIMU(39,1.0);
+        robot.liftPosition(1.2);
+        robot.moveForwardIMU(1,0.2);
+        robot.fasterMoveLeftIMU(110-(a*8), 1.0);
+        robot.moveBackward(5,0.2);
+        sleep(1500);
+        robot.liftAutonomous(4.5);
+        sleep(1500);
+        robot.moveForwardIMU(20,1.0);
+        //robot.moveLeftIMU(10,0.6);
+        robot.moveForwardIMU(3,0.2 );
+        robot.moveFoundationLefttdown(true);
+        robot.moveFoundationRightdown(true);
+        robot.moveBackwardIMU(30,1.0);
+        robot.moveFoundationLefttdown(false);
+        robot.moveFoundationRightdown(false);
+        robot.moveBackwardIMU(7,0.2);
+        //robot.AbsoluteTurnIMU(90,0.6);
+        robot.liftPosition(0);
+        robot.moveRightUntilBlue();
+        robot.clawClampPosition(0.0);
+        //robot.moveBackwardIMU(5,0.2);
+        //robot.liftPosition(2.83.0);
+        //robot.fasterMoveLeftIMU(58, 1.0);
+        /*robot.AbsoluteTurnIMU(0,1.0);
+        robot.moveForwardIMU(32,1);
+        robot.moveLeftIMU(10,0.6);
+        robot.moveForwardIMU(5,0.2 );
+        robot.moveFoundationLefttdown(true);
+        robot.moveFoundationRightdown(true);
+        robot.moveBackwardIMU(35,1.0);
+        robot.moveFoundationLefttdown(false);
+        robot.moveFoundationRightdown(false);
+        robot.moveBackwardIMU(7,0.2);
+        robot.AbsoluteTurnIMU(90,0.6);
+        robot.liftPosition(0);
+        robot.moveBackwardUntilBlue();
+        robot.clawClampPosition(0.0);*/
+
     }
 }
 
