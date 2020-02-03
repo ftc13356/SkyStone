@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @since   2020-Jan-7
  *
  */
-@Disabled
+//@Disabled
 @Autonomous(name = "ServoDown_5_Q3")
 public class ServoDown_5_Q3 extends LinearOpMode {
     RobotA robot = new RobotA();

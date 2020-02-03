@@ -65,18 +65,20 @@ public class RBft_Verticle_Q3 extends LinearOpMode {
 
 
         robot.liftPosition(2.5);
-        robot.moveForwardIMU(32,1);
-        robot.moveRightIMU(10,0.6);
+        robot.moveForwardIMU(26,1);
+        robot.moveForwardIMU(3,0.15);
+        robot.moveRightIMU(8,0.6);
         robot.moveForwardIMU(5,0.2 );
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackwardIMU(30,1.0);
+        robot.moveBackwardIMU(40,1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        robot.moveBackwardIMU(7,0.2);
-        robot.AbsoluteTurnIMU(-90,0.6);
+        robot.moveBackwardIMU(12,0.2);
         robot.liftPosition(0);
-        robot.moveBackwardUntilRed();
+        robot.moveBackwardIMU(15,1.0);
+        //robot.moveLeftUntilRed();
+        robot.fasterMoveLeftIMU(20,1.0);
         robot.clawClampPosition(0.0);
 
     }
