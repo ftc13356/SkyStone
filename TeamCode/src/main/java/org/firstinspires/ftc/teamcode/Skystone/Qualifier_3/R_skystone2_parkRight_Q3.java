@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name = "B_skystone2_parkRight_Q3")
-public class B_skystone2_parkRight_Q3 extends LinearOpMode {
+@Autonomous(name = "R_skystone2_parkRight_Q3")
+public class R_skystone2_parkRight_Q3 extends LinearOpMode {
     RobotA robot = new RobotA();
     private ElapsedTime runtime = new ElapsedTime();
     @Override
@@ -28,12 +28,12 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
          */
         //move to the blocks
         robot.moveForwardIMU(21.5,1.0);
-        robot.moveRightIMU(5,0.5);
+        robot.moveLeftIMU(5,0.5);
         robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(4,0.4);
         //move left until skystone is detected
         for (int i=0; i<2; i++) {
-            if(robot.BlueBlockIsSky()==true){
+            if(robot.RedBlockIsSky()==true){
                 break;
             }
             a++;
@@ -44,11 +44,11 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.moveBackwardIMU(39,1.0);
         robot.liftPosition(1.2);
         robot.moveForwardIMU(1,0.2);
-        robot.fasterMoveLeftIMU(60-(a*8), 1.0);
+        robot.fasterMoveRightIMU(60-(a*8), 1.0);
         //drop the stone
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.fasterMoveRightIMU(83-(a*8),1.0);
+        robot.fasterMoveLeftIMU(83-(a*8),1.0);
         robot.moveForwardIMU(25,0.7);
         if(a==0){
             robot.moveForwardIMU(10,0.5);
@@ -61,10 +61,10 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.moveBackwardIMU(45,1.0);
         robot.liftPosition(1.2);
         robot.moveForwardIMU(1,0.2);
-        robot.fasterMoveLeftIMU(92-(a*8),1.0);
+        robot.fasterMoveRightIMU(92-(a*8),1.0);
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.moveRightUntilBlue();
+        robot.moveLeftUntilBlue();
         robot.clawClamp(false);
         sleep(300);
         stop();
