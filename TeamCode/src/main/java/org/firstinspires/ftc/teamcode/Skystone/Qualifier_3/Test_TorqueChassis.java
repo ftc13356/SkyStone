@@ -26,6 +26,12 @@ public class Test_TorqueChassis extends LinearOpMode{
             telemetry.update();
         }
 
+
+        robot.puller.foundationMoverLeft.setPosition(1);
+        sleep(2000);
+        robot.puller.foundationMoverRight.setPosition(0.0);
+        sleep(2000);
+
         //******* Lift Mechanism *******//
         robot.liftAutonomous(4);
         robot.clawClamp(false); //Clamp
