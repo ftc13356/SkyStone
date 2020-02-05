@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Skystone.Unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
 
-
+@Disabled
 @Autonomous(name = "Warren No IMU")
 public class Warren_Test extends LinearOpMode {
     RobotA robot = new RobotA();

@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+
+@Disabled
 @Autonomous(name = "nathanTest_TorqueChassis")
 public class nathanTest_TorqueChassis extends LinearOpMode{
 
