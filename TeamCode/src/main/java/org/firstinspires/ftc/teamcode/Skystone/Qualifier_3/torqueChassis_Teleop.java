@@ -2,7 +2,10 @@ package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * <h1>first SkyStone TeleOp program</h1>
@@ -69,6 +72,7 @@ public class torqueChassis_Teleop extends LinearOpMode {
             float lift_up_manual = gamepad2.left_trigger;
             boolean lift_level_3 = gamepad2.right_bumper;
             float lift_down_manual = gamepad2.right_trigger;
+            boolean flip = gamepad2.dpad_down;
 
             boolean testing = false;
 
@@ -238,6 +242,20 @@ public class torqueChassis_Teleop extends LinearOpMode {
                     if (!testing) robot.clawClamp(false);
                 }
             }
+
+            if (flip == true) {
+                telemetry.addData("Flip", " Flipping");
+                telemetry.update();
+                if (!testing) {
+                    robot.liftPosition(1.2, gamepad2);
+                    robot.clawClampPosition(0);
+                    robot.moveForward(3,1);
+                    robot.liftPosition(0.1);
+                    robot.moveForward(1,1);
+                    robot.clawClampPosition(1);
+                }
+            }
+
             //following are the code that handles the raising and lowering of the puller for foundation
             if (move_both_sticks == true) {
                 if (both_sticks_is_up) {
