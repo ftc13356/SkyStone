@@ -9,8 +9,8 @@ public class FoundationPuller {
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
     private ElapsedTime period = new ElapsedTime();
-    private Servo foundationMoverRight;
-    private Servo foundationMoverLeft;
+    Servo foundationMoverRight;
+    Servo foundationMoverLeft;
 
     public void init(LinearOpMode opMode) {
 
@@ -22,7 +22,7 @@ public class FoundationPuller {
          foundationMoverLeft = hardwareMap.servo.get("foundationMoverLeft");
         //starting position
         foundationMoverRight.setPosition(-1.0);
-        foundationMoverLeft.setPosition(-1.0);
+        foundationMoverLeft.setPosition(1.0);
     }
     //true = unclamp, false = clamp
     public void moveFoundationRightdown(boolean direction) {
@@ -44,9 +44,9 @@ public class FoundationPuller {
 */
     public void  moveFoundationLeftdown(boolean direction) {
         if (direction == true) {
-            foundationMoverLeft.setPosition(0.45);
+            foundationMoverLeft.setPosition(0.55);
         } else {
-            foundationMoverLeft.setPosition(0.0);
+            foundationMoverLeft.setPosition(1);
         }
         op.sleep(200);
 
