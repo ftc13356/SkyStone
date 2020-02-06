@@ -27,8 +27,7 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(21.5,1.0);
-        robot.moveLeftIMU(5,0.5);
+        robot.moveForwardIMU(21,1.0);
         robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(4,0.4);
         //move left until skystone is detected
@@ -48,7 +47,8 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
         //drop the stone
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.fasterMoveLeftIMU(83-(a*8),1.0);
+        robot.fasterMoveLeftIMU(90-(a*8),1.0);
+        robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(25,0.7);
         if(a==0){
             robot.moveForwardIMU(10,0.5);
@@ -61,12 +61,17 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.moveBackwardIMU(45,1.0);
         robot.liftPosition(1.2);
         robot.moveForwardIMU(1,0.2);
-        robot.fasterMoveRightIMU(92-(a*8),1.0);
+        robot.fasterMoveRightIMU(95-(a*8),1.0);
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.moveLeftUntilBlue();
+        robot.moveLeftUntilRed();
         robot.clawClamp(false);
         sleep(300);
+        /*for(int i=0;i<15;i++){
+        robot.moveLeftUntilRed();
+        robot.moveLeftIMU(10,1.0);
+        robot.moveRightUntilRed();
+        robot.moveRightIMU(10,1.0);}*/
         stop();
 
     }

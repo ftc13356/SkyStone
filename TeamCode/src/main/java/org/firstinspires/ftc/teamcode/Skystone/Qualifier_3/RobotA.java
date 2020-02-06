@@ -295,6 +295,14 @@ public class RobotA {
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
         while(a>5) {
             hsvValues = hsvValues2;
             Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
@@ -343,6 +351,14 @@ public class RobotA {
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
         while(a>5) {
             hsvValues = hsvValues2;
             Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
@@ -372,7 +388,7 @@ public class RobotA {
             drivetrain.moveForwardTeleop(0.25);
         }
         drivetrain.stopAllMotors();*/
-        if(hsvValues2[0]>70&&hsvValues2[0]<=100){
+        if(hsvValues2[0]>70&&hsvValues2[0]<=105){
             altitude=false;
             drivetrain.moveRightIMU(7.5,0.5);
             drivetrain.AbsoluteTurnIMU(0,1.0);

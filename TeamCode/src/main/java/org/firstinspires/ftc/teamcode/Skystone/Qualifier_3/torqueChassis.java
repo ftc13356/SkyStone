@@ -245,8 +245,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -261,7 +262,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .05;//gain
+            correction = (currentAngle-startingAngle) * .05;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(power + correction);
             motorLeftBack.setPower(power - correction);
@@ -285,8 +286,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -301,7 +303,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .005;//gain
+            correction = (currentAngle-startingAngle) * .005;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(power + correction);
             motorLeftBack.setPower(power - correction);
@@ -433,8 +435,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -448,7 +451,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .05;//gain
+            correction = (currentAngle-startingAngle) * .05;//gain
             motorRightBack.setPower(-power + correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);
@@ -472,8 +475,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -487,7 +491,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .005;//gain
+            correction = (currentAngle-startingAngle) * .005;//gain
             motorRightBack.setPower(-power + correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);
@@ -562,8 +566,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -578,7 +583,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .06;//gain
+            correction = (currentAngle-startingAngle) * .06;//gain
             motorRightBack.setPower(-power - correction);
             motorRightFront.setPower(power - correction);
             motorLeftBack.setPower(power + correction);
@@ -602,9 +607,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
-
+        startingAngle = getAngle();
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -618,7 +623,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = currentAngle * .005;//gain
+            correction = (currentAngle-startingAngle) * .005;//gain
             motorRightBack.setPower(-power - correction);
             motorRightFront.setPower(power - correction);
             motorLeftBack.setPower(power + correction);
@@ -702,8 +707,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -717,7 +723,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = currentAngle * .06;//gain
+            correction = (currentAngle-startingAngle) * .06;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);
@@ -741,8 +747,9 @@ public class torqueChassis {
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
+        double startingAngle = 0;
 
-        resetAngle();
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -756,7 +763,7 @@ public class torqueChassis {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = currentAngle * .005;//gain
+            correction = (currentAngle-startingAngle) * .005;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);

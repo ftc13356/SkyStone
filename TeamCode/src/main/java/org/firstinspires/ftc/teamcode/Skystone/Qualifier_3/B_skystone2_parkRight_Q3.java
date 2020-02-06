@@ -66,7 +66,6 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.liftPosition(0.0);
         robot.moveRightUntilBlue();
         robot.clawClamp(false);
-        sleep(300);
         stop();
 
     }

@@ -45,7 +45,7 @@ public class myColorSensors {
                 (int) (tape_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-        if (hsvValues[0] >= 70 || hsvValues[0] <= 100) {
+        if ( hsvValues[0] >=70&&hsvValues[0] <= 105) {
             redded = true;
             op.telemetry.addData("ColorSensorStatus", "Red");
 
