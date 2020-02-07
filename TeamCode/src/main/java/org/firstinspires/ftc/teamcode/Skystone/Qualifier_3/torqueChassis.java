@@ -12,10 +12,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class torqueChassis {
     //initialize motor
-    private DcMotor motorLeftFront;
-    private DcMotor motorRightFront;
-    private DcMotor motorLeftBack;
-    private DcMotor motorRightBack;
+    DcMotor motorLeftFront;
+    DcMotor motorRightFront;
+    DcMotor motorLeftBack;
+    DcMotor motorRightBack;
 
 
     // these encoder variables vary depending on chassis type
@@ -695,10 +695,10 @@ public class torqueChassis {
 
     public void fastermoveLeftIMU(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
-        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
-        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + ticksToMove;
-        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + ticksToMove;
-        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() - ticksToMove;
+        double newLeftBackTargetPosition; // motorLeftBack.getCurrentPosition() - ticksToMove;
+        //double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + ticksToMove;
+        //double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + ticksToMove;
+        //double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() - ticksToMove;
         double currentPosition = 0;
         double deltaPosition = 0;
         double currentAngle = 0;
@@ -711,7 +711,8 @@ public class torqueChassis {
         motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         currentPosition = motorLeftBack.getCurrentPosition();
-        deltaPosition = currentPosition - newLeftBackTargetPosition;
+        newLeftBackTargetPosition = currentPosition - ticksToMove;
+        deltaPosition = ticksToMove;
 
         while (op.opModeIsActive() && (deltaPosition >= 0)) {
             currentPosition = motorLeftBack.getCurrentPosition();
@@ -899,7 +900,7 @@ public class torqueChassis {
 
         op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
         op.telemetry.update();
-        op.sleep(500);
+        //op.sleep(500);
         motorLeftBack.setPower(leftPower);
         motorLeftFront.setPower(leftPower);
         motorRightBack.setPower(rightPower);
@@ -931,8 +932,8 @@ public class torqueChassis {
 
         currentAngle = getAngle();
         error = newDegrees - currentAngle;
-        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
-        op.telemetry.update();
+        //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        //op.telemetry.update();
     }
 
     public void AbsoluteTurnIMU(double degrees, double power) { //degress is positive for left and negative for right
@@ -992,8 +993,8 @@ public class torqueChassis {
 
         currentAngle = getAngle();
         error = degrees - currentAngle;
-        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
-        op.telemetry.update();
+        //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
+        //op.telemetry.update();
     }
     //will move until it detects blue/red, momentum causse bug
 
