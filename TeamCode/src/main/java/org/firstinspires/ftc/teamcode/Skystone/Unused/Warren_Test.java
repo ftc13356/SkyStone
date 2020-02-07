@@ -33,9 +33,8 @@ public class Warren_Test extends LinearOpMode {
         robot.moveForward(5,0.4);
         //move left until skystone is detected
         for (int i=0; i<2; i++) {
-            if(robot.blockIsSky()==true){
-                break;
-            }
+            //if(robot.blockIsSky()==true){
+
             a++;
         }
         robot.moveBackward(10,0.5);

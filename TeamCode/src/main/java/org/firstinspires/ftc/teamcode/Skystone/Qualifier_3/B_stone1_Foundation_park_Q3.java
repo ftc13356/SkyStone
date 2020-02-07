@@ -53,7 +53,7 @@ public class B_stone1_Foundation_park_Q3 extends LinearOpMode {
         robot.moveForwardIMU(4,0.4);
         //move left until skystone is detected
         for (int i=0; i<2; i++) {
-            if(robot.blockIsSky()==true){
+            if(robot.BlueBlockIsSky()==true){
                 break;
             }
             a++;

@@ -283,7 +283,7 @@ public class RobotA {
     public boolean tapeIsBlue() {
         return sensor.tapeIsBlue();
     }
-    public boolean blockIsSky (){
+    public boolean BlueBlockIsSky (){
         float hsvValues[] = {0F, 0F, 0F};
         float hsvValues2[] = {0F, 0F, 0F};
         boolean altitude = true;
@@ -291,6 +291,14 @@ public class RobotA {
         double distance=0;
         double a =20;
         double b = 0;
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
         Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
                 (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
@@ -327,6 +335,62 @@ public class RobotA {
         if(hsvValues2[0]>70&&hsvValues2[0]<=100){
             altitude=false;
             drivetrain.moveLeftIMU(7.5,0.5);
+            drivetrain.AbsoluteTurnIMU(0,1.0);
+        }
+        return altitude;
+    }
+    public boolean RedBlockIsSky (){
+        float hsvValues[] = {0F, 0F, 0F};
+        float hsvValues2[] = {0F, 0F, 0F};
+        boolean altitude = true;
+        final double SCALE_FACTOR = 255;
+        double distance=0;
+        double a =20;
+        double b = 0;
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
+        Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                hsvValues2);
+        while(a>5) {
+            hsvValues = hsvValues2;
+            Color.RGBToHSV((int) (sensor.block_color_sensor.red() * SCALE_FACTOR),
+                    (int) (sensor.block_color_sensor.green() * SCALE_FACTOR),
+                    (int) (sensor.block_color_sensor.blue() * SCALE_FACTOR),
+                    hsvValues2);
+            a = abs(hsvValues[0] - hsvValues2[0]);
+            op.telemetry.addData("diffrence", a);
+            op.telemetry.addData("Hue1", hsvValues[0]);
+            op.telemetry.addData("Hue2", hsvValues2[0]);
+            op.telemetry.update();
+        }
+        op.telemetry.addData("Alpha", sensor.block_color_sensor.alpha());
+        op.telemetry.addData("Red  ", sensor.block_color_sensor.red());
+        op.telemetry.addData("Green", sensor.block_color_sensor.green());
+        op.telemetry.addData("Blue ", sensor.block_color_sensor.blue());
+        op.telemetry.addLine()
+                .addData("H", "%.3f", hsvValues2[0])
+                .addData("S", "%.3f", hsvValues2[1])
+                .addData("V", "%.3f", hsvValues2[2])
+                .addData ("Distance (cm)",
+                        String.format(Locale.US, "%.02f", sensor.block_distance_sensor.getDistance(DistanceUnit.CM)));
+        op.telemetry.update();
+        distance = sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+        /*while(distance>4.0);{
+            distance =sensor.block_distance_sensor.getDistance(DistanceUnit.CM);
+            drivetrain.moveForwardTeleop(0.25);
+        }
+        drivetrain.stopAllMotors();*/
+        if(hsvValues2[0]>70&&hsvValues2[0]<=105){
+            altitude=false;
+            drivetrain.moveRightIMU(7.5,0.5);
             drivetrain.AbsoluteTurnIMU(0,1.0);
         }
         return altitude;
