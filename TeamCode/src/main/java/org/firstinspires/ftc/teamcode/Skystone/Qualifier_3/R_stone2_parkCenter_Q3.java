@@ -75,7 +75,7 @@ public class R_stone2_parkCenter_Q3 extends LinearOpMode {
         robot.clawClampPosition(1); // unclamps stone
         /*robot.moveBackward(43, 1); // moves to get second stone
         robot.AbsoluteTurnIMU(0, 1); // gets ready to get next stone*/
-        robot.fasterMoveLeftIMU(48,1);
+        robot.fasterMoveLeftIMU(52,1);
         robot.liftPosition(0); // lowers lift to ground
 
         robot.moveForward(7, 1);
@@ -107,6 +107,7 @@ public class R_stone2_parkCenter_Q3 extends LinearOpMode {
         robot.clawClampPosition(1); // unclamps stone
         robot.AbsoluteTurnIMU(0,1.0);
         sleep(400);
+        robot.moveBackward(3,1);
         robot.moveLeftUntilRed(); // parks on tape
         robot.clawClampPosition(0); // just in case
     }
