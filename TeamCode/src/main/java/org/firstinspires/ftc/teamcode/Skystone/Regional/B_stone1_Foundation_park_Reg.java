@@ -57,14 +57,14 @@ public class B_stone1_Foundation_park_Q3 extends LinearOpMode {
                 break;
             }
             a++;
-            robot.moveBackwardIMU(1, 0.5);
+            robot.moveBackwardIMU(0.2, 0.5);
         }
         robot.moveForwardIMU(5,0.75);
         robot.clawClamp(false);
         robot.moveBackwardIMU(39,1.0);
         robot.liftPosition(1.2);
         robot.moveForwardIMU(1,0.2);
-        robot.fasterMoveLeftIMU(110-(a*8), 1.0);
+        robot.fasterMoveLeftIMU(60-(a*8), 1.0);
         robot.moveBackward(5,0.2);
         sleep(1500);
         robot.liftAutonomous(4.5);
