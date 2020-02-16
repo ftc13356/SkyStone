@@ -332,7 +332,7 @@ public class RobotA {
             drivetrain.moveForwardTeleop(0.25);
         }
         drivetrain.stopAllMotors();*/
-        if(hsvValues2[0]>70&&hsvValues2[0]<=100){
+        if(hsvValues2[0]>70&&hsvValues2[0]<=97){
             altitude=false;
             drivetrain.moveLeftIMU(7.5,0.5);
             drivetrain.AbsoluteTurnIMU(0,1.0);
@@ -388,7 +388,7 @@ public class RobotA {
             drivetrain.moveForwardTeleop(0.25);
         }
         drivetrain.stopAllMotors();*/
-        if(hsvValues2[0]>70&&hsvValues2[0]<=105){
+        if(hsvValues2[0]>70&&hsvValues2[0]<=97){
             altitude=false;
             drivetrain.moveRightIMU(7.5,0.5);
             drivetrain.AbsoluteTurnIMU(0,1.0);
