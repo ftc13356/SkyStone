@@ -31,6 +31,9 @@ public class Test_TorqueChassis extends LinearOpMode{
         sleep(2000);
         robot.puller.foundationMoverRight.setPosition(0.0);
         sleep(2000);
+        robot.moveCapstoneStickdownToStone(false);
+        sleep(2000);
+        robot.moveCapstoneStickdownToStone(true);
 
         //******* Lift Mechanism *******//
         robot.liftAutonomous(4);
