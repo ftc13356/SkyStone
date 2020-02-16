@@ -70,9 +70,9 @@ public class RBft_Horizontal_Q3 extends LinearOpMode {
         robot.moveForward(3,0.25);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackward(25,0.6);
+        robot.moveBackward(28,0.6);
         robot.moveLeftIMU(55, 0.6);
-        robot.moveRightIMU(6,0.6);
+        robot.moveRightIMU(7,0.6);
         robot.moveForward(32,0.6);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
