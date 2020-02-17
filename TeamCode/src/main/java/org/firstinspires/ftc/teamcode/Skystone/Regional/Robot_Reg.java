@@ -416,13 +416,6 @@ public class Robot_Reg {
         liftandClaw.liftPosition(liftposition);
     }
 
-    public void liftTeleop(boolean up) {
-        liftandClaw.liftTeleop(up);
-    }
-
-    public void liftTeleopPower(float power) {
-        liftandClaw.liftTeleopPower(power);
-    }
 
 
     /**

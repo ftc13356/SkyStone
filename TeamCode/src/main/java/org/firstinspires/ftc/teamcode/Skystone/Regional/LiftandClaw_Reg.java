@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class LiftandClawandTape_Reg {
+public class LiftandClaw_Reg {
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
     private ElapsedTime period = new ElapsedTime();
@@ -19,7 +19,7 @@ public class LiftandClawandTape_Reg {
     double counts_per_inch_lift = 0;
     double liftheight = 0;
 
-    public LiftandClawandTape_Reg() {
+    public LiftandClaw_Reg() {
 
         /******* Lift motor ********/
         //counts_per_inch
@@ -30,18 +30,12 @@ public class LiftandClawandTape_Reg {
         hardwareMap = op.hardwareMap;
         // Lifting motors
         motorLift = (DcMotorEx) hardwareMap.dcMotor.get("motorLift");
-        // Tape motors
-        motorTape= (DcMotorEx) hardwareMap.dcMotor.get("motorTape");
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Lifting Motors
         motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
         motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // Tape Motor
-        motorTape.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorTape.setDirection(DcMotor.Direction.FORWARD);
-        motorTape.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         stone_claw_servo.setPosition(1.0);
     }
     public void stopLift() {
@@ -118,8 +112,6 @@ public class LiftandClawandTape_Reg {
         motorLift.setPower(0);
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
-
 
 
 
