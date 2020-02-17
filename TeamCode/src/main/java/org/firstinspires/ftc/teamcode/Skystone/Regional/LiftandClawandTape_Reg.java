@@ -8,17 +8,18 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class LiftandClaw_Reg {
+public class LiftandClawandTape_Reg {
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
     private ElapsedTime period = new ElapsedTime();
     DcMotorEx motorLift;
+    DcMotorEx motorTape;
     Servo stone_claw_servo;
     double counts_per_motor_tetrix = 0;
     double counts_per_inch_lift = 0;
     double liftheight = 0;
 
-    public LiftandClaw_Reg() {
+    public LiftandClawandTape_Reg() {
 
         /******* Lift motor ********/
         //counts_per_inch
@@ -29,12 +30,18 @@ public class LiftandClaw_Reg {
         hardwareMap = op.hardwareMap;
         // Lifting motors
         motorLift = (DcMotorEx) hardwareMap.dcMotor.get("motorLift");
+        // Tape motors
+        motorTape= (DcMotorEx) hardwareMap.dcMotor.get("motorTape");
         // Claw Servo
         stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
         // Lifting Motors
         motorLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
         motorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // Tape Motor
+        motorTape.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorTape.setDirection(DcMotor.Direction.FORWARD);
+        motorTape.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         stone_claw_servo.setPosition(1.0);
     }
     public void stopLift() {
@@ -112,34 +119,11 @@ public class LiftandClaw_Reg {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void liftTeleop(boolean up) { //true for up and false for down
-        motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        if (up) {
-            motorLift.setPower(1.0);
-        } else {
-            motorLift.setPower(-1.0);
-        }
-    }
 
-    public void liftTeleopPower(float liftpower) {
-        motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLift.setPower(liftpower);
-    }
 
-    public void liftTeleop_NotWorking(double liftheight){
-        double ticksToMove = counts_per_inch_lift * liftheight;
-        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
-        motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
-        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorLift.setPower(0.5);
-        while (op.opModeIsActive() && motorLift.isBusy())
-        {
-            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
-            op.telemetry.update();
-            op.idle();
-        }
-        //brake
-        motorLift.setPower(0);
-        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
+
+
+
+
+
 }

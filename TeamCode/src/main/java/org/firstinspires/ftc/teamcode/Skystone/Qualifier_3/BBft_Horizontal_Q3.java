@@ -105,15 +105,14 @@ public class BBft_Horizontal_Q3 extends LinearOpMode {
         robot.moveBackward(25,0.6);
         robot.moveRightIMU(50, 0.6);
         robot.moveLeftIMU(10,0.6);
-        robot.moveForward(30,0.6);
+        robot.moveForward(36,0.6);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
         //robot.AbsoluteTurnIMU(180,1.0);
         //robot.moveForward(6,1.0);
         robot.moveLeft(27.5,1.0);
-        robot.liftPosition(0);
+        robot.liftPosition(1.4);
         robot.moveBackwardUntilBlue();
-        robot.clawClampPosition(0.0);
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();
