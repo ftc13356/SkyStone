@@ -13,7 +13,6 @@ public class LiftandClaw_Reg {
     private HardwareMap hardwareMap = null;
     private ElapsedTime period = new ElapsedTime();
     DcMotorEx motorLift;
-    DcMotorEx motorTape;
     Servo stone_claw_servo;
     double counts_per_motor_tetrix = 0;
     double counts_per_inch_lift = 0;
@@ -108,9 +107,24 @@ public class LiftandClaw_Reg {
             op.telemetry.update();
             op.idle();
         }
+        op.sleep(900);
         //brake
         motorLift.setPower(0);
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void liftTeleop(boolean up) { //true for up and false for down
+        motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        if (up) {
+            motorLift.setPower(1.0);
+        } else {
+            motorLift.setPower(-1.0);
+        }
+    }
+
+    public void liftTeleopPower(float liftpower) {
+        motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLift.setPower(liftpower);
     }
 
 
