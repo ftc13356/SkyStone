@@ -17,6 +17,7 @@ public class Robot_Reg {
     torqueChassisReg drivetrain = new torqueChassisReg();
     myColorSensors_Reg sensor = new myColorSensors_Reg();
     LiftandClaw_Reg liftandClaw = new LiftandClaw_Reg();
+    Tape_Reg tape = new Tape_Reg();
     FoundationPuller_Reg puller = new FoundationPuller_Reg();
     CapstoneStick_Reg stick = new CapstoneStick_Reg();
     private ElapsedTime runtime = new ElapsedTime();
@@ -35,6 +36,7 @@ public class Robot_Reg {
         puller.init(opMode);
         sensor.init(opMode);
         liftandClaw.init(opMode);
+        tape.init(opMode);
         stick.init(opMode);
     }
 
@@ -244,6 +246,9 @@ public class Robot_Reg {
     public void stopLift() {
         liftandClaw.stopLift();
     }
+    public void stopTape() {
+        tape.stopTape();
+    }
 
     //true = unclamp, false = clamp
     public void clawClamp(boolean direction) {
@@ -415,7 +420,6 @@ public class Robot_Reg {
     public void liftPosition(double liftposition) {
         liftandClaw.liftPosition(liftposition);
     }
-
     public void liftTeleop(boolean up) {
         liftandClaw.liftTeleop(up);
     }
@@ -423,6 +427,19 @@ public class Robot_Reg {
     public void liftTeleopPower(float power) {
         liftandClaw.liftTeleopPower(power);
     }
+
+    /******** Tape Motor **********/
+    public void tapePosition(double tapelength, Gamepad gp){
+        tape.tapePosition(tapelength, gp);
+    }
+    public void tapePosition(double tapelength) {
+        tape.tapePosition(tapelength);
+    }
+    public void tapeTeleopPower(float power) {
+        tape.tapeTeleopPower(power);
+    }
+
+
 
 
     /**

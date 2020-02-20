@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@Disabled
 @Autonomous(name = "Test_TorqueChassis")
 public class Test_TorqueChassis extends LinearOpMode{
 
@@ -31,6 +33,9 @@ public class Test_TorqueChassis extends LinearOpMode{
         sleep(2000);
         robot.puller.foundationMoverRight.setPosition(0.0);
         sleep(2000);
+        robot.moveCapstoneStickdownToStone(false);
+        sleep(2000);
+        robot.moveCapstoneStickdownToStone(true);
 
         //******* Lift Mechanism *******//
         robot.liftAutonomous(4);

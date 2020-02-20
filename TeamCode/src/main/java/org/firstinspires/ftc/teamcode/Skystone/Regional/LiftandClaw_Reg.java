@@ -107,6 +107,7 @@ public class LiftandClaw_Reg {
             op.telemetry.update();
             op.idle();
         }
+        op.sleep(900);
         //brake
         motorLift.setPower(0);
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -126,20 +127,9 @@ public class LiftandClaw_Reg {
         motorLift.setPower(liftpower);
     }
 
-    public void liftTeleop_NotWorking(double liftheight){
-        double ticksToMove = counts_per_inch_lift * liftheight;
-        double newmotorLift = motorLift.getCurrentPosition() + ticksToMove;
-        motorLift.setTargetPosition((int)newmotorLift); //TODO : Check for rounding
-        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorLift.setPower(0.5);
-        while (op.opModeIsActive() && motorLift.isBusy())
-        {
-            op.telemetry.addData("lifting ", motorLift.getCurrentPosition() + " busy=" + motorLift.isBusy());
-            op.telemetry.update();
-            op.idle();
-        }
-        //brake
-        motorLift.setPower(0);
-        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
+
+
+
+
+
 }
