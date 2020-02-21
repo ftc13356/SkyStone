@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Skystone.Regional;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -9,13 +10,21 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.StringWriter;
+import java.io.PrintWriter;
+
 
 public class torqueChassisReg {
     //initialize motor
-    DcMotor motorLeftFront;
-    DcMotor motorRightFront;
-    DcMotor motorLeftBack;
-    DcMotor motorRightBack;
+    DcMotorEx motorLeftFront;
+    DcMotorEx motorRightFront;
+    DcMotorEx motorLeftBack;
+    DcMotorEx motorRightBack;
 
 
     // these encoder variables vary depending on chassis type
@@ -73,10 +82,10 @@ public class torqueChassisReg {
         hardwareMap = op.hardwareMap;
 
         // Chassis motors
-        motorLeftFront = hardwareMap.dcMotor.get("motorLeftFront");
-        motorRightFront = hardwareMap.dcMotor.get("motorRightFront");
-        motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
-        motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
+        motorLeftFront = (DcMotorEx) hardwareMap.dcMotor.get("motorLeftFront");
+        motorRightFront = (DcMotorEx) hardwareMap.dcMotor.get("motorRightFront");
+        motorLeftBack = (DcMotorEx) hardwareMap.dcMotor.get("motorLeftBack");
+        motorRightBack = (DcMotorEx) hardwareMap.dcMotor.get("motorRightBack");
 
         // IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -125,6 +134,13 @@ public class torqueChassisReg {
         motorRightBack.setPower(0);
         motorLeftFront.setPower(0);
         motorRightFront.setPower(0);
+    }
+
+    public void stopAllMotorsSideways() {
+        motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(0);
+        motorRightBack.setPower(0);
     }
 
     public void moveForwardTeleop(double power, double distance) { //TODO Remove this function and move all calls to function without distance parameter
@@ -638,6 +654,92 @@ public class torqueChassisReg {
         motorRightFront.setPower(0);
     }
 
+    public void moveRightIMU(double distance, double power, double startingAngle,double gain, double maxCorrection) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+        double maxcorrection=0.16*power;
+
+        op.telemetry.addData("moveRightIMU:", "Inside it %d\n",1);
+        op.telemetry.update();
+        op.sleep(3000);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        try
+        {
+            //Create File
+            File myFTCfile = new File("/storage/emulated/0/tmp/Right_g"+gain+"p"+power+"m"+maxCorrection+".csv");
+            if (myFTCfile.createNewFile()) {
+                op.telemetry.addData("moveRightIMU:", "File created:%S\n","Right_g"+gain+"p"+power+"m"+maxCorrection);
+                op.telemetry.update();
+            } else {
+                op.telemetry.addData("moveRightIMU:", "File already exists:%S\n","Right"+gain+power+maxCorrection);
+                op.telemetry.update();
+            }
+            //op.sleep(3000);
+            //FileWriteHandle
+            FileWriter wFTCfile = new FileWriter(myFTCfile);
+            wFTCfile.write("Time,CurrentAngle,Correction,LFpower,LBpower,RFpower,RBpower,deltapos,currentpos,targetpos,gain,power\n");
+            currentPosition = motorLeftBack.getCurrentPosition();
+            deltaPosition = ticksToMove;
+            currentAngle = getAngle();
+            correction = (currentAngle - startingAngle) * gain * power;//gain is 0.06 for power 0.85
+            wFTCfile.write(System.currentTimeMillis() + ","+currentAngle+","+correction+","+
+                    motorLeftFront.getPower()+","+
+                    motorLeftBack.getPower()+","+
+                    motorRightFront.getPower()+","+
+                    motorRightBack.getPower()+","+
+                    deltaPosition+","+
+                    currentPosition+","+
+                    newLeftBackTargetPosition+","+
+                    gain+","+power+"\n");
+
+
+            while (op.opModeIsActive() && (deltaPosition >= 0)) {
+                currentPosition = motorLeftBack.getCurrentPosition();
+                deltaPosition = newLeftBackTargetPosition - currentPosition;
+                currentAngle = getAngle();
+                correction = (currentAngle - startingAngle) * gain * power;//gain is 0.06 for power 0.85
+                if (correction > maxcorrection) { correction = maxcorrection; }
+                if (correction < -maxcorrection) { correction = -maxcorrection; }
+                motorRightBack.setPower(-power - correction);
+                motorRightFront.setPower(power - correction);
+                motorLeftBack.setPower(power + correction);
+                motorLeftFront.setPower(-power + correction);
+
+                wFTCfile.write(System.currentTimeMillis() + ","+currentAngle+","+correction+","+
+                        motorLeftFront.getPower()+","+
+                        motorLeftBack.getPower()+","+
+                        motorRightFront.getPower()+","+
+                        motorRightBack.getPower()+","+
+                        deltaPosition+","+
+                        currentPosition+","+
+                        newLeftBackTargetPosition+","+
+                        gain+","+power+"\n");
+
+                op.telemetry.addData("RT", "A:%3.3f, C:%2.2f, P:%2.2f\n", currentAngle, correction, power);
+                //op.telemetry.addData("current pos", currentPosition + "delta pos", deltaPosition);
+                op.telemetry.update();
+                op.idle();
+            }
+
+            stopAllMotorsSideways();
+            wFTCfile.close();
+        } catch (IOException e) {
+            StringWriter outError = new StringWriter();
+            e.printStackTrace(new PrintWriter(outError));
+            String errorString = outError.toString();
+            op.telemetry.addData("Error: ","In try-catch moveRightIMU \n %s", errorString );
+            op.telemetry.update();
+            op.sleep(3000);
+        }
+    }
+
     public void moveRight(double distance, double power) {
         double ticksToMove = counts_per_inch * distance;
         double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + ticksToMove;
@@ -774,6 +876,40 @@ public class torqueChassisReg {
             op.idle();
         }
         stopAllMotors();
+    }
+
+    public void moveLeftIMU(double distance, double power, double startingAngle, double gain, double maxCorrection) {
+        double ticksToMove = counts_per_inch * distance;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() - ticksToMove;
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+        double maxcorrection=0.16*power;
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        currentPosition = motorLeftBack.getCurrentPosition();
+        deltaPosition = ticksToMove;
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentPosition = motorLeftBack.getCurrentPosition();
+            deltaPosition = currentPosition - newLeftBackTargetPosition ;
+            currentAngle = getAngle();
+            correction = (currentAngle-startingAngle) * gain*power;//gain=0.06 for power 0.85
+            if (correction > maxcorrection) {correction = maxcorrection;}
+            if (correction < -maxcorrection) {correction = -maxcorrection;}
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(-power - correction);
+            motorLeftBack.setPower(-power + correction);
+            motorLeftFront.setPower(power + correction);
+            op.telemetry.addData("del ", deltaPosition + "cur "+ currentPosition);
+            op.telemetry.update();
+            op.idle();
+        }
+        stopAllMotorsSideways();
     }
 
     public void moveLeft(double distance, double power) {

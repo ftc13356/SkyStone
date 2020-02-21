@@ -206,11 +206,17 @@ public class Robot_Reg {
 
     public void moveLeftIMU(double distance, double power) { drivetrain.moveLeftIMU(distance, power); }
 
+    public void moveLeftIMU(double distance, double power,double startingAngle,double gain, double maxCorrection) {
+        drivetrain.moveLeftIMU(distance, power, startingAngle, gain, maxCorrection); }
+
     public void moveRight(double distance, double power) {
         drivetrain.moveRight(distance, power);
     }
 
     public void moveRightIMU(double distance, double power) { drivetrain.moveRightIMU(distance, power); }
+
+    public void moveRightIMU(double distance, double power,double startingAngle,double gain, double maxCorrection) {
+        drivetrain.moveRightIMU(distance, power, startingAngle, gain, maxCorrection); }
 
     public void moveLeft(double distance, double power) {
         drivetrain.moveLeft(distance, power);
