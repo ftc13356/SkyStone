@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
+package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -20,11 +20,11 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
  * @since   2020-01-09
  */
 
-@Disabled
-@Autonomous(name = "RBft_Horizontal_Q3")
-public class RBft_Horizontal_Q3 extends LinearOpMode {
 
-    private RobotA robot   = new RobotA();
+@Autonomous(name = "BBft_Horizontal_Reg")
+public class BBft_Horizontal_Reg extends LinearOpMode {
+
+    private Robot_Reg robot   = new Robot_Reg();
     private ElapsedTime  runtime = new ElapsedTime();
     /*
     private Servo stone_claw_servo;
@@ -64,27 +64,24 @@ public class RBft_Horizontal_Q3 extends LinearOpMode {
         }
 
 
+
         robot.liftPosition(2.5);
         robot.moveForward(32,1);
-        robot.fasterMoveRightIMU(16,1.0);
+        robot.moveLeftIMU(13,0.6);
         robot.moveForward(3,0.25);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
         robot.moveBackward(28,0.6);
-        robot.moveLeftIMU(55, 0.6);
-        robot.moveRightIMU(7,0.6);
-        robot.moveForward(32,0.6);
+        robot.moveRightIMU(50, 0.6);
+        robot.moveLeftIMU(10,0.6);
+        robot.moveForward(40,0.6);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
         //robot.AbsoluteTurnIMU(180,1.0);
         //robot.moveForward(6,1.0);
-        robot.fasterMoveRightIMU(28,1.0);
-        robot.liftPosition(0);
-        robot.fasterMoveRightIMU(5,1.0);
-        //robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveBackwardUntilRed();
-        //robot.moveBackwardIMU(48.5,1.0);
-        robot.clawClampPosition(0.0);
+        robot.moveLeft(27.5,1.0);
+        robot.liftPosition(1.4);
+        robot.moveBackwardUntilBlue();
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();
