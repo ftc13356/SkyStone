@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Skystone.Regional;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -48,6 +49,7 @@ public class torqueChassisReg {
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
     double                  globalAngle, power = .30, correction;
+    double IMUgain = 0.005;
     //set true to enable imu vice versa
     final boolean enableIMU = false;
 
@@ -61,7 +63,7 @@ public class torqueChassisReg {
         // 23 * 14 * 3.14 / 360 = 2.8 ticks
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
-        counts_per_motor_tetrix = 960;
+        counts_per_motor_tetrix = 480;
         counts_per_inch = (counts_per_motor_tetrix / (wheel_diameter * Math.PI));
         counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
@@ -108,10 +110,10 @@ public class torqueChassisReg {
         motorRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
-        motorRightFront.setDirection(DcMotor.Direction.FORWARD);
-        motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
-        motorRightBack.setDirection(DcMotor.Direction.FORWARD);
+        motorLeftFront.setDirection(DcMotor.Direction.FORWARD);
+        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftBack.setDirection(DcMotor.Direction.FORWARD);
+        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
         // reset encoder count kept by left motor.
         motorLeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -247,7 +249,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = getAngle();
+        startingAngle = 0;
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -262,7 +264,7 @@ public class torqueChassisReg {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * .05;//gain
+            correction = (currentAngle-startingAngle) * IMUgain;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(power + correction);
             motorLeftBack.setPower(power - correction);
@@ -303,7 +305,7 @@ public class torqueChassisReg {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * .005;//gain
+            correction = (currentAngle-startingAngle) * .008;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(power + correction);
             motorLeftBack.setPower(power - correction);
@@ -437,7 +439,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = getAngle();
+        startingAngle = 0;
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -568,7 +570,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = getAngle();
+        startingAngle = 0;
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -609,7 +611,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = getAngle();
+        startingAngle = 0;
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -623,7 +625,7 @@ public class torqueChassisReg {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * .005;//gain
+            correction = (currentAngle-startingAngle) * IMUgain;//gain
             motorRightBack.setPower(-power - correction);
             motorRightFront.setPower(power - correction);
             motorLeftBack.setPower(power + correction);
@@ -709,7 +711,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = getAngle();
+        startingAngle = 0;
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -724,7 +726,7 @@ public class torqueChassisReg {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * .06;//gain
+            correction = (currentAngle-startingAngle) * IMUgain;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);
@@ -750,7 +752,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = getAngle();
+        startingAngle = 0;
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -764,7 +766,7 @@ public class torqueChassisReg {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * .005;//gain
+            correction = (currentAngle-startingAngle) * IMUgain;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);

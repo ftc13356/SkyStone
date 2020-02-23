@@ -334,7 +334,7 @@ public class RobotA {
         drivetrain.stopAllMotors();*/
         if(hsvValues2[0]>70&&hsvValues2[0]<=97){
             altitude=false;
-            drivetrain.moveLeftIMU(7.5,0.5);
+            drivetrain.moveLeftIMU(7.5,0.25);
             drivetrain.AbsoluteTurnIMU(0,1.0);
         }
         return altitude;
