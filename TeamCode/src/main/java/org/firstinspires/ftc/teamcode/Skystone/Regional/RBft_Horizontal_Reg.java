@@ -24,13 +24,14 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
 @Autonomous(name = "RBft_Horizontal_Reg")
 public class RBft_Horizontal_Reg extends LinearOpMode {
 
-    private Robot_Reg robot   = new Robot_Reg();
-    private ElapsedTime  runtime = new ElapsedTime();
+    private Robot_Reg robot = new Robot_Reg();
+    private ElapsedTime runtime = new ElapsedTime();
     /*
     private Servo stone_claw_servo;
     private Servo foundationMoverRight;
     private Servo foundationMoverLeft;
 */
+
     /**
      * This method is for te autonomous operation of the robot on the Blue Alliance foundation side.
      * 1st you inPlaceTurn left
@@ -53,7 +54,8 @@ public class RBft_Horizontal_Reg extends LinearOpMode {
 
         //stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
-        telemetry.addData("Status", "Ready to go"); telemetry.update();
+        telemetry.addData("Status", "Ready to go");
+        telemetry.update();
 
         robot.initChassis(this);
 
@@ -65,20 +67,18 @@ public class RBft_Horizontal_Reg extends LinearOpMode {
 
 
         robot.liftPosition(2.5);
-        robot.moveForward(32,1);
-        robot.fasterMoveRightIMU(16,1.0);
+        robot.moveForward(32,0.5);
+        robot.fasterMoveRightIMU(8,1.0);
         robot.moveForward(3,0.25);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackward(30,0.6);
+        robot.moveBackward(35,0.6);
         robot.moveLeftIMU(55, 0.6);
         robot.moveRightIMU(7,0.6);
-        robot.moveForward(35,0.6);
+        robot.moveForward(40,0.6);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        //robot.AbsoluteTurnIMU(180,1.0);
-        //robot.moveForward(6,1.0);
-        robot.fasterMoveRightIMU(28,1.0);
+        robot.moveRightIMU(25,1.0);
         robot.liftPosition(0);
         robot.fasterMoveRightIMU(3,0.25);
         //robot.AbsoluteTurnIMU(0,1.0);
@@ -89,6 +89,7 @@ public class RBft_Horizontal_Reg extends LinearOpMode {
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();
 
-    }
+        //robot.moveLeftIMU(60, 0.2);
 
+    }
 }
