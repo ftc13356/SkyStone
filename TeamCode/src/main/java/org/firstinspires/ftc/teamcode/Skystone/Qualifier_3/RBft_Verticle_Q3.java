@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
  * @since   2020-01-09
  */
 
-
+@Disabled
 @Autonomous(name = "RBft_Verticle_Q3")
 public class RBft_Verticle_Q3 extends LinearOpMode {
 

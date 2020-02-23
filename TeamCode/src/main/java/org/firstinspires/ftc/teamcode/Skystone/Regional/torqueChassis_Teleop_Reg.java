@@ -121,7 +121,7 @@ public class torqueChassis_Teleop_Reg extends LinearOpMode {
             //telemetry.update();
 
             if (x_button) {
-                motor_power = 0.25;
+                motor_power = 0.3;
             }
             if (y_button) {
                 motor_power = 1.0;

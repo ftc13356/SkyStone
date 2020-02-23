@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
+package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -16,21 +16,22 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_1.hexChassis;
  * user friendly and it is assumed as a high quality code.
  *
  * @author  Aiden Ma
- * @version 2.0
- * @since   2020-01-09
+ * @version 1.0
+ * @since   2020-02-01
  */
 
-@Disabled
-@Autonomous(name = "RBft_Horizontal_Q3")
-public class RBft_Horizontal_Q3 extends LinearOpMode {
 
-    private RobotA robot   = new RobotA();
-    private ElapsedTime  runtime = new ElapsedTime();
+@Autonomous(name = "BBft_Verticle_Reg")
+public class BBft_Verticle_Reg extends LinearOpMode {
+
+    private Robot_Reg robot = new Robot_Reg();
+    private ElapsedTime runtime = new ElapsedTime();
     /*
     private Servo stone_claw_servo;
     private Servo foundationMoverRight;
     private Servo foundationMoverLeft;
 */
+
     /**
      * This method is for te autonomous operation of the robot on the Blue Alliance foundation side.
      * 1st you inPlaceTurn left
@@ -53,7 +54,8 @@ public class RBft_Horizontal_Q3 extends LinearOpMode {
 
         //stone_claw_servo = hardwareMap.servo.get("stone_claw_servo");
 
-        telemetry.addData("Status", "Ready to go"); telemetry.update();
+        telemetry.addData("Status", "Ready to go");
+        telemetry.update();
 
         robot.initChassis(this);
 
@@ -63,32 +65,23 @@ public class RBft_Horizontal_Q3 extends LinearOpMode {
             telemetry.update();
         }
 
-
         robot.liftPosition(2.5);
-        robot.moveForward(32,1);
-        robot.fasterMoveRightIMU(16,1.0);
-        robot.moveForward(3,0.25);
+        robot.moveForwardIMU(26, 1);
+        robot.moveForwardIMU(3, 0.15);
+        robot.moveLeftIMU(14.5, 0.6);
+        robot.moveForwardIMU(5, 0.2);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
-        robot.moveBackward(28,0.6);
-        robot.moveLeftIMU(55, 0.6);
-        robot.moveRightIMU(7,0.6);
-        robot.moveForward(32,0.6);
+        robot.moveBackwardIMU(40, 1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        //robot.AbsoluteTurnIMU(180,1.0);
-        //robot.moveForward(6,1.0);
-        robot.fasterMoveRightIMU(28,1.0);
+        robot.moveBackwardIMU(7, 0.2);
+        robot.fasterMoveRightIMU(22, 01.0);
         robot.liftPosition(0);
-        robot.fasterMoveRightIMU(5,1.0);
-        //robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveBackwardUntilRed();
-        //robot.moveBackwardIMU(48.5,1.0);
+        robot.moveRightUntilBlue();
         robot.clawClampPosition(0.0);
-        //robot.inPlaceTurn(170,true,1.0);
-        //robot.liftPosition(0);
-        //robot.moveForwardUntilBlue();
+
 
     }
-
 }
+
