@@ -69,7 +69,7 @@ public class myColorSensors {
                 (int) (tape_color_sensor.green() * SCALE_FACTOR),
                 (int) (tape_color_sensor.blue() * SCALE_FACTOR),
                 hsvValues);
-        if (hsvValues[0] >= 140 && hsvValues[0] <= 185) {
+        if (hsvValues[0] >= 130 && hsvValues[0] <= 195) {
             op.telemetry.addData("ColorSensorStatus", "Blue");
             blued = true;
         } else {

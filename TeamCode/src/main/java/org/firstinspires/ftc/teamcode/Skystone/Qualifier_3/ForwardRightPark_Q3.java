@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 
 /**
  * <h1> SkyStone autonomous program</h1>
@@ -16,6 +18,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @since   2020-Jan-7
  *
  */
+
+@Disabled
 @Autonomous(name = "ForwardRightPark_Q3")
 public class ForwardRightPark_Q3 extends LinearOpMode{
 

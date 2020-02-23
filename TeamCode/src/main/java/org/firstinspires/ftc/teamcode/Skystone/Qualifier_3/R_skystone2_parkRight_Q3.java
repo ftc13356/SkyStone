@@ -8,10 +8,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "R_skystone2_parkRight_Q3")
 public class R_skystone2_parkRight_Q3 extends LinearOpMode {
     RobotA robot = new RobotA();
+    Vuforia_Q3 vuforia = new Vuforia_Q3();
     private ElapsedTime runtime = new ElapsedTime();
     @Override
     public void runOpMode() {
         robot.initChassis(this);
+        vuforia.initVuforia(this);
         telemetry.addData("Status", "InitComplete, Ready to Start");
         telemetry.update();
 
@@ -27,17 +29,12 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(21,1.0);
+        robot.moveForwardIMU(18,1.0);
+        robot.moveLeft(3, 1.0);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveForwardIMU(4,0.4);
-        //move left until skystone is detected
-        for (int i=0; i<2; i++) {
-            if(robot.RedBlockIsSky()==true){
-                break;
-            }
-            a++;
-            robot.moveBackwardIMU(0.2, 0.5);
-        }
+        a = vuforia.RedSkyDetect();
+        robot.moveForward(7, 0.75);
+        robot.moveRightIMU(3+a*8,1.0);
         robot.moveForwardIMU(5,0.75);
         robot.clawClamp(false);
         robot.moveBackwardIMU(39,1.0);

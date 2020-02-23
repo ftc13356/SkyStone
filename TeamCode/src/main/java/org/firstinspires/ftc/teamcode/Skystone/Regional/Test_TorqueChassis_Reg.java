@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
+package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Disabled
-@Autonomous(name = "Test_TorqueChassis")
-public class Test_TorqueChassis extends LinearOpMode{
+import android.os.Environment;
 
-    RobotA robot = new RobotA(); //TODO: private?
+@Autonomous(name = "Test_TorqueChassis_Reg")
+public class Test_TorqueChassis_Reg extends LinearOpMode{
+
+    Robot_Reg robot = new Robot_Reg(); //TODO: private?
     private ElapsedTime runtime = new ElapsedTime();
 
     public void Test_TorqueChassis() {
@@ -18,25 +18,62 @@ public class Test_TorqueChassis extends LinearOpMode{
     @Override
     public void runOpMode() {
 
-        telemetry.addData("Status", "Ready to go");
+        telemetry.addData("Status", "Ready for Init");
         telemetry.update();
         robot.initChassis(this);
 
         //****** Wait for Start *******
         while (!opModeIsActive() && !isStopRequested()) {
-            telemetry.addData("status", "waiting for start command...");
+            telemetry.addData("Status", "Waiting for start command...");
             telemetry.update();
         }
 
+        /*double g=0.005;
+        telemetry.addData("Gain Outside While:","G%3.3f\n",g);
+        telemetry.update();
+        //sleep(3000);
 
+
+        while(g<0.1){
+            telemetry.addData("Gain Inside While:","G%3.3f\n",g);
+            telemetry.addData("MOVE RIGHT","%d",1);
+            telemetry.update();
+            sleep(250);
+            //robot.moveRightIMU(30, 0.4,0.0,0.06,0.15);
+            robot.moveRightIMU(30, 0.5,0,g,0.15);
+            //sleep(5000);
+            robot.AbsoluteTurnIMU(0,1);
+            sleep(250);
+            telemetry.addData("MOVE LEFT","%d",1);
+            telemetry.update();
+            //sleep(5000);
+            robot.moveLeftIMU(30, 0.85,0,0.06,0.15);
+            sleep(100);
+            g=g+0.005;
+            //g=g+0.06;
+        }*/
+
+        //robot.moveLeftIMU(36, 0.85,0,0.06,0.15);
+        sleep(100);
+        //robot.fasterMoveRightIMU(36,1);
+        /*robot.moveRightIMU(36, 0.85, 90);
+        sleep(100);
+        robot.moveLeftIMU(36, 0.3, 0);
+        sleep(100);
+        robot.moveRightIMU(36, 0.3, 0);*/
+
+        //robot.moveLeftIMU(36, 1, 0);
+        //robot.moveRightIMU(36, 1, 0);
+
+        //robot.moveLeftIMU(36, 0.5, 0);
+        //robot.moveRightIMU(36, 0.5, 0);
+
+/*
         robot.puller.foundationMoverLeft.setPosition(1);
         sleep(2000);
         robot.puller.foundationMoverRight.setPosition(0.0);
         sleep(2000);
-        robot.moveCapstoneStickdownToStone(false);
-        sleep(2000);
-        robot.moveCapstoneStickdownToStone(true);
-
+*/
         //******* Lift Mechanism *******//
         robot.liftAutonomous(4);
         robot.clawClamp(false); //Clamp
