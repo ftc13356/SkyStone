@@ -49,7 +49,7 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          */
         //move to the blocks
         robot.moveForwardIMU(21.5,0.5);
-        robot.moveLeftIMU(5,0.2);
+        robot.moveLeftIMU(4.45,0.2);
         robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(.75,0.4);
         //move left until skystone is detected
@@ -58,20 +58,18 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
                 break;
             }
             a++;
-            robot.moveBackwardIMU(0.2, 0.5);
         }
-        robot.moveForwardIMU(5,0.75);// torwards stone
+        robot.moveForwardIMU(5,0.25);// torwards stone
         robot.clawClamp(false);//gets stone
-        robot.moveBackwardIMU(21,0.5);
-        robot.AbsoluteTurnIMU(0,1.0); //auto-correct angle of robot
-        robot.liftPosition(2);//lifts lift a little bit up
-        robot.moveForwardIMU(0.4,0.2);
-        robot.moveRightIMU(64-(a*8), 0.4);// crosses field
+        robot.moveBackwardIMU(17,0.5);
+        robot.liftPosition(1.7);//lifts lift a little bit up
+        robot.moveRightIMU(64-(a*8), 0.5);// crosses field
         robot.liftPosition(4.4); // lifts lift to be able to place stone
         robot.AbsoluteTurnIMU(0,1.0);////auto-correct angle of robot
-        robot.moveRightIMU(48,0.4);//lines up with foundation
+        robot.moveRightIMU(41,0.5);//lines up with foundation
+        robot.AbsoluteTurnIMU(0, 1.0);
         //robot.moveLeftIMU(10,0.6);
-        robot.moveForwardIMU(8.2,0.2 );
+        robot.moveForwardIMU(9.5,0.2 );
         robot.liftPosition(2.3);
         robot.clawClamp(true);
         robot.moveFoundationLefttdown(true);
@@ -82,11 +80,10 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
         robot.moveBackwardIMU(2,0.2);
         robot.AbsoluteTurnIMU(0,1.0);
         //robot.AbsoluteTurnIMU(90,0.6);
-        robot.moveLeftIMU(38.5,0.5);
-        robot.moveForward(20,0.5);
+        robot.moveLeftIMU(31.5,0.5);
+        robot.moveForward(19,0.5);
         robot.liftPosition(0);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveLeftIMU(30,0.5);
+        robot.moveLeftIMU(20,0.5);
  //     robot.moveRightUntilBlue();
 
 
