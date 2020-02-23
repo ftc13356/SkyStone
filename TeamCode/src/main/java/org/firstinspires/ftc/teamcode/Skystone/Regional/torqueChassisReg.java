@@ -664,7 +664,7 @@ public class torqueChassisReg {
 
         op.telemetry.addData("moveRightIMU:", "Inside it %d\n",1);
         op.telemetry.update();
-        op.sleep(3000);
+        //op.sleep(3000);
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -736,7 +736,7 @@ public class torqueChassisReg {
             String errorString = outError.toString();
             op.telemetry.addData("Error: ","In try-catch moveRightIMU \n %s", errorString );
             op.telemetry.update();
-            op.sleep(3000);
+            //op.sleep(3000);
         }
     }
 
