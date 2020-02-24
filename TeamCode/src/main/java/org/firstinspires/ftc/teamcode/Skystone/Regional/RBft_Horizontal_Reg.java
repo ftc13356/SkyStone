@@ -68,7 +68,7 @@ public class RBft_Horizontal_Reg extends LinearOpMode {
 
         robot.liftPosition(2.5);
         robot.moveForward(32,0.5);
-        robot.fasterMoveRightIMU(8,1.0);
+        robot.moveRightIMU(8,1.0);
         robot.moveForward(3,0.25);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
@@ -80,7 +80,7 @@ public class RBft_Horizontal_Reg extends LinearOpMode {
         robot.moveFoundationRightdown(false);
         robot.moveRightIMU(25,1.0);
         robot.liftPosition(0);
-        robot.fasterMoveRightIMU(3,0.25);
+        robot.moveRightIMU(3,0.25);
         //robot.AbsoluteTurnIMU(0,1.0);
         robot.moveBackwardUntilRed();
         //robot.moveBackwardIMU(48.5,1.0);
