@@ -67,7 +67,7 @@ public class RBft_Verticle_Reg extends LinearOpMode {
         robot.liftPosition(2.5);
         robot.moveForwardIMU(26,1);
         robot.moveForwardIMU(3,0.15);
-        robot.fasterMoveRightIMU(6,1.0);
+        robot.moveRightIMU(6,1.0);
         robot.moveForwardIMU(5,0.2 );
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
@@ -77,7 +77,7 @@ public class RBft_Verticle_Reg extends LinearOpMode {
         robot.moveBackwardIMU(5,0.2);
         robot.AbsoluteTurnIMU(0,1.0);
         //robot.moveBackwardIMU(5,1.0);
-        robot.fasterMoveLeftIMU(18,1.0);
+        robot.moveLeftIMU(18,1.0);
         robot.liftPosition(0);
         robot.moveLeftUntilRed();
         //robot.fasterMoveLeftIMU(56,1.0);
