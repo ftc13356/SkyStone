@@ -28,26 +28,27 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
 
         /*
          * Initialize the drive system variables.
-         * The init() method of the hardware clss does all the work here
+         * The init() method of the hardware class does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(16,0.5);
-        robot.AbsoluteTurnIMU(0.0,1.0);
+        robot.moveForwardIMU(18,0.4);
+        robot.AbsoluteTurnIMU(-1,1.0);
         a = vuforia.RedSkyDetect();
         robot.moveForward(7, 0.5);
-        robot.moveRightIMU((a*6-2),0.5);
+        robot.moveRightIMU((a*7-3),0.5);
         robot.moveForwardIMU(5,0.2);
         robot.clawClamp(false);
-        robot.moveBackwardIMU(11,0.25);
+        robot.moveBackwardIMU(12,0.25);
         robot.liftPosition(1.2);
-        robot.moveRightIMU(56-(a*8), 0.5);
+        robot.AbsoluteTurnIMU(0,1.0);
+        robot.moveRightIMU(56-(a*7-3), 0.5);
         //drop the stone
         robot.clawClamp(true);
         robot.liftPosition(0.0);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveLeftIMU(86-(a*8),1.0);
+        robot.moveLeftIMU(82-(a*7-3),0.5);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveForwardIMU(10,0.7);
+        robot.moveForwardIMU(5,0.7);
         if(a==0){
             robot.moveForwardIMU(10,0.5);
         }
@@ -56,9 +57,10 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
         if(a==0){
             robot.moveBackwardIMU(10,0.5);
         }
-        robot.moveBackwardIMU(14,1.0);
+        robot.moveBackwardIMU(18,1.0);
         robot.liftPosition(1.2);
-        robot.fasterMoveRightIMU(91-(a*8),1.0);
+        robot.AbsoluteTurnIMU(0,1.0);
+        robot.moveRightIMU(91-(a*8),0.5);
         robot.clawClamp(true);
         robot.liftPosition(0.0);
         robot.moveLeftUntilRed();
@@ -102,6 +104,8 @@ public class R_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.moveLeftIMU(10,1.0);
         robot.moveRightUntilRed();
         robot.moveRightIMU(10,1.0);}*/
+        //robot.ColorTestTape();
+        //sleep(10000);
         stop();
 
     }
