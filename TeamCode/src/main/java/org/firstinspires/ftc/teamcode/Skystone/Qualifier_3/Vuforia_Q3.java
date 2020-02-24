@@ -129,8 +129,12 @@ public class Vuforia_Q3 {
             } else if(xPosition>-3 && xPosition<5){
                 x = 1;
             }
+            else{
+                x=2;
+            }
             Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
             op.telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            break;
         } else {
             op.telemetry.addData("Visible Target", "none");
             x = 2;
@@ -182,6 +186,9 @@ public class Vuforia_Q3 {
                     x = 1;
                 } else if(xPosition>-3 && xPosition<5){
                     x = 0;
+                }
+                else{
+                    x = 2;
                 }
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 op.telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);

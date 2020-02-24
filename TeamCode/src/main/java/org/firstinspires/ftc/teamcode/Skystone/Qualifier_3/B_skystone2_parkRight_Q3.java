@@ -22,7 +22,10 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
             telemetry.update();
         }
         int a=0;
-        robot.moveForwardIMU(11,1.0);
+        while(!isStopRequested()){
+            vuforia.BlueSkyDetect();
+        }
+        /*robot.moveForwardIMU(11,1.0);
         robot.AbsoluteTurnIMU(0,1.0);
         a=vuforia.BlueSkyDetect();
         robot.moveForwardIMU(14,0.75);
@@ -59,7 +62,7 @@ public class B_skystone2_parkRight_Q3 extends LinearOpMode {
         robot.clawClamp(true);
         robot.liftPosition(0.0);
         robot.moveRightUntilBlue();
-        robot.clawClamp(false);
+        robot.clawClamp(false);*/
 
         stop();
 
