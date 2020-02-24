@@ -586,7 +586,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = 0;
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -627,7 +627,8 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = 0;
+        startingAngle = getAngle();
+
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -854,7 +855,7 @@ public class torqueChassisReg {
         double currentAngle = 0;
         double startingAngle = 0;
 
-        startingAngle = 0;
+        startingAngle = getAngle();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
