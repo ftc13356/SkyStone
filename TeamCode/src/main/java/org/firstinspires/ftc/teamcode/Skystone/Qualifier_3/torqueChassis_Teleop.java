@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * @version 1.0
  * @since 2019-10-19
  */
+@Disabled
 @TeleOp(name = "torqueChassis_Teleop X")
 public class torqueChassis_Teleop extends LinearOpMode {
 

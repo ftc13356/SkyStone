@@ -78,7 +78,7 @@ public class BBft_Verticle_Reg extends LinearOpMode {
         robot.moveBackwardIMU(7, 0.2);
         robot.moveRightIMU(22, 01.0);
         robot.liftPosition(0);
-        robot.moveRightUntilBlue();
+        robot.moveRightUntilBlue(0.15);
         robot.clawClampPosition(0.0);
 
 

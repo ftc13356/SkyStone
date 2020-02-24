@@ -81,7 +81,7 @@ public class BBft_Horizontal_Reg extends LinearOpMode {
         //robot.moveForward(6,1.0);
         robot.moveLeft(27.5,1.0);
         robot.liftPosition(1.4);
-        robot.moveBackwardUntilBlue();
+        robot.moveBackwardUntilBlue(0.15);
         //robot.inPlaceTurn(170,true,1.0);
         //robot.liftPosition(0);
         //robot.moveForwardUntilBlue();

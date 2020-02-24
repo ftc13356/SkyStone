@@ -18,7 +18,7 @@ public class CapstoneStick_Reg {
         //foundation servo 1
         capstoneStick = hardwareMap.servo.get("capstoneStick");
         //starting position
-        capstoneStick.setPosition(1.0);
+        capstoneStick.setPosition(0.0);
     }
     //true = unclamp, false = clamp
     public void moveCapstoneStickdownToStone(boolean direction) {

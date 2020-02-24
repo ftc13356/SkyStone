@@ -44,11 +44,11 @@ public class Robot_Reg {
         return drivetrain.getAngle();
     }
 
-    public void moveForwardUntilBlue() {
+    public void moveForwardUntilBlue(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveForwardTeleop(0.75);
+            drivetrain.moveForwardTeleop(power);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -57,11 +57,11 @@ public class Robot_Reg {
 
     }
 
-    public void moveForwardUntilRed() {
+    public void moveForwardUntilRed(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveForwardTeleop( 0.75);
+            drivetrain.moveForwardTeleop( power);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -70,11 +70,11 @@ public class Robot_Reg {
 
 
     }
-    public void moveBackwardUntilBlue() {
+    public void moveBackwardUntilBlue(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveBackwardTeleop(0.75 , 0.5);
+            drivetrain.moveBackwardTeleop( power , 0.5);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -83,11 +83,11 @@ public class Robot_Reg {
 
     }
 
-    public void moveBackwardUntilRed() {
+    public void moveBackwardUntilRed(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveBackwardTeleop(0.75, 0.5);
+            drivetrain.moveBackwardTeleop( power, 0.5);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -97,11 +97,11 @@ public class Robot_Reg {
 
     }
 
-    public void moveRightUntilBlue() {
+    public void moveRightUntilBlue(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveRightTeleop(0.75, 0.5);
+            drivetrain.moveRightTeleop( power, 0.5);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -110,11 +110,11 @@ public class Robot_Reg {
 
     }
 
-    public void moveRightUntilRed() {
+    public void moveRightUntilRed(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsRed() == false) {
-            drivetrain.moveRightTeleop(0.75, 0.5);
+            drivetrain.moveRightTeleop( power, 0.5);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -124,11 +124,11 @@ public class Robot_Reg {
 
     }
 
-    public void moveLeftUntilBlue() {
+    public void moveLeftUntilBlue(double power) {
         double x =0;
         x = op.getRuntime();
         while (sensor.tapeIsBlue() == false) {
-            drivetrain.moveLeftTeleop(0.75, 0.5);
+            drivetrain.moveLeftTeleop( power, 0.5);
             if(op.getRuntime()-x>=3){
                 break;
             }
@@ -138,11 +138,11 @@ public class Robot_Reg {
 
     }
 
-    public void moveLeftUntilRed() {
+    public void moveLeftUntilRed(double power) {
         while (sensor.tapeIsRed() == false) {
             double x =0;
             x = op.getRuntime();
-            drivetrain.moveLeftTeleop(0.75, 0.5);
+            drivetrain.moveLeftTeleop( power, 0.5);
             if(op.getRuntime()-x>=3){
                 break;
             }

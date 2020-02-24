@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
 
 @Autonomous(name = "B_stone1_Foundation_park_Reg")
 public class B_stone1_Foundation_park_Reg extends LinearOpMode {
-    RobotA robot = new RobotA();
+    Robot_Reg robot = new Robot_Reg();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -60,19 +60,19 @@ public class B_stone1_Foundation_park_Reg extends LinearOpMode {
             a++;
             robot.moveBackwardIMU(0.2, 0.5);
         }
-        robot.moveForwardIMU(5,0.75);// torwards stone
+        /*robot.moveForwardIMU(5,0.75);// torwards stone
         robot.clawClamp(false);//gets stone
-        robot.moveBackwardIMU(16,1.0);
+        robot.moveBackwardIMU(17,1.0);
         robot.AbsoluteTurnIMU(0,1.0); //auto-correct angle of robot
         robot.liftPosition(1.2);//lifts lift a little bit up
-        robot.moveForwardIMU(0.4,0.2);
+        robot.moveForwardIMU(0.38,0.2);
         robot.fasterMoveLeftIMU(64-(a*8), 1.0);// crosses field
-        robot.liftPosition(4.4); // lifts lift to be able to place stone
+        robot.liftPosition(4.259); // lifts lift to be able to place stone
         robot.AbsoluteTurnIMU(0,1.0);////auto-correct angle of robot
-        robot.fasterMoveLeftIMU(48,1.0);//lines up with foundation
+        robot.fasterMoveLeftIMU(57.85,1.0);//lines up with foundation
         //robot.moveLeftIMU(10,0.6);
-        robot.moveForwardIMU(6.15,0.2 );
-        robot.liftPosition(2.3);
+        robot.moveForwardIMU(8.05,0.2 );
+        robot.liftPosition(2.2);
         robot.clawClamp(true);
         robot.moveFoundationLefttdown(true);
         robot.moveFoundationRightdown(true);
@@ -81,15 +81,46 @@ public class B_stone1_Foundation_park_Reg extends LinearOpMode {
         robot.moveFoundationRightdown(false);
         robot.moveBackwardIMU(2,0.2);
         robot.AbsoluteTurnIMU(0,1.0);
-        //robot.AbsoluteTurnIMU(90,0.6);
         robot.fasterMoveRightIMU(38.5,1.0);
         robot.moveForward(20,1.0);
         robot.liftPosition(0);
-        robot.AbsoluteTurnIMU(0,1.0);
+        //robot.AbsoluteTurnIMU(0,1.0);
         robot.fasterMoveRightIMU(30,1.0);
- //     robot.moveRightUntilBlue();
+ //     robot.moveRightUntilBlue();*/
 
-
+        robot.liftPosition(2.5);
+        robot.moveForward(30,1);
+        robot.moveLeftIMU(8,1.0);
+        robot.moveForward(4,0.25);
+        robot.moveFoundationLefttdown(true);
+        robot.moveFoundationRightdown(true);
+        robot.moveBackward(28,0.6);
+        robot.moveRightIMU(50, 0.6);
+        robot.moveLeftIMU(10,0.6);
+        robot.moveFoundationLefttdown(false);
+        robot.moveFoundationRightdown(false);
+        robot.AbsoluteTurnIMU(-90,1.0);
+        robot.moveRightIMU(30,1.0);
+        robot.AbsoluteTurnIMU(0,1.0);
+        robot.moveForwardIMU(4,0.4);
+        //move left until skystone is detected
+        for (int i=0; i<2; i++) {
+            if(robot.BlueBlockIsSky()==true){
+                break;
+            }
+            a++;
+            robot.moveBackwardIMU(0.2, 0.5);
+        }
+        robot.moveForwardIMU(5,0.75);// torwards stone
+        robot.clawClamp(false);//gets stone
+        robot.moveBackwardIMU(10,1.0);
+        robot.liftPosition(1.2);
+        robot.AbsoluteTurnIMU(-90,1.0);
+        robot.moveForward(60,1.0);
+        robot.liftPosition(4.35);
+        robot.clawClamp(true);
+        robot.liftPosition(0.5);
+        robot.moveBackwardUntilBlue(0.2);
     }
 }
 

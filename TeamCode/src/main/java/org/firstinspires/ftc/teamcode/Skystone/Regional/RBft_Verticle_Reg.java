@@ -64,7 +64,7 @@ public class RBft_Verticle_Reg extends LinearOpMode {
         }
 
 
-        robot.liftPosition(2.5);
+        /*robot.liftPosition(2.5);
         robot.moveForwardIMU(26,1);
         robot.moveForwardIMU(3,0.15);
         robot.moveRightIMU(6,1.0);
@@ -82,7 +82,9 @@ public class RBft_Verticle_Reg extends LinearOpMode {
         robot.moveLeftUntilRed();
         //robot.fasterMoveLeftIMU(56,1.0);
         robot.clawClampPosition(0.0);
-
+*/
+        robot.moveRightIMU(24,0.5);
+        sleep(35669);
     }
 
 }

@@ -124,17 +124,13 @@ public class torqueChassis_Teleop_Reg extends LinearOpMode {
                 motor_power = 0.3;
             }
             if (y_button) {
-                motor_power = 1.0;
+                motor_power = 0.7;
             }
 
             //unclamps claw
             //moves backward
             if (b_button) {
-                robot.clawClamp(true);
-                robot.moveBackwardTeleop(0.2, 0.10);
-                sleep(1000);
-                robot.stopAllMotors();
-                //robot.liftPosition(0);
+                motor_power = 1.0;
             }
             if (a_button) {
                 robot.tapePosition(0);

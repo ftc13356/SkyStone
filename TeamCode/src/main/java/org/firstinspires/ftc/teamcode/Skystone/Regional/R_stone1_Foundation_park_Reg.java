@@ -48,7 +48,7 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(21.5,0.5);
+        /*robot.moveForwardIMU(21.5,0.5);
         robot.moveLeftIMU(4.45,0.2);
         robot.AbsoluteTurnIMU(0,1.0);
         robot.moveForwardIMU(.75,0.4);
@@ -85,6 +85,30 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
         robot.liftPosition(0);
         robot.moveLeftIMU(20,0.5);
  //     robot.moveRightUntilBlue();
+
+*/
+        robot.liftPosition(2.5);
+        robot.moveForward(30,0.6);
+        robot.moveRightIMU(16,1.0);
+        robot.moveForward(4,0.15);
+        robot.moveFoundationLefttdown(true);
+        robot.moveFoundationRightdown(true);
+        robot.moveBackward(33,0.6);
+        robot.moveLeftIMU(60, 0.6);
+        robot.moveRightIMU(5,0.6);
+        robot.moveForward(32,0.6);
+        robot.moveFoundationLefttdown(false);
+        robot.moveFoundationRightdown(false);
+        robot.moveRight(8,1.0);
+        robot.moveBackward(5,1.0);
+        robot.liftPosition(0);
+        robot.moveBackward(50,1.0);
+        robot.AbsoluteTurnIMU(90,1.0);
+        robot.AbsoluteTurnIMU(0,1.0);
+        robot.moveBackwardIMU(6,1.0);
+
+
+
 
 
     }

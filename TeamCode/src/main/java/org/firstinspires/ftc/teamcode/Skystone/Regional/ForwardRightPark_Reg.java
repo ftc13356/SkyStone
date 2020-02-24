@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
 @Autonomous(name = "ForwardRightPark_Q3")
 public class ForwardRightPark_Reg extends LinearOpMode{
 
-    RobotA robot = new RobotA();
+    Robot_Reg robot = new Robot_Reg();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
