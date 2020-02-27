@@ -58,7 +58,7 @@ public class torqueChassisReg {
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
     double                  globalAngle, power = .30, correction;
-    double IMUgain = 0.005;
+    double IMUgain = 0.045;
     //set true to enable imu vice versa
     final boolean enableIMU = false;
 
@@ -638,11 +638,11 @@ public class torqueChassisReg {
         currentPosition = motorLeftBack.getCurrentPosition();
         deltaPosition = newLeftBackTargetPosition - currentPosition; //interchangable based on which way robot turns
 
-        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+        while (op.opModeIsActive() && deltaPosition >= 0) {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = newLeftBackTargetPosition - currentPosition;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * IMUgain;//gain
+            correction = (currentAngle-startingAngle) * IMUgain*5/4;//gain
             motorRightBack.setPower(-power - correction);
             motorRightFront.setPower(power - correction);
             motorLeftBack.setPower(power + correction);
@@ -869,7 +869,7 @@ public class torqueChassisReg {
             currentPosition = motorLeftBack.getCurrentPosition();
             deltaPosition = currentPosition - newLeftBackTargetPosition ;
             currentAngle = getAngle();
-            correction = (currentAngle-startingAngle) * IMUgain;//gain
+            correction = (currentAngle-startingAngle) * IMUgain*5/4;//gain
             motorRightBack.setPower(power - correction);
             motorRightFront.setPower(-power - correction);
             motorLeftBack.setPower(-power + correction);

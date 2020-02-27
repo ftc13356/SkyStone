@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.Vuforia_Q3;
 
 @Autonomous(name = "R_stone1_Foundation_park_Reg")
 public class R_stone1_Foundation_park_Reg extends LinearOpMode {
-    Robot_Reg robot = new Robot_Reg();
-    Vuforia_Q3 vuforia = new Vuforia_Q3();
+    Robot_Reg robot; { robot = new Robot_Reg(); }
+    Vuforia_Reg vuforia = new Vuforia_Reg();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -51,37 +51,21 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(17,0.4);
+        robot.moveForwardIMU(16,0.4);
+        robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
         robot.moveForward(7, 0.5);
-        robot.moveRightIMU((a*7-3),0.5);
+        if(a==0){
+            robot.moveLeftIMU(5,0.5);
+        }
+        else{robot.moveRightIMU((a-1)*5,0.5);}
         robot.moveForwardIMU(5,0.2);
         robot.clawClamp(false);
-        robot.moveBackwardIMU(16,0.25);
+        robot.moveBackwardIMU(10,0.75);
         robot.liftPosition(1.4);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveRightIMU(56-(a*7-3), 0.5);
-        robot.liftPosition(2.5);
-        robot.moveForward(30,0.6);
-        robot.moveRightIMU(16,1.0);
-        robot.moveForward(4,0.15);
-        robot.moveFoundationLefttdown(true);
-        robot.moveFoundationRightdown(true);
-        robot.moveBackward(33,0.6);
-        robot.moveLeftIMU(60, 0.6);
-        robot.moveRightIMU(5,0.6);
-        robot.moveForward(32,0.6);
-        robot.moveFoundationLefttdown(false);
-        robot.moveFoundationRightdown(false);
-        robot.moveRight(8,1.0);
-        robot.moveBackward(5,1.0);
-        robot.liftPosition(0);
-        robot.moveBackward(50,1.0);
-        robot.AbsoluteTurnIMU(90,1.0);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveBackwardIMU(6,1.0);
-
-
+        robot.moveRightIMU(52-(a*7-3), 0.75);
+        robot.moveForwardIMU(5,0.4);
 
 
 
