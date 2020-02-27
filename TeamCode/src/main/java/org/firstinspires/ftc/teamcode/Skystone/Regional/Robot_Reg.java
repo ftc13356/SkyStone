@@ -192,9 +192,9 @@ public class Robot_Reg {
         drivetrain.normalTurnTeleop(degrees, direction, power);
     }
 
-//    public void fasterMoveRightIMU(double distance, double power) { drivetrain.fastermoveRightIMU(distance, power); }
+  public void fasterMoveRightIMU(double distance, double power) { drivetrain.fastermoveRightIMU(distance, power); }
 //
-//    public void fasterMoveLeftIMU(double distance, double power) { drivetrain.fastermoveLeftIMU(distance, power); }
+    public void fasterMoveLeftIMU(double distance, double power) { drivetrain.fastermoveLeftIMU(distance, power); }
 
     public void moveForwardIMU(double distance, double power) { drivetrain.moveForwardIMU(distance, power); }
 
