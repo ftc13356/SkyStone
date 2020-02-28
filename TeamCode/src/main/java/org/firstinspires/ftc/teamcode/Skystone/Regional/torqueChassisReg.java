@@ -1088,7 +1088,7 @@ double ticksToMove = counts_per_inch * distance;
         double currentAngle = getAngle();
         double newDegrees =  degrees;
         double error = degrees-currentAngle;
-        double gain = -0.005;
+        double gain = -0.0025;
         double leftPower = power*gain*error;
         double rightPower = -leftPower; // power*gain*error
 
@@ -1100,10 +1100,6 @@ double ticksToMove = counts_per_inch * distance;
         if (newDegrees>180){newDegrees=newDegrees-360;}
         if (newDegrees<=-180){newDegrees=newDegrees+360;}
 
-
-        op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
-        op.telemetry.update();
-        //op.sleep(500);
         motorLeftBack.setPower(leftPower);
         motorLeftFront.setPower(leftPower);
         motorRightBack.setPower(rightPower);
@@ -1129,12 +1125,16 @@ double ticksToMove = counts_per_inch * distance;
         }
 
         motorLeftBack.setPower(0);
+        motorRightFront.setPower(0);
         motorLeftFront.setPower(0);
         motorRightBack.setPower(0);
-        motorRightFront.setPower(0);
 
-        currentAngle = getAngle();
+        /*currentAngle = getAngle();
+        op.sleep(1000);
         error = degrees - currentAngle;
+        op.telemetry.addData("TurnIMU", "CA"+currentAngle+" FA"+getAngle()+" WA"+ degrees+" P:"+power);
+        op.telemetry.update();
+        op.sleep(5000);*/
         //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
         //op.telemetry.update();
     }
