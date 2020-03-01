@@ -28,9 +28,10 @@ public class R_skystone2_parkRight_Reg extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(15,0.4);
+        robot.moveForwardIMU(14.5,0.4);
+        robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
-        robot.moveForward(7, 0.75);
+        robot.moveForward(8, 0.75);
         if(a==0){
             robot.fasterMoveLeftIMU(5,0.75);
         }
@@ -39,12 +40,10 @@ public class R_skystone2_parkRight_Reg extends LinearOpMode {
         robot.clawClamp(false);
         robot.moveBackwardIMU(10,1.0);
         robot.liftPosition(1.4);
-        robot.AbsoluteTurnIMU(0,1.0);
         robot.fasterMoveRightIMU(52-(a*7-3), 1.0);
         //drop the stone
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.AbsoluteTurnIMU(0,1.0);
         robot.fasterMoveLeftIMU(78-(a*7-3),1.0);
         robot.moveForwardIMU(5,0.5);
         if(a==0){
@@ -60,8 +59,7 @@ public class R_skystone2_parkRight_Reg extends LinearOpMode {
         robot.AbsoluteTurnIMU(0,1.0);
         robot.fasterMoveRightIMU(84-(a*8),1.0);
         robot.clawClamp(true);
-        robot.liftPosition(0.0);
-        robot.moveLeftUntilRed(0.5);
+        robot.fasterMoveLeftIMU(6,0.75);
         /*robot.moveForwardIMU(15,1.0);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();

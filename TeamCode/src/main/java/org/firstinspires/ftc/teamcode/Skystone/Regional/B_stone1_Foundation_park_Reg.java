@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
 @Autonomous(name = "B_stone1_Foundation_park_Reg")
 public class B_stone1_Foundation_park_Reg extends LinearOpMode {
     Robot_Reg robot = new Robot_Reg();
+    Vuforia_Reg vuforia = new Vuforia_Reg();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
@@ -33,6 +34,7 @@ public class B_stone1_Foundation_park_Reg extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.initChassis(this);
+        vuforia.initVuforia(this);
         telemetry.addData("Status", "InitComplete, Ready to Start");
         telemetry.update();
 
@@ -48,79 +50,40 @@ public class B_stone1_Foundation_park_Reg extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(21.5,1.0);
-        robot.moveRightIMU(5,0.5);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveForwardIMU(4,0.4);
-        //move left until skystone is detected
-        for (int i=0; i<2; i++) {
-            if(robot.BlueBlockIsSky()==true){
-                break;
-            }
-            a++;
-            robot.moveBackwardIMU(0.2, 0.5);
+        robot.moveForwardIMU(16,0.4);
+        robot.AbsoluteTurnIMU(0,0.85);
+        a = vuforia.BlueSkyDetect();
+        robot.moveForward(7, 0.5);
+        if(a==0){
+            robot.moveRightIMU(5,0.5);
         }
-        /*robot.moveForwardIMU(5,0.75);// torwards stone
-        robot.clawClamp(false);//gets stone
-        robot.moveBackwardIMU(17,1.0);
-        robot.AbsoluteTurnIMU(0,1.0); //auto-correct angle of robot
-        robot.liftPosition(1.2);//lifts lift a little bit up
-        robot.moveForwardIMU(0.38,0.2);
-        robot.fasterMoveLeftIMU(64-(a*8), 1.0);// crosses field
-        robot.liftPosition(4.259); // lifts lift to be able to place stone
-        robot.AbsoluteTurnIMU(0,1.0);////auto-correct angle of robot
-        robot.fasterMoveLeftIMU(57.85,1.0);//lines up with foundation
-        //robot.moveLeftIMU(10,0.6);
-        robot.moveForwardIMU(8.05,0.2 );
-        robot.liftPosition(2.2);
-        robot.clawClamp(true);
-        robot.moveFoundationLefttdown(true);
-        robot.moveFoundationRightdown(true);
-        robot.moveBackwardIMU(33,1.0);
-        robot.moveFoundationLefttdown(false);
-        robot.moveFoundationRightdown(false);
-        robot.moveBackwardIMU(2,0.2);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(38.5,1.0);
-        robot.moveForward(20,1.0);
-        robot.liftPosition(0);
+        else{robot.moveLeftIMU((a-1)*5.7,0.45);}
+        robot.moveForwardIMU(5,0.2);
+        robot.clawClamp(false);
+        sleep(100);
+        robot.moveBackwardIMU(6.3,0.55);
+        robot.liftPosition(1.55);
         //robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(30,1.0);
- //     robot.moveRightUntilBlue();*/
-
-        robot.liftPosition(2.5);
-        robot.moveForward(30,1);
-        robot.moveLeftIMU(8,1.0);
-        robot.moveForward(4,0.25);
-        robot.moveFoundationLefttdown(true);
+        robot.AbsoluteTurnIMU(84,0.5);
+        robot.moveForwardIMU(74-(a*7-3), 0.9);
+        robot.liftPosition(4.295);
+        //robot.moveForwardIMU(34,0.5);
+        robot.AbsoluteTurnIMU(0,0.5);
+        robot.moveForwardIMU(13,0.35);
         robot.moveFoundationRightdown(true);
-        robot.moveBackward(28,0.6);
-        robot.moveRightIMU(50, 0.6);
-        robot.moveLeftIMU(10,0.6);
+        robot.moveFoundationLefttdown(true);
+        robot.clawClamp(true);
+        robot.moveBackward(39, 0.5);
+        robot.moveRightIMU(28, 0.5);
+        robot.moveLeftIMU(7, 0.18);
+        robot.moveForward(56, 0.65);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        robot.AbsoluteTurnIMU(-90,1.0);
-        robot.moveRightIMU(30,1.0);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.moveForwardIMU(4,0.4);
-        //move left until skystone is detected
-        for (int i=0; i<2; i++) {
-            if(robot.BlueBlockIsSky()==true){
-                break;
-            }
-            a++;
-            robot.moveBackwardIMU(0.2, 0.5);
-        }
-        robot.moveForwardIMU(5,0.75);// torwards stone
-        robot.clawClamp(false);//gets stone
-        robot.moveBackwardIMU(10,1.0);
-        robot.liftPosition(1.2);
-        robot.AbsoluteTurnIMU(-90,1.0);
-        robot.moveForward(60,1.0);
-        robot.liftPosition(4.35);
-        robot.clawClamp(true);
-        robot.liftPosition(0.5);
-        robot.moveBackwardUntilBlue(0.2);
+        robot.moveRight(2,0.2);
+        robot.moveBackward(5,1.0);
+        robot.liftPosition(0);
+        robot.moveBackwardUntilRed(0.35);
+        robot.clawClampPosition(0.0);
     }
 }
 
