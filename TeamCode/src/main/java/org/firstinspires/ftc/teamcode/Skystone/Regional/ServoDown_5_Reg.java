@@ -20,9 +20,9 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
  *
  */
 //@Disabled
-@Autonomous(name = "ServoDown_5_Q3")
+@Autonomous(name = "ServoDown_5_Reg")
 public class ServoDown_5_Reg extends LinearOpMode {
-    RobotA robot = new RobotA();
+    Robot_Reg robot = new Robot_Reg();
     private ElapsedTime runtime = new ElapsedTime();
     private Servo stone_claw_servo;
 
