@@ -4,14 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "R_skystone2_parkRight_Reg")
-public class R_skystone2_parkRight_Reg extends LinearOpMode {
+@Autonomous(name = "B_skystone2_parkRight_Reg")
+public class B_skystone2_parkRight_Reg extends LinearOpMode {
     Robot_Reg robot; { robot = new Robot_Reg(); }
     Vuforia_Reg vuforia = new Vuforia_Reg();
     private ElapsedTime runtime = new ElapsedTime();
     @Override
     public void runOpMode() {
-        robot.initChassis(this);
+        //robot.initChassis(this);
         vuforia.initVuforia(this);
         telemetry.addData("Status", "InitComplete, Ready to Start");
         telemetry.update();
@@ -28,23 +28,26 @@ public class R_skystone2_parkRight_Reg extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(21,0.75);
-        a=1;
-        if(a==0){
-            robot.fasterMoveLeftIMU(5,0.75);
+        while(!isStopRequested()){
+            vuforia.BlueSkyDetect();
         }
-        else if(a==2){robot.fasterMoveRightIMU((a-1)*5,0.75);}
-        robot.moveForwardIMU(5,0.1);
+        /*robot.moveForwardIMU(15,0.5);
+        a = vuforia.BlueSkyDetect();
+        robot.moveForward(7, 0.75);
+        if(a==0){
+            robot.fasterMoveRightIMU(10,0.75);
+        }
+        else{robot.fasterMoveLeftIMU((a-1)*5,0.75);}
+        robot.moveForwardIMU(5,0.2);
         robot.clawClamp(false);
-        robot.moveBackwardIMU(12,1.0);
+        robot.moveBackwardIMU(10,1.0);
         robot.liftPosition(1.4);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(52-(a*7-3), 1.0);
+        robot.fasterMoveLeftIMU(52-(a*7-3), 1.0);
         //drop the stone
         robot.clawClamp(true);
         robot.liftPosition(0.0);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveLeftIMU(78-(a*7-3),1.0);
+        robot.fasterMoveRightIMU(78-(a*7-3),1.0);
         robot.moveForwardIMU(5,0.5);
         if(a==0){
             robot.moveForwardIMU(10,0.4);
@@ -57,9 +60,10 @@ public class R_skystone2_parkRight_Reg extends LinearOpMode {
         robot.moveBackwardIMU(22,0.75);
         robot.liftPosition(1.2);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(84-(a*8),1.0);
+        robot.fasterMoveLeftIMU(84-(a*8),1.0);
         robot.clawClamp(true);
-        robot.fasterMoveLeftIMU(10,0.75);
+        robot.liftPosition(0.0);
+        robot.moveLeftUntilRed(0.5);
         /*robot.moveForwardIMU(15,1.0);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
@@ -107,3 +111,4 @@ public class R_skystone2_parkRight_Reg extends LinearOpMode {
     }
 
 }
+

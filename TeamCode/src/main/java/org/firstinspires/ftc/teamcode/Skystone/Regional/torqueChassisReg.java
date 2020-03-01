@@ -601,7 +601,7 @@ double ticksToMove = counts_per_inch * distance;
         currentPosition = motorLeftBack.getCurrentPosition();
         deltaPosition = newLeftBackTargetPosition - currentPosition;
         currentAngle = getAngle();
-        correction = (currentAngle-startingAngle) * IMUgain*9;//gain
+        correction = (currentAngle-startingAngle) * IMUgain*12;//gain
         motorRightBack.setPower(-power - correction);
         motorRightFront.setPower(power - correction);
         motorLeftBack.setPower(power + correction);
@@ -828,7 +828,7 @@ double ticksToMove = counts_per_inch * distance;
         currentPosition = motorLeftBack.getCurrentPosition();
         deltaPosition = currentPosition - newLeftBackTargetPosition ;
         currentAngle = getAngle();
-        correction = (currentAngle-startingAngle) * IMUgain*9;//gain
+        correction = (currentAngle-startingAngle) * IMUgain*12;//gain
         motorRightBack.setPower(power - correction);
         motorRightFront.setPower(-power - correction);
         motorLeftBack.setPower(-power + correction);
@@ -875,6 +875,58 @@ double ticksToMove = counts_per_inch * distance;
             op.idle();
         }
         stopAllMotors();
+    }
+    public void moveLeftIMUteleop(double distance, double power) {
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+        double startingAngle = 0;
+
+        startingAngle = getAngle();
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+;
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentAngle = getAngle();
+            correction = (currentAngle-startingAngle) * IMUgain;//gain
+            motorRightBack.setPower(power - correction);
+            motorRightFront.setPower(-power - correction);
+            motorLeftBack.setPower(-power + correction);
+            motorLeftFront.setPower(power + correction);
+
+        }
+
+    }
+    public void moveRightIMUteleop(double distance, double power) {
+        double currentPosition = 0;
+        double deltaPosition = 0;
+        double currentAngle = 0;
+        double startingAngle = 0;
+
+        startingAngle = getAngle();
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        ;
+
+        while (op.opModeIsActive() && (deltaPosition >= 0)) {
+            currentAngle = getAngle();
+            correction = (currentAngle-startingAngle) * IMUgain;//gain
+            motorRightBack.setPower(power + correction);
+            motorRightFront.setPower(-power + correction);
+            motorLeftBack.setPower(-power - correction);
+            motorLeftFront.setPower(power - correction);
+
+        }
+
     }
 
     public void moveLeftIMU(double distance, double power, double startingAngle, double gain, double maxCorrection) {
@@ -1109,8 +1161,8 @@ double ticksToMove = counts_per_inch * distance;
         {
             currentAngle = getAngle();
             error = degrees - currentAngle;
-            leftPower = power*gain*error*2;
-            rightPower = -power*gain*error*2;
+            leftPower = power*gain*error*4;
+            rightPower = -power*gain*error*4;
             //op.telemetry.addData("TurnIMU", "Angle"+currentAngle+ "Error"+ error+"LP"+leftPower+ "RP"+ rightPower);
             //op.telemetry.update();
             if (leftPower>1) {leftPower=1;}

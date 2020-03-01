@@ -125,9 +125,9 @@ public class Vuforia_Reg {
                 op.telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         xPosition = translation.get(1) / mmPerInch, translation.get(0) / mmPerInch, translation.get(2) / mmPerInch);
 
-                if (xPosition < -1) {
+                if (xPosition < 0) {
                     x = 1;
-                } else if(xPosition>-1 ){
+                } else if(xPosition>0 ){
                     x = 2;
                 }
                 else{
@@ -183,16 +183,17 @@ public class Vuforia_Reg {
                 op.telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         xPosition = translation.get(1) / mmPerInch, translation.get(0) / mmPerInch, translation.get(2) / mmPerInch);
 
-                if (xPosition < -3) {
-                    x = 1;
-                } else if(xPosition>-3 && xPosition<5){
+                if (xPosition > 0 && xPosition <7) {
                     x = 0;
+                } else if(xPosition<0){
+                    x = 1;
                 }
                 else{
-                    x = 2;
+                   x=2;
                 }
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 op.telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                break;
             } else {
                 op.telemetry.addData("Visible Target", "none");
                 x = 2;

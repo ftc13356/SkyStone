@@ -51,40 +51,50 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
-        robot.moveForwardIMU(13.7,0.4);
+
+        robot.moveForwardIMU(13.8,0.4);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
-        robot.moveForward(8, 0.5);
+        robot.moveForwardIMU(8, 0.22);
         if(a==0){
-            robot.moveLeftIMU(5,0.5);
+            robot.fasterMoveLeftIMU(5,0.75);
         }
-        else{robot.moveRightIMU((a-1)*5.7,0.45);}
+        else if(a==2){robot.fasterMoveRightIMU((a-1)*5,0.75);}
         robot.moveForwardIMU(5,0.2);
         robot.clawClamp(false);
-        sleep(100);
-        robot.moveBackwardIMU(10,0.55);
+        robot.moveBackwardIMU(14,0.55);
         robot.liftPosition(1.55);
-        //robot.AbsoluteTurnIMU(0,1.0);
+        robot.AbsoluteTurnIMU(0,1.0);
         //robot.AbsoluteTurnIMU(-84,0.5);
         //robot.moveForwardIMU(74-(a*7-3), 0.9);
-        robot.fasterMoveRightIMU(52-(a*7-3), 1.0);// crossing field
-        robot.liftPosition(4.05);
+        robot.fasterMoveRightIMU(91-(a*7-3), 1.0);// crossing field
         //robot.moveForwardIMU(34,0.5);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(38,1.0);
-        robot.moveForwardIMU(12,0.35);
+        //robot.AbsoluteTurnIMU(0,1.0);
+        //robot.fasterMoveRightIMU(38,1.0);
+        robot.liftPosition(4.05);
+
+        double d = 0.0;
+        if (a==0) {
+            d = 11.5;
+        } else if (a==1) {
+            d =  10;
+        } else {
+            d = 8;
+        }
+        robot.moveForwardIMU(d,0.35);
+        robot.moveForwardIMU(3,0.2);
         robot.moveFoundationRightdown(true);// grabs foundation
         robot.moveFoundationLefttdown(true);
         robot.clawClamp(true);// places stone
-        robot.moveBackward(39, 0.5);
-        robot.moveLeftIMU(28, 0.5);
-        robot.moveRightIMU(8, 0.18);
-        robot.moveForward(56, 0.65);
+        robot.moveBackward(39, 0.7);
+        robot.moveLeftIMU(28, 0.8);
+        robot.moveRightIMU(6.35, 0.4);
+        robot.moveForward(56, 1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
         //robot.moveRight(2,0.2);
         //robot.moveBackward(5,1.0);
-        robot.liftPosition(1.0);
+        robot.liftPosition(1.8);
         robot.moveBackward(45,1.0);
         robot.clawClampPosition(0.0);
         /*robot.moveBackward(30, 0.5);
