@@ -52,65 +52,60 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          */
         //move to the blocks
 
-        robot.moveForwardIMU(13.8,0.4);
+        robot.moveForwardIMU(14.375,0.4);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
-        robot.moveForwardIMU(8, 0.22);
+        robot.moveForwardIMU(7.0, 0.22);
         if(a==0){
-            robot.fasterMoveLeftIMU(5,0.75);
+            robot.fasterMoveLeftIMU(4.8,0.75);
         }
-        else if(a==2){robot.fasterMoveRightIMU((a-1)*5,0.75);}
-        robot.moveForwardIMU(5,0.2);
+        else if(a==2){robot.fasterMoveRightIMU((a-1)*5.75,0.75);}
+        robot.moveForwardIMU(5,0.4);
         robot.clawClamp(false);
-        robot.moveBackwardIMU(14,0.55);
+        double b = 0.0;
+        if (a==0) {
+            b = 12;
+        } else if (a==1) {
+            b =  13.5;
+        } else {
+            b = 11;
+        }
+        robot.moveBackwardIMU(b,0.55);
         robot.liftPosition(1.55);
         robot.AbsoluteTurnIMU(0,1.0);
         //robot.AbsoluteTurnIMU(-84,0.5);
         //robot.moveForwardIMU(74-(a*7-3), 0.9);
-        robot.fasterMoveRightIMU(91-(a*7-3), 1.0);// crossing field
+        robot.fasterMoveRightIMU(90-(a*7-3), 1.0);// crossing field
         //robot.moveForwardIMU(34,0.5);
         //robot.AbsoluteTurnIMU(0,1.0);
         //robot.fasterMoveRightIMU(38,1.0);
-        robot.liftPosition(4.05);
+        robot.liftPosition(3.58);
 
         double d = 0.0;
         if (a==0) {
-            d = 11.5;
+            d = 9;
         } else if (a==1) {
-            d =  10;
+            d =  8;
         } else {
-            d = 8;
+            d =8;
         }
         robot.moveForwardIMU(d,0.35);
         robot.moveForwardIMU(3,0.2);
         robot.moveFoundationRightdown(true);// grabs foundation
         robot.moveFoundationLefttdown(true);
         robot.clawClamp(true);// places stone
-        robot.moveBackward(39, 0.7);
-        robot.moveLeftIMU(28, 0.8);
-        robot.moveRightIMU(6.35, 0.4);
+        robot.moveBackward(37, 1.0);
+        robot.moveLeftIMU(28, 1.0);
+        robot.moveRightIMU(0.25, 1.0);
         robot.moveForward(56, 1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        //robot.moveRight(2,0.2);
+        robot.moveRight(11,1.0);
         //robot.moveBackward(5,1.0);
         robot.liftPosition(1.8);
-        robot.moveBackward(45,1.0);
-        robot.clawClampPosition(0.0);
-        /*robot.moveBackward(30, 0.5);
-        robot.moveLeftIMU(28, 0.5);
-        robot.moveRightIMU(1, 0.18);
-        robot.moveForward(58, 0.65);
-        robot.moveFoundationLefttdown(false);
-        robot.moveFoundationRightdown(false);
-        robot.clawClamp(true);
-        robot.moveRight(40 , 0.3);
-        robot.moveBackward(5, 1.0);
-        robot.liftPosition(0);
-        robot.moveBackwardUntilRed(0.3);
-        robot.clawClampPosition(0.0);
+        robot.moveBackward(40,1.0);
+        //robot.clawClampPosition(0.0);
 
-*/
 
     }
 }
