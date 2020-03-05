@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Skystone.Qualifier_3;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
+@Disabled
 @Autonomous(name = "B_skystone2_parkRight_Q3")
 public class B_skystone2_parkRight_Q3 extends LinearOpMode {
     Vuforia_Q3 vuforia = new Vuforia_Q3();

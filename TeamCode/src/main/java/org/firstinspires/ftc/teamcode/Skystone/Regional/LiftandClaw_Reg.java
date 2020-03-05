@@ -107,7 +107,7 @@ public class LiftandClaw_Reg {
             op.telemetry.update();
             op.idle();
         }
-        //op.sleep(2000);
+        op.sleep(1850);
         //brake
         motorLift.setPower(0);
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

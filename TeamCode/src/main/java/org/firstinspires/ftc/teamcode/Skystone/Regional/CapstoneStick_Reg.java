@@ -33,7 +33,7 @@ public class CapstoneStick_Reg {
     //true = unclamp, false = clamp
     public void moveCapstoneStickdownToFoundation(boolean direction) {
         if (direction == true) {
-            capstoneStick.setPosition(0.8);
+            capstoneStick.setPosition(0.65);
         } else {
             capstoneStick.setPosition(0.0);
         }
