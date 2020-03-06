@@ -113,6 +113,24 @@ public class LiftandClaw_Reg {
         motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void liftPositionNoWait(double liftposition) {
+        int ticksPosition = (int) (counts_per_inch_lift * liftposition + 0.5); //adds .5 for rounding
+        motorLift.setTargetPosition(ticksPosition);
+        motorLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLift.setPower(1.0);
+        //op.sleep(100);
+        //while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 && gp.left_trigger <=0.1 && gp.right_trigger <=0.1) {
+        while (op.opModeIsActive() && motorLift.isBusy() && motorLift.getVelocity() !=0 ) {
+            op.telemetry.addData("Lifting ", motorLift.getCurrentPosition() + " velocity=" + motorLift.getVelocity() + " busy=" + motorLift.isBusy());
+            op.telemetry.update();
+            op.idle();
+        }
+        //op.sleep(2000);
+        //brake
+        motorLift.setPower(0);
+        motorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     public void liftTeleop(boolean up) { //true for up and false for down
         motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if (up) {

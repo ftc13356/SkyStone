@@ -423,9 +423,10 @@ public class Robot_Reg {
         liftandClaw.liftPosition(liftposition, gp);
     }
 
-    public void liftPosition(double liftposition) {
-        liftandClaw.liftPosition(liftposition);
-    }
+    public void liftPosition(double liftposition) { liftandClaw.liftPosition(liftposition); }
+
+    public void liftPositionNoWait(double liftposition) { liftandClaw.liftPositionNoWait(liftposition);}
+
     public void liftTeleop(boolean up) {
         liftandClaw.liftTeleop(up);
     }

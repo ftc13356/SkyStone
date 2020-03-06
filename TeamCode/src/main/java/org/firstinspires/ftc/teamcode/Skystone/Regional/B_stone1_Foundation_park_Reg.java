@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
  * Giving proper comments in your program makes it more
  * user friendly and it is assumed as a high quality code.
  *
- * @author Aamod
+ * @author Aiden
  * @version 1.0
  * @since 2020 Jan-7
  */
@@ -51,7 +51,7 @@ public class B_stone1_Foundation_park_Reg extends LinearOpMode {
          */
         //move to the blocks
 
-        robot.moveForwardIMU(14.43,0.4);
+        robot.moveForwardIMU(14.465,0.4);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.BlueSkyDetect();
         robot.moveForwardIMU(7.0, 0.22);

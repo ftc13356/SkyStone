@@ -52,7 +52,7 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          */
         //move to the blocks
  
-        robot.moveForwardIMU(14.43,0.4);
+        robot.moveForwardIMU(14.465,0.4);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
         robot.moveForwardIMU(7.0, 0.22);
