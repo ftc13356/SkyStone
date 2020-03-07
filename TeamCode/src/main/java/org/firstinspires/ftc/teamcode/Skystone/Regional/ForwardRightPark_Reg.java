@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
  * @since   2020-Jan-7
  *
  */
-@Autonomous(name = "ForwardRightPark_Q3")
+@Autonomous(name = "ForwardRightPark_Reg")
 public class ForwardRightPark_Reg extends LinearOpMode{
 
     Robot_Reg robot = new Robot_Reg();
@@ -43,8 +43,8 @@ public class ForwardRightPark_Reg extends LinearOpMode{
         }
 
         sleep(21500);
-        robot.moveForward(31, 1);
-        robot.AbsoluteTurnIMU(-90, 1);
+        robot.moveForward(22, 1);
+        robot.AbsoluteTurnIMU(-90, 0.2);
         robot.moveForward(15,1);
         robot.clawClampPosition(0.25);
         sleep(1500);

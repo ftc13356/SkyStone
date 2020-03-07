@@ -75,12 +75,12 @@ public class B_stone3_parkCenter_turn_Reg extends LinearOpMode {
         sleep(300); // just in case
         robot.liftPositionNoWait(1.2);
         sleep(300);
-        robot.moveBackward(11, 1); // robot moves away from stones
+        robot.moveBackward(10, 1); // robot moves away from stones
         robot.AbsoluteTurnIMU(80,0.4);
         robot.AbsoluteTurnIMU(90,0.6);
         robot.moveForward(35, 1);
         robot.clawClampPosition(1);
-        robot.moveBackward(40,1);
+        robot.moveBackward(42,1);
         robot.AbsoluteTurnIMU(3,0.45);
         robot.AbsoluteTurnIMU(3,1);
         robot.moveForward(7,0.45);
@@ -114,9 +114,9 @@ public class B_stone3_parkCenter_turn_Reg extends LinearOpMode {
         robot.moveBackward(12, 1);
         robot.AbsoluteTurnIMU(80,0.4);
         robot.AbsoluteTurnIMU(90,0.6);
-        robot.moveForward(43, 1);
+        robot.moveForward(45, 1);
         robot.clawClampPosition(1);
-        robot.moveBackward(56, 1);
+        robot.moveBackward(58, 1);
         robot.AbsoluteTurnIMU(6,0.45);
         robot.AbsoluteTurnIMU(6,1);
         robot.moveForward(7,0.45);
@@ -150,6 +150,7 @@ public class B_stone3_parkCenter_turn_Reg extends LinearOpMode {
         robot.AbsoluteTurnIMU(90,0.6);
         robot.moveForward(62, 1);
         robot.clawClampPosition(1);
+        robot.AbsoluteTurnIMU(86,2);
         robot.moveBackward(13,1);
         robot.clawClampPosition(0);
         sleep(500);

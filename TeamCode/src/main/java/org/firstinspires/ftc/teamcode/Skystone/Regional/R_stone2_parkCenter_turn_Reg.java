@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * @since 2019-Dec-2
  */
 
+@Disabled
 @Autonomous(name = "R_stone2_parkCenter_turn_Reg")
 public class R_stone2_parkCenter_turn_Reg extends LinearOpMode {
     Robot_Reg robot = new Robot_Reg();

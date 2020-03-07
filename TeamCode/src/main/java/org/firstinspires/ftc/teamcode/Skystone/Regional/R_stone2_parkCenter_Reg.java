@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
  * @since 2020-Jan-7
  */
 
-//@Disabled
+@Disabled
 @Autonomous(name = "R_stone2_parkCenter_Reg")
 public class R_stone2_parkCenter_Reg extends LinearOpMode {
     Robot_Reg robot = new Robot_Reg();

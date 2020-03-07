@@ -21,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * @since 2019-Dec-2
  */
 
+@Disabled
 @Autonomous(name = "B_stone2_parkCenter_Reg")
 public class B_stone2_parkCenter_Reg extends LinearOpMode {
     Robot_Reg robot = new Robot_Reg();
