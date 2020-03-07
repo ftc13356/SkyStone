@@ -125,9 +125,9 @@ public class Vuforia_Reg {
                 op.telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         xPosition = translation.get(1) / mmPerInch, translation.get(0) / mmPerInch, translation.get(2) / mmPerInch);
 
-                if (xPosition < 0) {
+                if (xPosition < -0.5) {
                     x = 1;
-                } else if(xPosition>0 ){
+                } else if(xPosition>0.5 ){
                     x = 2;
                 }
                 else{
@@ -183,9 +183,9 @@ public class Vuforia_Reg {
                 op.telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         xPosition = translation.get(1) / mmPerInch, translation.get(0) / mmPerInch, translation.get(2) / mmPerInch);
 
-                if (xPosition > 0 && xPosition <7) {
+                if (xPosition > 0 && xPosition <9) {
                     x = 0;
-                } else if(xPosition<0){
+                } else if(xPosition<0&&xPosition>-9){
                     x = 1;
                 }
                 else{
