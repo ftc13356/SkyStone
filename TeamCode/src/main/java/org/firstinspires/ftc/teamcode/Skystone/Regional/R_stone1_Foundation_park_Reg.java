@@ -52,28 +52,33 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          */
         //move to the blocks
  
-        robot.moveForwardIMU(14.465,0.4);
+        robot.moveForwardIMU(16.5,0.4);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
-        robot.moveForwardIMU(7.0, 0.22);
+        robot.moveForwardIMU(6.6, 0.22);
         if(a==0){
             robot.fasterMoveLeftIMU(4.8,0.75);
         }
-        else if(a==2){robot.fasterMoveRightIMU((a-1)*5.85,0.7);}
-        robot.moveForwardIMU(5,0.4);
+        if(a==2){
+            robot.fasterMoveRightIMU((a-1)*5.85,0.7);
+        }
+        if (a==1){
+            robot.fasterMoveRightIMU(2,0.4);
+        }
+        robot.moveForwardIMU(2,0.3);
         robot.clawClamp(false);
         double b = 0.0;
         if (a==0) {
-            b = 13.3;
+            b = 12.5;
         } else if (a==1) {
-            b =  13.2;
+            b =  12;
         } else {
-            b = 12.9;
+            b = 8;
         }
         robot.moveBackwardIMU(b,0.55);
         robot.liftPosition(1.55);
         robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(90-(a*7-3), 1.0);// crossing field
+        robot.fasterMoveRightIMU(91-(a*7-3), 1.0);// crossing field
         robot.liftPosition(3.535);
 
         double d = 0.0;
@@ -95,7 +100,7 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
         robot.moveForward(56, 1.0);
         robot.moveFoundationLefttdown(false);
         robot.moveFoundationRightdown(false);
-        robot.moveRight(16.5,1.0);
+        robot.moveRight(12,1.0);
         robot.liftPosition(1.8);
         robot.moveBackward(42,0.9);
         //robot.clawClampPosition(0.0);
