@@ -73,14 +73,14 @@ public class R_stone3_parkCenter_turn_Reg extends LinearOpMode {
         sleep(300); // just in case
         robot.liftPositionNoWait(1.2); // lifts so Stone doesn't drag
         sleep(100); // just in case
-        robot.moveBackward(11, 1); // robot moves away from stones
+        robot.moveBackward(10.5, 1); // robot moves away from stones
         robot.AbsoluteTurnIMU(-80,0.4); // Done twice so it is more accurate
         robot.AbsoluteTurnIMU(-90,0.6); // Done twice so it is more accurate
         robot.moveForward(31, 1); // crosses tape
         robot.clawClampPosition(1); // releases 1st Stone
-        robot.moveBackward(39,1); // goes back to get 2nd Stone
-        robot.AbsoluteTurnIMU(3,0.45); // Done twice so it is more accurate
-        robot.AbsoluteTurnIMU(3,1); // Done twice so it is more accurate
+        robot.moveBackward(40,1); // goes back to get 2nd Stone
+        robot.AbsoluteTurnIMU(4,0.45); // Done twice so it is more accurate
+        robot.AbsoluteTurnIMU(4,1); // Done twice so it is more accurate
         robot.moveForward(7,0.45); //Gets closer to 2nd Stone
         robot.liftPositionNoWait(0); // lift should be at ground level
 
@@ -109,15 +109,15 @@ public class R_stone3_parkCenter_turn_Reg extends LinearOpMode {
         sleep(300); // just in case
         robot.liftPositionNoWait(1.2); // robot lifts Stone
         sleep(100); // just in case
-        robot.moveBackward(12, 1); // robot backs up with Stone
+        robot.moveBackward(11.5, 1); // robot backs up with Stone
         robot.AbsoluteTurnIMU(-80,0.4); // Done twice so it is more accurate
         robot.AbsoluteTurnIMU(-90,0.6); // Done twice so it is more accurate
         robot.moveForward(35, 1); // crosses tape
         robot.moveForward(3,0.3); // so next Stone doesn't fall over
         robot.clawClampPosition(1); // releases Stone
-        robot.moveBackward(55, 1); // goes to get last Stone
-        robot.AbsoluteTurnIMU(6,0.45); // Done twice so it is more accurate
-        robot.AbsoluteTurnIMU(6,1); // Done twice so it is more accurate
+        robot.moveBackward(56, 1); // goes to get last Stone
+        robot.AbsoluteTurnIMU(7,0.45); // Done twice so it is more accurate
+        robot.AbsoluteTurnIMU(7,1); // Done twice so it is more accurate
         robot.moveForward(7,0.45); // robot approaches Stone
         robot.liftPositionNoWait(0); // lift goes to ground level
 
@@ -144,7 +144,7 @@ public class R_stone3_parkCenter_turn_Reg extends LinearOpMode {
         sleep(300); // just in case
         robot.liftPositionNoWait(1.2); // lifts Stone
         sleep(100); // just in case
-        robot.moveBackward(13, 1); // robot backs up with Stone
+        robot.moveBackward(12, 1); // robot backs up with Stone
         robot.AbsoluteTurnIMU(-80,0.4); // Done twice so it is more accurate
         robot.AbsoluteTurnIMU(-90,0.6); // Done twice so it is more accurate
         robot.moveForward(54, 1); // crosses tape

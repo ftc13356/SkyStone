@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+
+@Disabled
 @Autonomous(name = "R_skystone2_parkRight_Reg")
 public class R_skystone2_parkRight_Reg extends LinearOpMode {
     Robot_Reg robot; { robot = new Robot_Reg(); }
