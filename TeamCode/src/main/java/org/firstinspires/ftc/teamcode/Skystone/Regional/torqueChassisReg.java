@@ -828,7 +828,7 @@ double ticksToMove = counts_per_inch * distance;
         currentPosition = motorLeftBack.getCurrentPosition();
         deltaPosition = currentPosition - newLeftBackTargetPosition ;
         currentAngle = getAngle();
-        correction = (currentAngle-startingAngle) * IMUgain*14.3;//gain
+        correction = (currentAngle-startingAngle) * IMUgain*14.8;//gain
         motorRightBack.setPower(power - correction);
         motorRightFront.setPower(-power - correction);
         motorLeftBack.setPower(-power + correction);

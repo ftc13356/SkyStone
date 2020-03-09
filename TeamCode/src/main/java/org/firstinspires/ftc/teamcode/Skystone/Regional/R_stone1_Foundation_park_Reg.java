@@ -51,60 +51,63 @@ public class R_stone1_Foundation_park_Reg extends LinearOpMode {
          * The init() method of the hardware clss does all the work here
          */
         //move to the blocks
- 
-        robot.moveForwardIMU(16.5,0.4);
+
+        robot.moveForwardIMU(16.3,0.4);
         robot.AbsoluteTurnIMU(0,1.0);
         a = vuforia.RedSkyDetect();
-        robot.moveForwardIMU(6.6, 0.22);
         if(a==0){
-            robot.fasterMoveLeftIMU(4.8,0.75);
+            robot.fasterMoveLeftIMU(4.65,0.75);
         }
         if(a==2){
-            robot.fasterMoveRightIMU((a-1)*5.85,0.7);
+            robot.fasterMoveRightIMU((a-1)*6.3,1.0);
         }
         if (a==1){
-            robot.fasterMoveRightIMU(2,0.4);
+            robot.fasterMoveRightIMU(0.7,0.3);
         }
+        robot.moveForwardIMU(6.1, 0.22);// moves forward torwards stone
         robot.moveForwardIMU(2,0.3);
-        robot.clawClamp(false);
+        robot.clawClamp(false);//gets stone
+        sleep(500);
         double b = 0.0;
         if (a==0) {
-            b = 12.5;
+            b = 10.4;
         } else if (a==1) {
-            b =  12;
+            b =  8.3;
         } else {
-            b = 8;
+            b = 6.3;
         }
         robot.moveBackwardIMU(b,0.55);
+        //moves backward
         robot.liftPosition(1.55);
-        robot.AbsoluteTurnIMU(0,1.0);
-        robot.fasterMoveRightIMU(91-(a*7-3), 1.0);// crossing field
-        robot.liftPosition(3.535);
+        robot.AbsoluteTurnIMU(0,1.0);//straightens robot
+        robot.fasterMoveRightIMU(91-(a*7-3),1.0 );// crossing field
+        robot.liftPosition(3.535);//lifts lift
 
         double d = 0.0;
         if (a==0) {
-            d = 9;
+            d = 10;
         } else if (a==1) {
             d =  8;
         } else {
-            d =9;
+            d =7.7;
         }
-        robot.moveForwardIMU(d,0.35);
+        robot.moveForwardIMU(d,0.35);//apporahes foundatio
         robot.moveForwardIMU(3,0.2);
         robot.moveFoundationRightdown(true);// grabs foundation
         robot.moveFoundationLefttdown(true);
         robot.clawClamp(true);// places stone
-        robot.moveBackward(37, 0.8);
-        robot.moveLeftIMU(28, 1.0);
-        robot.moveRightIMU(0.25, 1.0);
-        robot.moveForward(56, 1.0);
-        robot.moveFoundationLefttdown(false);
-        robot.moveFoundationRightdown(false);
-        robot.moveRight(12,1.0);
-        robot.liftPosition(1.8);
-        robot.moveBackward(42,0.9);
+        robot.moveBackward(38, 1.0);//moves founation
+        robot.moveLeftIMU(28, 0.5);// turns foundation; endangers servo
+        robot.moveRightIMU(0.25, 1.0);//gets ready to push foundatio
+        robot.moveForward(50, 1.0);//pushes foudation against wall
+        robot.moveFoundationLefttdown(false);//lets go
+        robot.moveFoundationRightdown(false);//lets go
+        robot.fasterMoveRightIMU(9,1.0); // gets ready to park
+        robot.liftPosition(1.8);//lift down
+        //sleep(5000);
+        robot.moveBackward(42,0.9);//parks
         //robot.clawClampPosition(0.0);
-
+//*/
 
     }
 }
