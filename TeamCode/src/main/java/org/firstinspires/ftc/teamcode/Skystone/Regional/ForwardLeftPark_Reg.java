@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -18,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
  * @since   2020-Jan-7
  *
  */
-//@Disabled
+@Disabled
 @Autonomous(name = "ForwardLeftPark_Reg")
 public class ForwardLeftPark_Reg extends LinearOpMode {
     Robot_Reg robot = new Robot_Reg();

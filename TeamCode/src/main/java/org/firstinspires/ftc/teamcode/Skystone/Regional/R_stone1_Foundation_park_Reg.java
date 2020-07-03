@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Skystone.Regional;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.Vuforia_Q3;
  * @since 2020 Jan-7
  */
 
-
+@Disabled
 @Autonomous(name = "R_stone1_Foundation_park_Reg")
 public class R_stone1_Foundation_park_Reg extends LinearOpMode {
     Robot_Reg robot; { robot = new Robot_Reg(); }
