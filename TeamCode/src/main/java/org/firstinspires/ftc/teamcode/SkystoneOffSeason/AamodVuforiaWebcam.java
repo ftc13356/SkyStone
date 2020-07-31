@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SkystoneOffSeason.Chassis2;
+package org.firstinspires.ftc.teamcode.SkystoneOffSeason;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -24,7 +24,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
-public class AamodVuforia extends Thread{
+public   class AamodVuforiaWebcam extends Thread {
     private OpMode op;
     private double xpos, ypos, angle;
     private String trackable;
@@ -40,7 +40,7 @@ public class AamodVuforia extends Thread{
 
     private VuforiaLocalizer vuforia;
 
-    public AamodVuforia(OpMode opMode, VuforiaLocalizer.CameraDirection camera_direction) {
+    public AamodVuforiaWebcam(OpMode opMode, VuforiaLocalizer.CameraDirection camera_direction) {
         op = opMode;
         VuforiaLocalizer.CameraDirection CAMERA_CHOICE = camera_direction;
     }
@@ -61,6 +61,10 @@ public class AamodVuforia extends Thread{
         // Use back camera
         final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
 
+        WebcamName webcamName = null;
+
+        webcamName = op.hardwareMap.get(WebcamName.class, "Webcam 1");
+
         // Instantiate Vuforia engine
         VuforiaLocalizer vuforia;
 
@@ -70,7 +74,7 @@ public class AamodVuforia extends Thread{
 
         // Set parameters
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CAMERA_CHOICE;
+        parameters.cameraName = webcamName;
 
         // Start Vuforia
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
@@ -107,11 +111,11 @@ public class AamodVuforia extends Thread{
 
         /*****Front******/
         OpenGLMatrix frontCTarget1LocationOnField = OpenGLMatrix.translation(-mmFieldHalfWidth, -mmFieldQuarterWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
         FrontPerimeterTgt1.setLocation(frontCTarget1LocationOnField);
 
         OpenGLMatrix frontCTarget2LocationOnField = OpenGLMatrix.translation(-mmFieldHalfWidth, mmFieldQuarterWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
         FrontPerimeterTgt2.setLocation(frontCTarget2LocationOnField);
 
         /*****Blue******/
@@ -132,16 +136,16 @@ public class AamodVuforia extends Thread{
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
         RearPerimeterTgt2.setLocation(rearTarget2LocationOnField);
 
-        // Set Phone Location
-        final int CAMERA_FORWARD_DISPLACEMENT = 0;
-        final int CAMERA_VERTICAL_DISPLACEMENT = 0;
-        final int CAMERA_LEFT_DISPLACEMENT = 0;
+        // Set Webcam Location
+        final float CAMERA_FORWARD_DISPLACEMENT = 5.5f; //TODO: change back to int?
+        final float CAMERA_VERTICAL_DISPLACEMENT = 10f; //TODO: change back to int?
+        final float CAMERA_LEFT_DISPLACEMENT = 7.25f; //TODO: change back to int?
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix.translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
 
         // Give Phone Location to Trackable Listeners
         for (VuforiaTrackable trackable : allTrackables) {
-            ((VuforiaTrackableDefaultListener)trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
         }
 
         // Activate Vuforia Tracking
@@ -151,18 +155,19 @@ public class AamodVuforia extends Thread{
 
     @Override
     public void run() {
-
         // Run until Thread is Interrupted
         while (!isInterrupted()) {
             targetVisible = false;
             // Look for Trackable, Update Robot Location if Possible
             for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                     targetVisible = true;
                     this.trackable = trackable.getName();
 
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
-                    if (robotLocationTransform != null) {lastLocation = robotLocationTransform;}
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
+                    if (robotLocationTransform != null) {
+                        lastLocation = robotLocationTransform;
+                    }
                     break;
                 }
             }
@@ -194,3 +199,6 @@ public class AamodVuforia extends Thread{
         return trackable;
     }
 }
+
+
+
