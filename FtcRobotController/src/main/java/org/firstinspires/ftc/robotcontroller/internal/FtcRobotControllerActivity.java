@@ -60,6 +60,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+//import com.acmerobotics.dashboard.FtcDashboard; TODO: ADDED 6/7
 import com.google.blocks.ftcrobotcontroller.ProgrammingWebHandlers;
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
 import com.qualcomm.ftccommon.ClassManagerFactory;
@@ -313,6 +314,7 @@ public class FtcRobotControllerActivity extends Activity
           }
         });
         popupMenu.inflate(R.menu.ftc_robot_controller);
+        //FtcDashboard.populateMenu(popupMenu.getMenu()); TODO: ADDED 6/7
         popupMenu.show();
       }
     });
@@ -380,6 +382,7 @@ public class FtcRobotControllerActivity extends Activity
     if (preferencesHelper.readBoolean(getString(R.string.pref_wifi_automute), false)) {
       initWifiMute(true);
     }
+    //FtcDashboard.start(); TODO: ADDED 6/7
   }
 
   protected UpdateUI createUpdateUI() {
@@ -459,6 +462,7 @@ public class FtcRobotControllerActivity extends Activity
     if (preferencesHelper != null) preferencesHelper.getSharedPreferences().unregisterOnSharedPreferenceChangeListener(sharedPreferencesListener);
 
     RobotLog.cancelWriteLogcatToDisk();
+    //FtcDashboard.stop(); TODO: ADDED 6/7
   }
 
   protected void bindToService() {
@@ -531,6 +535,7 @@ public class FtcRobotControllerActivity extends Activity
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.ftc_robot_controller, menu);
+    //FtcDashboard.populateMenu(menu); TODO: ADDED 6/7
     return true;
   }
 
@@ -665,6 +670,7 @@ public class FtcRobotControllerActivity extends Activity
         return service.getRobot().eventLoopManager;
       }
     });
+    //FtcDashboard.attachWebServer(service.getWebServer()); TODO: ADDED 6/7
   }
 
   private void updateUIAndRequestRobotSetup() {
@@ -704,6 +710,7 @@ public class FtcRobotControllerActivity extends Activity
 
     passReceivedUsbAttachmentsToEventLoop();
     AndroidBoard.showErrorIfUnknownControlHub();
+    //FtcDashboard.attachEventLoop(eventLoop); TODO: ADDED 6/7
   }
 
   protected OpModeRegister createOpModeRegister() {
