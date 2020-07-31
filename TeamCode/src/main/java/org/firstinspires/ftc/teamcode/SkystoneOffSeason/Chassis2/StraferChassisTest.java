@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SkystoneOffSeason;
+package org.firstinspires.ftc.teamcode.SkystoneOffSeason.Chassis2;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -25,32 +25,32 @@ public class StraferChassisTest extends LinearOpMode{
             telemetry.update();
         }
         sleep(500);
-        robot.moveMotorLeftFront(-10);
-        sleep(1000);
-        robot.moveMotorRightFront(-10);
-        sleep(1000);
-        robot.moveMotorRightBack(-10);
-        sleep(2500);
-        robot.moveMotorLeftBack(-10);
-        sleep(1000);
+//        robot.moveMotorLeftFront(-10);
+//        sleep(1000);
+//        robot.moveMotorRightFront(-10);
+//        sleep(1000);
+//        robot.moveMotorRightBack(-10);
+//        sleep(2500);
+//        robot.moveMotorLeftBack(-10);
+//        sleep(1000);
 
-        robot.moveForward(30,0.8);
-        sleep(1000);
-        robot.moveBackward(30,0.8);
-        sleep(3000);
-        robot.moveForwardIMU(50,0.8);
-        sleep(1000);
-        robot.moveBackwardIMU(50,0.8);
-        sleep(3000);
-
-        robot.moveLeft(50,0.8);
-        sleep(1000);
-        robot.moveRight(50,0.8);
-        sleep(3000);
-        robot.moveLeftIMU(70, 0.8, 0, 0.15, 0.2);
-        sleep(1000);
-        robot.moveRightIMU(70, 0.8, 0, 0.1, 0.2);
-        sleep(1000);
+//        robot.moveForward(30,0.8);
+//        sleep(1000);
+//        robot.moveBackward(30,0.8);
+//        sleep(3000);
+//        robot.moveForwardIMU(50,0.8);
+//        sleep(1000);
+//        robot.moveBackwardIMU(50,0.8);
+//        sleep(3000);
+//
+//        robot.moveLeft(50,0.8);
+//        sleep(1000);
+//        robot.moveRight(50,0.8);
+//        sleep(3000);
+//        robot.moveLeftIMU(70, 0.8, 0, 0.15, 0.2);
+//        sleep(1000);
+//        robot.moveRightIMU(70, 0.8, 0, 0.1, 0.2);
+//        sleep(1000);
 
 //        robot.moveAngle(30,20);
 //        sleep(5000);
