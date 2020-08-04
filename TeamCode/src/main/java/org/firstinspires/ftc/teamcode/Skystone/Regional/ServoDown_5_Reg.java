@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.Skystone.Qualifier_3.RobotA;
  * @since   2020-Jan-7
  *
  */
-//@Disabled
+@Disabled
 @Autonomous(name = "ServoDown_5_Reg")
 public class ServoDown_5_Reg extends LinearOpMode {
     Robot_Reg robot = new Robot_Reg();
