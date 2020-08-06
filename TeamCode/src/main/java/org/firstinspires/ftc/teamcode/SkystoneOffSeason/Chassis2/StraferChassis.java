@@ -98,12 +98,12 @@ public class StraferChassis {
         motorRightFront.setDirection(DcMotor.Direction.FORWARD);
         motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
         motorRightBack.setDirection(DcMotor.Direction.FORWARD);
+
         // reset encoder count kept by left motor.
         motorLeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
     }
 
     public void stopAllMotors() {
@@ -584,14 +584,15 @@ public class StraferChassis {
         motorRightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void moveAngle2(double distance, double angle){
+    public void moveAngle2(double distance, double angle, double turn){
+        turn = counts_per_degree*turn;
         double powerLB = (1/Math.sqrt(2)) * (Math.sin(Math.toRadians(angle))+Math.cos(Math.toRadians(angle)));
         double powerLF = (1/Math.sqrt(2)) * (Math.cos(Math.toRadians(angle))-Math.sin(Math.toRadians(angle)));
         double ticksToMove = counts_per_inch*distance;
-        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + powerLB*ticksToMove;
-        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + powerLF*ticksToMove;
-        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + powerLF*ticksToMove;
-        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + powerLB*ticksToMove;
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + powerLB*ticksToMove + turn;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + powerLF*ticksToMove + turn;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + powerLF*ticksToMove - turn;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + powerLB*ticksToMove - turn;
         motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
         motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
         motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
