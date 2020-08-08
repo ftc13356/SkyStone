@@ -28,7 +28,7 @@ public class Chassis2 {
         motorRightBack.setPower(0);
     }
 
-    public void moveForwardTeleop(double power, double distance) { //TODO Remove this function and move all calls to function without distance parameter
+    public void moveForwardTeleop(double power ) { //TODO Remove this function and move all calls to function without distance parameter
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -42,22 +42,8 @@ public class Chassis2 {
         motorRightFront.setPower(power);
     }
 
-    public void moveForwardTeleop(double power) {
-        // Changes motor mode back to default
-        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        //was 0.70
-        motorLeftBack.setPower(power);
-        motorRightBack.setPower(power);
-        motorLeftFront.setPower(power);
-        motorRightFront.setPower(power);
-
-    }
-
-    public void moveBackwardTeleop(double power, double distance) {
+    public void moveBackwardTeleop(double power ) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -72,7 +58,7 @@ public class Chassis2 {
 
     }
 
-    public void moveRightTeleop(double power, double distance) {
+    public void moveRightTeleop(double power ) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -87,7 +73,7 @@ public class Chassis2 {
 
     }
 
-    public void moveLeftTeleop(double power, double distance) {
+    public void moveLeftTeleop(double power ) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -102,7 +88,7 @@ public class Chassis2 {
 
     }
 
-    public void moveDiagonalRightUpTeleop(double angle, double power, double distance) {
+    public void moveDiagonalRightUpTeleop(double angle, double power) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -117,7 +103,7 @@ public class Chassis2 {
 
     }
 
-    public void moveDiagonalRightDownTeleop(double angle, double power, double distance) {
+    public void moveDiagonalRightDownTeleop(double angle, double power) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -132,7 +118,7 @@ public class Chassis2 {
 
     }
 
-    public void moveDiagonalLeftUpTeleop(double angle, double power, double distance) {
+    public void moveDiagonalLeftUpTeleop(double angle, double power) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -147,7 +133,7 @@ public class Chassis2 {
 
     }
 
-    public void moveDiagonalLeftDownTeleop(double angle, double power, double distance) {
+    public void moveDiagonalLeftDownTeleop(double angle, double power) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -163,7 +149,7 @@ public class Chassis2 {
     }
 
 
-    //@direction: true = left, false = right
+    //@direction: true = left false = right
     public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
         // Changes motor mode back to default
         motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

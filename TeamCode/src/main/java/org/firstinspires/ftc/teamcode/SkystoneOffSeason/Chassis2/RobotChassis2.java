@@ -19,36 +19,36 @@ public class RobotChassis2 {
     }
 
 
-    public void moveForwardTeleop(double power, double distance) {
-        drivetrain.moveForwardTeleop(power, distance);
+    public void moveForwardTeleop(double power) {
+        drivetrain.moveForwardTeleop(power);
     }
 
-    public void moveBackwardTeleop(double power, double distance) {
-        drivetrain.moveBackwardTeleop(power, distance);
+    public void moveBackwardTeleop(double power) {
+        drivetrain.moveBackwardTeleop(power);
     }
 
-    public void moveRightTeleop(double power, double distance) {
-        drivetrain.moveRightTeleop(power, distance);
+    public void moveRightTeleop(double power) {
+        drivetrain.moveRightTeleop(power);
     }
 
-    public void moveLeftTeleop(double power, double distance) {
-        drivetrain.moveLeftTeleop(power, distance);
+    public void moveLeftTeleop(double power) {
+        drivetrain.moveLeftTeleop(power);
     }
 
-    public void moveDiagonalRightUpTeleop(double angle, double power, double distance) {
-        drivetrain.moveDiagonalRightUpTeleop(angle, power, distance);
+    public void moveDiagonalRightUpTeleop(double angle, double power) {
+        drivetrain.moveDiagonalRightUpTeleop(angle, power);
     }
 
-    public void moveDiagonalRightDownTeleop(double angle, double power, double distance) {
-        drivetrain.moveDiagonalRightDownTeleop(angle, power, distance);
+    public void moveDiagonalRightDownTeleop(double angle, double power) {
+        drivetrain.moveDiagonalRightDownTeleop(angle, power);
     }
 
-    public void moveDiagonalLeftUpTeleop(double angle, double power, double distance) {
-        drivetrain.moveDiagonalLeftUpTeleop(angle, power, distance);
+    public void moveDiagonalLeftUpTeleop(double angle, double power) {
+        drivetrain.moveDiagonalLeftUpTeleop(angle, power);
     }
 
-    public void moveDiagonalLeftDownTeleop(double angle, double power, double distance) {
-        drivetrain.moveDiagonalLeftDownTeleop(angle, power, distance);
+    public void moveDiagonalLeftDownTeleop(double angle, double power) {
+        drivetrain.moveDiagonalLeftDownTeleop(angle, power);
 
     }
 
