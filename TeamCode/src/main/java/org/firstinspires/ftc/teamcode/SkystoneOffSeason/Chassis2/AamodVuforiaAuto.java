@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 @Autonomous(name = "AamodVuforiaAuto")
 public class AamodVuforiaAuto extends LinearOpMode {
 
-    Chassis2_straferChassis robot = new Chassis2_straferChassis();
+    Chassis2 robot = new Chassis2();
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override

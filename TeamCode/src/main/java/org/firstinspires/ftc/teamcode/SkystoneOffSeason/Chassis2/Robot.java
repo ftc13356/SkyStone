@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.SkystoneOffSeason.Chassis2;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 
@@ -12,7 +10,7 @@ public class Robot {
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
-    Chassis2_straferChassis robot = new Chassis2_straferChassis();
+    Chassis2 robot = new Chassis2();
     AamodVuforia vuforia = new AamodVuforia(op, VuforiaLocalizer.CameraDirection.BACK);
     AamodVuforiaWebcam vuforiaWebcam = new AamodVuforiaWebcam(op, VuforiaLocalizer.CameraDirection.BACK);
 
@@ -29,18 +27,18 @@ public class Robot {
     }
 
     public void moveVuforiaWebcam(double x, double y, double turn) {
-        double xdifference = x - vuforiaWebcam.getVuforiaX();
-        double ydifference = y - vuforiaWebcam.getVuforiaY();
+        double xdifference = x - getVuforiaX();
+        double ydifference = y - getVuforiaY();
         double magnitude = Math.sqrt(xdifference * xdifference + ydifference * ydifference);
 
         double angle = Math.acos(Math.toRadians(ydifference/magnitude));
-        op.telemetry.addData("VuforiaX", vuforiaWebcam.getVuforiaX());
-        op.telemetry.addData("VuforiaY", vuforiaWebcam.getVuforiaY());
+        op.telemetry.addData("VuforiaX", getVuforiaX());
+        op.telemetry.addData("VuforiaY", getVuforiaY());
         op.telemetry.update();
         op.idle();
         robot.moveAngle2(magnitude, angle, turn);
-        op.telemetry.addData("VuforiaX", vuforiaWebcam.getVuforiaX());
-        op.telemetry.addData("VuforiaY", vuforiaWebcam.getVuforiaY());
+        op.telemetry.addData("VuforiaX", getVuforiaX());
+        op.telemetry.addData("VuforiaY", getVuforiaY());
         op.telemetry.update();
         op.idle();
     }

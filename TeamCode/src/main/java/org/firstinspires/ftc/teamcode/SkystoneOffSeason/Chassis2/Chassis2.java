@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class Chassis2_straferChassis {
+public class Chassis2 {
     //initialize motor
     DcMotorEx motorLeftFront;
     DcMotorEx motorRightFront;
@@ -51,7 +51,7 @@ public class Chassis2_straferChassis {
     //set true to enable imu vice versa
     final boolean enableIMU = true;
 
-    public Chassis2_straferChassis() {
+    public Chassis2() {
     }
 
     public void init(LinearOpMode opMode) {
