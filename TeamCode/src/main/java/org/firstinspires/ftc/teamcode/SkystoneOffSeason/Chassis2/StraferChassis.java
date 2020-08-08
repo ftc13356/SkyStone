@@ -340,12 +340,40 @@ public class StraferChassis {
         motorRightFront.setPower(0);
     }
 
+    public void moveForwardTeleop(double power) {
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was 0.70
+        motorLeftBack.setPower(power);
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power);
+        motorRightFront.setPower(power);
+    }
+
     public void moveBackward(double distance, double power) {
         moveForward(-distance, power);
     }
 
     public void moveBackwardIMU(double distance, double power) {
         moveForwardIMU(-distance, power);
+    }
+
+    public void moveBackwardTeleop(double power) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was -0.80
+        motorLeftBack.setPower(-power);
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power);
+        motorRightFront.setPower(-power);
+
     }
 
     public void moveRight(double distance, double power) {
@@ -430,6 +458,52 @@ public class StraferChassis {
 
     }
 
+    public void moveRightTeleop(double power ) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //this was 1.0 and -1.0
+        motorLeftBack.setPower(power*0.95);
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power*0.85);
+        motorRightFront.setPower(power);
+
+    }
+
+    public void moveDiagonalRightUpTeleop(double angle, double power) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was -1.0 and 1.0
+        motorLeftBack.setPower(0); //TODO: change back & use encoders for sideways
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power);
+        motorRightFront.setPower(0);
+
+    }
+
+    public void moveDiagonalRightDownTeleop(double angle, double power) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was -1.0 and 1.0
+        motorLeftBack.setPower(0); //TODO: change back & use encoders for sideways
+        motorRightBack.setPower(-power);
+        motorLeftFront.setPower(-power);
+        motorRightFront.setPower(0);
+
+    }
+
+
     public void moveLeft(double distance, double power) {
         moveRight(-distance, power);
     }
@@ -463,6 +537,51 @@ public class StraferChassis {
             motorLeftFront.setPower(power + correction);
         }
         stopAllMotorsSideways();
+    }
+
+    public void moveLeftTeleop(double power ) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was -1.0 and 1.0
+        motorLeftBack.setPower(-power*0.95); //TODO: change back & use encoders for sideways
+        motorRightBack.setPower(power);
+        motorLeftFront.setPower(power*0.85);
+        motorRightFront.setPower(-power);
+
+    }
+
+    public void moveDiagonalLeftUpTeleop(double angle, double power) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was -1.0 and 1.0
+        motorLeftBack.setPower(power); //TODO: change back & use encoders for sideways
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(power);
+
+    }
+
+    public void moveDiagonalLeftDownTeleop(double angle, double power) {
+        // Changes motor mode back to default
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //was -1.0 and 1.0
+        motorLeftBack.setPower(-power); //TODO: change back & use encoders for sideways
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorRightFront.setPower(-power);
+
     }
 
     public void move(double fwd, double rsd, double turn, double fwdpr, double rsdpwr, double turnpwr){

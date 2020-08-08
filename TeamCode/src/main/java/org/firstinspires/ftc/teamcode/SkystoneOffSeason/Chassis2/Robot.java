@@ -91,6 +91,10 @@ public class Robot {
         robot.moveForwardIMU(distance, power);
     }
 
+    public void moveForwardTeleop(double power) {
+        robot.moveForwardTeleop(power);
+    }
+
     public void moveBackward(double distance, double power) {
         robot.moveBackward(distance, power);
     }
@@ -99,6 +103,10 @@ public class Robot {
         robot.moveBackwardIMU(distance, power);
     }
 
+    public void moveBackwardTeleop(double power) {
+        robot.moveBackwardTeleop(power);
+    }
+    
     public void moveRight(double distance, double power) {
         robot.moveRight(distance, power);
     }
@@ -107,12 +115,37 @@ public class Robot {
         robot.moveRightIMU(distance, power, startingAngle, gain, maxCorrection);
     }
 
+    public void moveRightTeleop(double power) {
+        robot.moveRightTeleop(power);
+    }
+
+    public void moveDiagonalRightUpTeleop(double angle, double power) {
+        robot.moveDiagonalRightUpTeleop(angle, power);
+    }
+
+    public void moveDiagonalRightDownTeleop(double angle, double power) {
+        robot.moveDiagonalRightDownTeleop(angle, power);
+    }
+
     public void moveLeft(double distance, double power) {
         robot.moveLeft(distance, power);
     }
 
     public void moveLeftIMU(double distance, double power, double startingAngle, double gain, double maxCorrection) {
         robot.moveLeftIMU(distance, power, startingAngle, gain, maxCorrection);
+    }
+
+    public void moveLeftTeleop(double power) {
+        robot.moveLeftTeleop(power);
+    }
+
+    public void moveDiagonalLeftUpTeleop(double angle, double power) {
+        robot.moveDiagonalLeftUpTeleop(angle, power);
+    }
+
+    public void moveDiagonalLeftDownTeleop(double angle, double power) {
+        robot.moveDiagonalLeftDownTeleop(angle, power);
+
     }
 
     /**
