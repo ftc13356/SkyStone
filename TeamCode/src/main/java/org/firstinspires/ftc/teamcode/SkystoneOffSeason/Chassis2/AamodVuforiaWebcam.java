@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.key;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.vuforia.CameraDevice;
 
@@ -45,15 +46,14 @@ public   class AamodVuforiaWebcam extends Thread {
         VuforiaLocalizer.CameraDirection CAMERA_CHOICE = camera_direction;
     }
 
-    public void init(){
+    public void init(LinearOpMode opMode){
+        op = opMode;
 
         // Vuforia License Key
         final String VUFORIA_KEY = "ATUOrmn/////AAABmVLVlWBtWUpnh9+EekIwR4lmMDXtnMrh/37lRyh+1m4oZJv1ANDvpS7D/Es9GNQ0wAkJ4YOHVWFjjsE5ptAFY2NRCAAwEY4VtvXEvSr3j/a0WR54dNfoCHRsnEaL5oQu25MoyOo7VrmhkE3xb2J9cNbsJzeqNaZWdQQpHkrgzEotos4i2tf/z+IMQxQ5nwH7Daiar93yoFv6FKeTh9MfI3bxVKR0nF+vrMzmNPC6YLk3yjqAKLqSgAvV0t07MBz9BjT2r58njS6qCo2U1H3sQXBlUcMdeKi4iclQaM+Oac+mZrzrhMvSEW7gC9mDhoL8l3zf2yMLPV9oGtnirNWn7ov/mupDtDecOUI4MPDNi9dt";
 
         // Initialize Variables
-        //OpenGLMatrix lastLocation = null;
         boolean targetVisible = false;
-        //final float mmPerInch = 25.4f;
         final float mmFieldHalfWidth = 72 * mmPerInch;
         final float mmFieldQuarterWidth = 36 * mmPerInch;
         final float mmTargetHeight = 5.75f * mmPerInch;
@@ -61,9 +61,8 @@ public   class AamodVuforiaWebcam extends Thread {
         // Use back camera
         final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
 
-        WebcamName webcamName = null;
 
-        webcamName = op.hardwareMap.get(WebcamName.class, "Webcam 1");
+        WebcamName webcamName = op.hardwareMap.get(WebcamName.class, "Webcam 1");
 
         // Instantiate Vuforia engine
         VuforiaLocalizer vuforia;

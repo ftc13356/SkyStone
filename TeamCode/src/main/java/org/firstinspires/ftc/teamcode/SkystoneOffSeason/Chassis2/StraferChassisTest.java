@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "StraferChassisTest")
 public class StraferChassisTest extends LinearOpMode{
 
-    StraferChassis robot = new StraferChassis();
+    Robot robot = new Robot();
     private ElapsedTime runtime = new ElapsedTime();
 
     public void StraferChassisTest() {
@@ -18,7 +18,7 @@ public class StraferChassisTest extends LinearOpMode{
     public void runOpMode() {
         telemetry.addData("Status", "Ready for Init");
         telemetry.update();
-        robot.init(this);
+        robot.initChassis(this);
         /****** Wait for Start *******/
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("Status", "Waiting for start command...");
@@ -80,22 +80,25 @@ public class StraferChassisTest extends LinearOpMode{
 
 //        robot.moveAngle2(30,60);
 //        sleep(3000);
-        robot.moveAngle2(30,0);
-        sleep(3000);
-        robot.moveAngle2(30,180);
-        sleep(3000);
-        robot.moveAngle2(30,90);
-        sleep(3000);
-        robot.moveAngle2(30,-90);
-        sleep(3000);
-        robot.moveAngle2(30,30);
-        sleep(3000);
-        robot.moveAngle2(30,-30);
-        sleep(3000);
+//        robot.moveAngle2(30,0,0);
+//        sleep(3000);
+//        robot.moveAngle2(30,180,0);
+//        sleep(3000);
+//        robot.moveAngle2(30,90,0);
+//        sleep(3000);
+//        robot.moveAngle2(30,-90,0);
+//        sleep(3000);
+//        robot.moveAngle2(30,30,0);
+//        sleep(3000);
+//        robot.moveAngle2(30,-30,0);
+//        sleep(3000);
 //        robot.moveAngle2(-30,-120);
 //        robot.moveAngle2(-30,60);
 //        sleep(3000);
 //        robot.moveAngle2(-30,-60);
+        sleep(2000);
+        robot.moveVuforiaWebcam(-30,30,0);
+        sleep(2000);
 
     }
 }
