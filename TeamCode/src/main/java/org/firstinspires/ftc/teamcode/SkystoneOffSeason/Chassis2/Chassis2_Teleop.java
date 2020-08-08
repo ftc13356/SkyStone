@@ -5,14 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Chassis2_Teleop extends LinearOpMode {
-    private RobotChassis2 robot = new RobotChassis2();
+    private Robot robot = new Robot();
     double power = .3;
     double angle = 0;
-
 
 
     public void runOpMode() throws InterruptedException {

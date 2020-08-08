@@ -12,7 +12,7 @@ public class Robot {
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
-    StraferChassis robot = new StraferChassis();
+    Chassis2_straferChassis robot = new Chassis2_straferChassis();
     AamodVuforia vuforia = new AamodVuforia(op, VuforiaLocalizer.CameraDirection.BACK);
     AamodVuforiaWebcam vuforiaWebcam = new AamodVuforiaWebcam(op, VuforiaLocalizer.CameraDirection.BACK);
 
@@ -146,6 +146,10 @@ public class Robot {
     public void moveDiagonalLeftDownTeleop(double angle, double power) {
         robot.moveDiagonalLeftDownTeleop(angle, power);
 
+    }
+
+    public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
+        robot.inPlaceTurnTeleop(degrees, direction, power);
     }
 
     /**

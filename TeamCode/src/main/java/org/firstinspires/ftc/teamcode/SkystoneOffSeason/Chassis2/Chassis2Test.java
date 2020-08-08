@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @Autonomous(name = "StraferChassisTest")
-public class StraferChassisTest extends LinearOpMode{
+public class Chassis2Test extends LinearOpMode{
 
     Robot robot = new Robot();
     private ElapsedTime runtime = new ElapsedTime();
