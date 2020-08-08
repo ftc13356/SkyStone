@@ -96,8 +96,9 @@ public class StraferChassisTest extends LinearOpMode{
 //        robot.moveAngle2(-30,60);
 //        sleep(3000);
 //        robot.moveAngle2(-30,-60);
-
-        robot.moveVuforiaWebcam(-30,30,30,60);
+        sleep(2000);
+        robot.moveVuforiaWebcam(-30,30,0);
+        sleep(2000);
 
     }
 }

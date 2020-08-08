@@ -32,8 +32,8 @@ public class StraferChassis {
     final double wheel_diameter = 3.93701;
 
     // these encoder variables vary depending on chassis type
-    final double counts_per_motor_rev = 383.6;
-    final double counts_per_inch = 2*(counts_per_motor_rev / (wheel_diameter * Math.PI));
+    final double counts_per_motor_goBilda = 383.6;
+    final double counts_per_inch = 2*(counts_per_motor_goBilda / (wheel_diameter * Math.PI));
     final double counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
     //variables for lifting mechanism
@@ -86,7 +86,7 @@ public class StraferChassis {
         op.telemetry.addData("Mode", "waiting for start");
         op.telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
         op.telemetry.update();
-        op.sleep(2500);
+        op.sleep(500);
 
         // Chassis Motors
         motorLeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

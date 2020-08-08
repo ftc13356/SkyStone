@@ -24,24 +24,25 @@ public class Robot {
         hardwareMap = op.hardwareMap;
 
         robot.init(opMode);
-        op.telemetry.addData("After Robot Init", "before vuforia");
-        op.telemetry.update();
         //vuforia.init();
-        op.telemetry.addData("After Vuforia Init", "before vuforiawebcam");
-        op.telemetry.update();
         vuforiaWebcam.init(opMode);
-        op.telemetry.addData("After Vuforia webcam Init", "before exiting");
-        op.telemetry.update();
     }
 
-    public void moveVuforiaWebcam(double x, double y, double angle, double turn) {
+    public void moveVuforiaWebcam(double x, double y, double turn) {
         double xdifference = x - vuforiaWebcam.getVuforiaX();
         double ydifference = y - vuforiaWebcam.getVuforiaY();
-        double angledifference = angle - vuforiaWebcam.getVuforiaAngle();
-
         double magnitude = Math.sqrt(xdifference * xdifference + ydifference * ydifference);
 
-        robot.moveAngle2(magnitude, angledifference, turn);
+        double angle = Math.acos(Math.toRadians(ydifference/magnitude));
+        op.telemetry.addData("VuforiaX", vuforiaWebcam.getVuforiaX());
+        op.telemetry.addData("VuforiaY", vuforiaWebcam.getVuforiaY());
+        op.telemetry.update();
+        op.idle();
+        robot.moveAngle2(magnitude, angle, turn);
+        op.telemetry.addData("VuforiaX", vuforiaWebcam.getVuforiaX());
+        op.telemetry.addData("VuforiaY", vuforiaWebcam.getVuforiaY());
+        op.telemetry.update();
+        op.idle();
     }
 
     public void stopAllMotors() {
