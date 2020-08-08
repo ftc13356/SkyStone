@@ -1,18 +1,10 @@
 package org.firstinspires.ftc.teamcode.SkystoneOffSeason.Chassis2;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-import java.util.Locale;
 
 import static java.lang.Math.abs;
 
 
 public class RobotChassis2 {
-    Chassis2 drivetrain = new Chassis2();
+    Chassis2DeleteLater drivetrain = new Chassis2DeleteLater();
 
     public void stopAllMotors() {
         drivetrain.stopAllMotors();

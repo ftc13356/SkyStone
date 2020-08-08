@@ -12,7 +12,7 @@ public class Robot {
     private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
-    StraferChassis robot = new StraferChassis();
+    Chassis2_straferChassis robot = new Chassis2_straferChassis();
     AamodVuforia vuforia = new AamodVuforia(op, VuforiaLocalizer.CameraDirection.BACK);
     AamodVuforiaWebcam vuforiaWebcam = new AamodVuforiaWebcam(op, VuforiaLocalizer.CameraDirection.BACK);
 
