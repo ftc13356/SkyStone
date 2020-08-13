@@ -150,9 +150,7 @@ public class Robot {
         robot.inPlaceTurnTeleop(degrees, direction, power);
     }
 
-    /**
-     * move
-     **/
+
     public void move(double fwd, double rsd, double turn, double fwdpr, double rsdpwr, double turnpwr) {
         robot.move(fwd, rsd, turn, fwdpr, rsdpwr, turnpwr);
     }
