@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.SkystoneOffSeason.Chassis2;
 
+import android.media.FaceDetector;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,9 +13,6 @@ public class Chassis2_Teleop extends LinearOpMode {
     private DcMotor motorLeftBack;
     private DcMotor motorRightFront;
     private DcMotor motorRightBack;
-    float left_stick_y;
-    float left_stick_x;
-    float right_stick_x;
 
     @Override
     public void runOpMode() {
@@ -21,6 +20,7 @@ public class Chassis2_Teleop extends LinearOpMode {
         double magnitude;
         double angleInRadian;
         double angleInDegree;
+        boolean slowMode = false;
 
         motorLeftFront = hardwareMap.dcMotor.get("motorLeftFront");
         motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
@@ -41,14 +41,30 @@ public class Chassis2_Teleop extends LinearOpMode {
 
             float left_stick_y = -gamepad1.left_stick_y;
             float left_stick_x = -gamepad1.left_stick_x;
+            boolean x_button = gamepad1.x;
+            boolean a_button = gamepad1.a;
 
-            magnitude = Math.sqrt(Math.pow(left_stick_x, 2) + Math.sqrt(Math.pow(left_stick_y, 2)));
             angleInRadian = Math.atan2(left_stick_y, left_stick_x);
             angleInDegree = Math.toDegrees(angleInRadian);
 
+            if (a_button) { //click a to turn on slowmode
+                slowMode = true;
+            }
+            if (x_button) { //click x to turn off slow mode
+                slowMode = false;
+            }
 
-            telemetry.addData("Motor", " idk)", magnitude);
-            telemetry.update();
+            if (slowMode == true) {
+                if (left_stick_x == 0 && left_stick_y == 0) {
+                    magnitude = 0;
+                }
+                else {
+                    magnitude = 0.3;
+                }
+            }
+            else {
+                magnitude = Math.sqrt(Math.pow(left_stick_x, 2) + Math.sqrt(Math.pow(left_stick_y, 2)));
+            }
             multidirectionalMove(magnitude, angleInDegree);
 
         }
