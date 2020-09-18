@@ -31,8 +31,8 @@ public class Motor2_Nikhil extends LinearOpMode {
         telemetry.update();
         waitForStart();
         //^ initialization
-        robot.twoMotor(2000);
-        //turns the two wheels for a distance of 2000
+        robot.twoMotor(20000);
+        //turns the two wheels for a distance of 20000
 
     }
 }

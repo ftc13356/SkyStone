@@ -28,10 +28,10 @@ public class Chassis1 {
     public void twoMotor(double distance) {
         this.distance = distance;//creates distance parameter
         double sleepTime = (distance / speed * 1000);
-        left.setPower(1);//sets power
+        left.setPower(-1);//sets power
         right.setPower(-1);//sets power
         op.sleep((long) sleepTime);
         left.setPower(0);
         right.setPower(0);
-    }
-}
+        }
+        }
