@@ -7,12 +7,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 
 public class Robot {
-    private ElapsedTime runtime = new ElapsedTime();
     private LinearOpMode op = null;
     private HardwareMap hardwareMap = null;
-    Chassis2 robot = new Chassis2();
-    AamodVuforia vuforia = new AamodVuforia(op, VuforiaLocalizer.CameraDirection.BACK);
-    AamodVuforiaWebcam vuforiaWebcam = new AamodVuforiaWebcam(op, VuforiaLocalizer.CameraDirection.BACK);
+    private ElapsedTime runtime = new ElapsedTime();
+    Chassis2 drivetrain = new Chassis2();
+
+    private AamodVuforiaWebcam vuforiaWebcam = null;
+    private double vuforiaX = 0;
+    private double vuforiaY = 0;
+    private double vuforiaAngle = 0;
+    private double robotAngle = 0;
 
     public Robot() {
     }
@@ -21,60 +25,77 @@ public class Robot {
         op = opMode;
         hardwareMap = op.hardwareMap;
 
-        robot.init(opMode);
-        //vuforia.init();
+        vuforiaWebcam = new AamodVuforiaWebcam(op, VuforiaLocalizer.CameraDirection.BACK);
+
+        drivetrain.init(opMode);
         vuforiaWebcam.init(opMode);
+
+        vuforiaWebcam.start();
+
+        getVuforiaPosition();
+        op.telemetry.addData("Position","%.2f %.2f %.2f %.2f", vuforiaX, vuforiaY, vuforiaAngle, robotAngle);
+        op.telemetry.update();
+        op.sleep(1000);
     }
 
-    public void moveVuforiaWebcam(double x, double y, double turn) {
-        double xdifference = x - getVuforiaX();
-        double ydifference = y - getVuforiaY();
-        double magnitude = Math.sqrt(xdifference * xdifference + ydifference * ydifference);
+    public void moveVuforiaWebcam(double x, double y, double endAngle) {
+        getVuforiaPosition();
 
-        double angle = Math.acos(Math.toRadians(ydifference/magnitude));
-        op.telemetry.addData("VuforiaX", getVuforiaX());
-        op.telemetry.addData("VuforiaY", getVuforiaY());
+        double xdifference = x - vuforiaX;
+        double ydifference = y - vuforiaY;
+
+        double turn = endAngle - robotAngle;
+
+        double magnitude = Math.sqrt((xdifference * xdifference) + (ydifference * ydifference));
+
+        double mAngle = robotAngle - Math.toDegrees(Math.acos(ydifference/magnitude)); //move Angle
+
+        op.telemetry.addData("VuforiaX","%.2f %.2f %.2f %.3f %.3f %.3f", vuforiaX, x, xdifference, robotAngle, vuforiaAngle, endAngle );
+        op.telemetry.addData("VuforiaY","%.2f %.2f %.2f %.2f %.3f %.3f", vuforiaY, y, ydifference, magnitude, turn, mAngle);
         op.telemetry.update();
-        op.idle();
-        robot.moveAngle2(magnitude, angle, turn);
-        op.telemetry.addData("VuforiaX", getVuforiaX());
-        op.telemetry.addData("VuforiaY", getVuforiaY());
+        op.sleep(5000);
+        drivetrain.moveAngle2(magnitude, mAngle, turn);
+
+        getVuforiaPosition();
+
+        op.telemetry.addData("VuforiaX","%.2f %.2f %.2f %.3f %.3f %.3f", vuforiaX, x, xdifference, robotAngle, vuforiaAngle, endAngle );
+        op.telemetry.addData("VuforiaY","%.2f %.2f %.2f %.2f %.3f %.3f", vuforiaY, y, ydifference, magnitude, turn, mAngle);
         op.telemetry.update();
-        op.idle();
+        op.sleep(5000);
     }
 
     public void stopAllMotors() {
-        robot.stopAllMotors();
+        drivetrain.stopAllMotors();
     }
 
     public void stopAllMotorsSideways() {
-        robot.stopAllMotorsSideways();
+        drivetrain.stopAllMotorsSideways();
     }
 
 
     /******** Left Front Motor **********/
     public void moveMotorLeftFront(double distance) {
-        robot.moveMotorLeftFront(distance);
+        drivetrain.moveMotorLeftFront(distance);
     }
 
     /******** Right Front Motor **********/
     public void moveMotorRightFront(double distance) {
-        robot.moveMotorRightFront(distance);
+        drivetrain.moveMotorRightFront(distance);
     }
 
     /******** Left Back Motor **********/
     public void moveMotorLeftBack(double distance) {
-        robot.moveMotorLeftBack(distance);
+        drivetrain.moveMotorLeftBack(distance);
     }
 
     /******** Right Back Motor **********/
     public void moveMotorRightBack(double distance) {
-        robot.moveMotorRightBack(distance);
+        drivetrain.moveMotorRightBack(distance);
     }
 
 
     public double getAngle() {
-        return robot.getAngle();
+        return drivetrain.getAngle();
     }
 
 
@@ -82,113 +103,109 @@ public class Robot {
      * Directional Movement
      **/
     public void moveForward(double distance, double power) {
-        robot.moveForward(distance, power);
+        drivetrain.moveForward(distance, power);
     }
 
     public void moveForwardIMU(double distance, double power) {
-        robot.moveForwardIMU(distance, power);
+        drivetrain.moveForwardIMU(distance, power);
     }
 
     public void moveForwardTeleop(double power) {
-        robot.moveForwardTeleop(power);
+        drivetrain.moveForwardTeleop(power);
     }
 
     public void moveBackward(double distance, double power) {
-        robot.moveBackward(distance, power);
+        drivetrain.moveBackward(distance, power);
     }
 
     public void moveBackwardIMU(double distance, double power) {
-        robot.moveBackwardIMU(distance, power);
+        drivetrain.moveBackwardIMU(distance, power);
     }
 
     public void moveBackwardTeleop(double power) {
-        robot.moveBackwardTeleop(power);
+        drivetrain.moveBackwardTeleop(power);
     }
     
     public void moveRight(double distance, double power) {
-        robot.moveRight(distance, power);
+        drivetrain.moveRight(distance, power);
     }
 
     public void moveRightIMU(double distance, double power, double startingAngle, double gain, double maxCorrection) {
-        robot.moveRightIMU(distance, power, startingAngle, gain, maxCorrection);
+        drivetrain.moveRightIMU(distance, power, startingAngle, gain, maxCorrection);
     }
 
     public void moveRightTeleop(double power) {
-        robot.moveRightTeleop(power);
+        drivetrain.moveRightTeleop(power);
     }
 
     public void moveDiagonalRightUpTeleop(double angle, double power) {
-        robot.moveDiagonalRightUpTeleop(angle, power);
+        drivetrain.moveDiagonalRightUpTeleop(angle, power);
     }
 
     public void moveDiagonalRightDownTeleop(double angle, double power) {
-        robot.moveDiagonalRightDownTeleop(angle, power);
+        drivetrain.moveDiagonalRightDownTeleop(angle, power);
     }
 
     public void moveLeft(double distance, double power) {
-        robot.moveLeft(distance, power);
+        drivetrain.moveLeft(distance, power);
     }
 
     public void moveLeftIMU(double distance, double power, double startingAngle, double gain, double maxCorrection) {
-        robot.moveLeftIMU(distance, power, startingAngle, gain, maxCorrection);
+        drivetrain.moveLeftIMU(distance, power, startingAngle, gain, maxCorrection);
     }
 
     public void moveLeftTeleop(double power) {
-        robot.moveLeftTeleop(power);
+        drivetrain.moveLeftTeleop(power);
     }
 
     public void moveDiagonalLeftUpTeleop(double angle, double power) {
-        robot.moveDiagonalLeftUpTeleop(angle, power);
+        drivetrain.moveDiagonalLeftUpTeleop(angle, power);
     }
 
     public void moveDiagonalLeftDownTeleop(double angle, double power) {
-        robot.moveDiagonalLeftDownTeleop(angle, power);
+        drivetrain.moveDiagonalLeftDownTeleop(angle, power);
 
     }
 
     public void inPlaceTurnTeleop(double degrees, boolean direction, double power) {
-        robot.inPlaceTurnTeleop(degrees, direction, power);
+        drivetrain.inPlaceTurnTeleop(degrees, direction, power);
     }
 
     /**
      * move
      **/
     public void move(double fwd, double rsd, double turn, double fwdpr, double rsdpwr, double turnpwr) {
-        robot.move(fwd, rsd, turn, fwdpr, rsdpwr, turnpwr);
+        drivetrain.move(fwd, rsd, turn, fwdpr, rsdpwr, turnpwr);
     }
 
     public void move(double fwd, double rsd, double turn, double pwr) {
-        robot.move(fwd, rsd, turn, pwr);
+        drivetrain.move(fwd, rsd, turn, pwr);
     }
 
     public void moveAngle(double distance, double angle) {
-        robot.moveAngle(distance, angle);
+        drivetrain.moveAngle(distance, angle);
     }
 
     public void moveAngle2(double distance, double angle, double turn) {
-        robot.moveAngle2(distance, angle, turn);
+        drivetrain.moveAngle2(distance, angle, turn);
     }
 
 
     /**Vuforia**/
-    public double getVuforiaX() {
-        return vuforiaWebcam.getVuforiaX();
-    }
-
-    public double getVuforiaY() {
-        return vuforiaWebcam.getVuforiaY();
-    }
 
     public double getVuforiaAngle() {
         return vuforiaWebcam.getVuforiaAngle();
     }
 
-    public String getVuforiaTrackable() {
-        return vuforiaWebcam.getVuforiaTrackable();
+    public void getVuforiaPosition() {
+        vuforiaX = vuforiaWebcam.getVuforiaX();
+        vuforiaY = vuforiaWebcam.getVuforiaY();
+        vuforiaAngle = vuforiaWebcam.getVuforiaAngle();
+        robotAngle = vuforiaAngle + 90;
+        robotAngle = (robotAngle>180?robotAngle-360:robotAngle);
     }
-
-    public void run(){
-        vuforiaWebcam.run();
+    public void stopVuforia() {
+        vuforiaWebcam.interrupt();
     }
 }
 

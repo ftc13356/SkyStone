@@ -26,16 +26,16 @@ public class AamodVuforiaAuto extends LinearOpMode {
         while (opModeIsActive()) {
 
             //Webcam
-            telemetry.addData("Back X", vuforiaWebcam.getVuforiaX());
-            telemetry.addData("Back Y", vuforiaWebcam.getVuforiaY());
-            telemetry.addData("Back Angle", vuforiaWebcam.getVuforiaAngle());
-            telemetry.addData("Back Target", vuforiaWebcam.getVuforiaTrackable());
-            telemetry.update();
 
             double x = vuforiaWebcam.getVuforiaX();
             double y = vuforiaWebcam.getVuforiaY();
             double angle = vuforiaWebcam.getVuforiaAngle();
 
+            telemetry.addData("Back X", x);
+            telemetry.addData("Back Y", y);
+            telemetry.addData("Back Angle", "%.2f, %.2f", angle, angle+90);
+            telemetry.addData("Back Target", vuforiaWebcam.getVuforiaTrackable());
+            telemetry.update();
 
 //            //Back
 //            telemetry.addData("Back X", vuforiaB.getVuforiaX());

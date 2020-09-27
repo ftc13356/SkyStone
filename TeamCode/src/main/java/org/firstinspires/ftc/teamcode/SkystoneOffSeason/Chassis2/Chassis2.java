@@ -33,7 +33,7 @@ public class Chassis2 {
 
     // these encoder variables vary depending on chassis type
     final double counts_per_motor_goBilda = 383.6;
-    final double counts_per_inch = 2*(counts_per_motor_goBilda / (wheel_diameter * Math.PI));
+    final double counts_per_inch = (counts_per_motor_goBilda*wheel_diameter * Math.PI)/54.48;  //2*(counts_per_motor_goBilda / (wheel_diameter * Math.PI))
     final double counts_per_degree = counts_per_inch * robot_diameter * Math.PI / 360;
 
     //variables for lifting mechanism
@@ -691,36 +691,78 @@ public class Chassis2 {
     }
 
     public void moveAngle2(double distance, double angle, double turn){
-        turn = counts_per_degree*turn;
-        double powerLB = (1/Math.sqrt(2)) * (Math.sin(Math.toRadians(angle))+Math.cos(Math.toRadians(angle)));
-        double powerLF = (1/Math.sqrt(2)) * (Math.cos(Math.toRadians(angle))-Math.sin(Math.toRadians(angle)));
+        //turn = counts_per_degree*turn;
+        turn = 0; //TODO Fix the turn
+        double powerLF = (1/Math.sqrt(2)) * (Math.sin(Math.toRadians(angle))+Math.cos(Math.toRadians(angle)));
+        double powerLB = (1/Math.sqrt(2)) * (Math.cos(Math.toRadians(angle))-Math.sin(Math.toRadians(angle)));
         double ticksToMove = counts_per_inch*distance;
-        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + powerLB*ticksToMove + turn;
-        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + powerLF*ticksToMove + turn;
-        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + powerLF*ticksToMove - turn;
-        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + powerLB*ticksToMove - turn;
+//        op.telemetry.addData("LB: ", powerLB);
+//        op.telemetry.addData("LF: ", powerLF);
+//        op.telemetry.addData("L: ", ticksToMove + turn);
+//        op.telemetry.addData("R: ", ticksToMove - turn);
+//        op.telemetry.update();
+//        op.sleep(2000);
+//        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + powerLB*(ticksToMove + turn);
+//        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + powerLF*(ticksToMove + turn);
+//        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + powerLF*(ticksToMove - turn);
+//        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + powerLB*(ticksToMove - turn);
+        double newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + powerLB*ticksToMove;
+        double newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + powerLF*ticksToMove;
+        double newRightBackTargetPosition = motorRightBack.getCurrentPosition() + powerLF*ticksToMove;
+        double newRightFrontTargetPosition = motorRightFront.getCurrentPosition() + powerLB*ticksToMove;
+//        op.telemetry.addData("LB", "%.2f %.2f %.2f", (float) motorLeftBack.getCurrentPosition(), newLeftBackTargetPosition,powerLB*ticksToMove );
+//        op.telemetry.addData("LF", "%.2f %.2f %.2f", (float) motorLeftFront.getCurrentPosition(), newLeftFrontTargetPosition, powerLF*ticksToMove);
+//        op.telemetry.addData("RB", "%.2f %.2f %.2f", (float) motorRightBack.getCurrentPosition(), newRightBackTargetPosition, powerLF*ticksToMove);
+//        op.telemetry.addData("RF", "%.2f %.2f %.2f", (float) motorRightFront.getCurrentPosition(), newRightFrontTargetPosition, powerLB*ticksToMove);
+//        op.telemetry.update();
+//        op.sleep(2000);
         motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
         motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
         motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
         motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
 
-        op.telemetry.addData("LB: ", powerLB);
-        op.telemetry.addData("LF: ", powerLF);
-        op.telemetry.update();
+//        op.telemetry.addData("LB: ", powerLB);
+//        op.telemetry.addData("LF: ", powerLF);
+//        op.telemetry.update();
 
         motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() &&
-                motorRightFront.isBusy()))
-        {
-            motorRightFront.setPower(powerLB);
-            motorLeftFront.setPower(powerLF);
-            motorRightBack.setPower(powerLF);
-            motorLeftBack.setPower(powerLB);
+        motorRightFront.setPower(powerLB);
+        motorLeftFront.setPower(powerLF);
+        motorRightBack.setPower(powerLF);
+        motorLeftBack.setPower(powerLB);
+
+//        while (op.opModeIsActive() && (motorLeftBack.isBusy() && motorLeftFront.isBusy() && motorRightBack.isBusy() && motorRightFront.isBusy()))
+//        while (op.opModeIsActive() && (motorLeftBack.isBusy() || motorLeftFront.isBusy() || motorRightBack.isBusy() || motorRightFront.isBusy()))
+        while (op.opModeIsActive() && ((motorLeftBack.isBusy() && motorRightFront.isBusy()) || (motorRightBack.isBusy() && motorLeftFront.isBusy())))
+        // Note: We used to have while loop going only when all 4 motors were busy. The above condition is modified for diagonal case when only 2 motors are busy.
+            {
+            op.telemetry.update();
         }
+
+        stopAllMotors();
+
+        newLeftBackTargetPosition = motorLeftBack.getCurrentPosition() + turn;
+        newLeftFrontTargetPosition = motorLeftFront.getCurrentPosition() + turn;
+        newRightBackTargetPosition = motorRightBack.getCurrentPosition() - turn;
+        newRightFrontTargetPosition = motorRightFront.getCurrentPosition() -turn;
+        motorLeftBack.setTargetPosition((int)newLeftBackTargetPosition);
+        motorLeftFront.setTargetPosition((int)newLeftFrontTargetPosition);
+        motorRightBack.setTargetPosition((int)newRightBackTargetPosition);
+        motorRightFront.setTargetPosition((int)newRightFrontTargetPosition);
+
+        motorRightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorRightFront.setPower(powerLB);
+        motorLeftFront.setPower(powerLF);
+        motorRightBack.setPower(powerLF);
+        motorLeftBack.setPower(powerLB);
 
         stopAllMotors();
 

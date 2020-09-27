@@ -42,7 +42,7 @@ public   class AamodVuforiaWebcam extends Thread {
     private VuforiaLocalizer vuforia;
 
     public AamodVuforiaWebcam(OpMode opMode, VuforiaLocalizer.CameraDirection camera_direction) {
-        op = opMode;
+        op = opMode; //TODO: op not needed. Remove it
         VuforiaLocalizer.CameraDirection CAMERA_CHOICE = camera_direction;
     }
 
@@ -50,7 +50,7 @@ public   class AamodVuforiaWebcam extends Thread {
         op = opMode;
 
         // Vuforia License Key
-        final String VUFORIA_KEY = "ATUOrmn/////AAABmVLVlWBtWUpnh9+EekIwR4lmMDXtnMrh/37lRyh+1m4oZJv1ANDvpS7D/Es9GNQ0wAkJ4YOHVWFjjsE5ptAFY2NRCAAwEY4VtvXEvSr3j/a0WR54dNfoCHRsnEaL5oQu25MoyOo7VrmhkE3xb2J9cNbsJzeqNaZWdQQpHkrgzEotos4i2tf/z+IMQxQ5nwH7Daiar93yoFv6FKeTh9MfI3bxVKR0nF+vrMzmNPC6YLk3yjqAKLqSgAvV0t07MBz9BjT2r58njS6qCo2U1H3sQXBlUcMdeKi4iclQaM+Oac+mZrzrhMvSEW7gC9mDhoL8l3zf2yMLPV9oGtnirNWn7ov/mupDtDecOUI4MPDNi9dt";
+        final String VUFORIA_KEY = key.key;
 
         // Initialize Variables
         boolean targetVisible = false;
@@ -136,11 +136,12 @@ public   class AamodVuforiaWebcam extends Thread {
         RearPerimeterTgt2.setLocation(rearTarget2LocationOnField);
 
         // Set Webcam Location
-        final float CAMERA_FORWARD_DISPLACEMENT = 5.5f; //TODO: change back to int?
-        final float CAMERA_VERTICAL_DISPLACEMENT = 10f; //TODO: change back to int?
-        final float CAMERA_LEFT_DISPLACEMENT = 7.25f; //TODO: change back to int?
+        final float CAMERA_FORWARD_DISPLACEMENT = 3f;//5.5
+        final float CAMERA_VERTICAL_DISPLACEMENT = 8f;//10
+        final float CAMERA_LEFT_DISPLACEMENT = -1f;//7.25
+
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix.translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 180, -90, 0)); //YZX 0, 90, -90 //XYZ 0, -90, 0
 
         // Give Phone Location to Trackable Listeners
         for (VuforiaTrackable trackable : allTrackables) {
