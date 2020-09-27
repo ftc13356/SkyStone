@@ -171,9 +171,7 @@ public class Robot {
         drivetrain.inPlaceTurnTeleop(degrees, direction, power);
     }
 
-    /**
-     * move
-     **/
+
     public void move(double fwd, double rsd, double turn, double fwdpr, double rsdpwr, double turnpwr) {
         drivetrain.move(fwd, rsd, turn, fwdpr, rsdpwr, turnpwr);
     }
